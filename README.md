@@ -16,5 +16,3 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 =======
-# gdsc_kw_angel_phone
->>>>>>> 8e2ec05faaeb95734a76b05a4e5c37f51f206313
