@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/controllers/Authcontroller.dart';
 import 'package:get/get.dart';
 
-class SplashPage extends StatelessWidget {
-  SplashPage({super.key});
+class SplashScreen extends StatelessWidget {
+  SplashScreen({super.key});
 
   AuthController authController = Get.put(AuthController());
 

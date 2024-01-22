@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/pages/login_page.dart';
+import 'package:gdsc_solution_project/screens/login_screen.dart';
 import 'package:get/get.dart';
 
-import '../pages/welcome_page.dart';
+import '../screens/welcome_screen.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
@@ -13,6 +13,7 @@ class AuthController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+
     _user = Rx<User?>(authentication.currentUser);
     _user.bindStream(authentication.userChanges());
     ever(_user, _moveToPage);
@@ -20,16 +21,31 @@ class AuthController extends GetxController {
 
   _moveToPage(User? user) {
     if (user == null) {
-      Get.offAll(() => LoginPage());
+      Get.offAll(() => LoginScreen());
     } else {
-      Get.offAll(() => WelcomePage());
+      Get.offAll(() => WelcomeScreen());
     }
   }
 
-  void logIn(emailAddress, password) async {
+  void loginWithGoogle() async {
+    try {
+      await authentication.signInWithRedirect(
+        GoogleAuthProvider(),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        getErrorSnackBar('user-not-found', 'No user found for that email.', e);
+      } else if (e.code == 'wrong-password') {
+        getErrorSnackBar(
+            'wrong-password', 'Wrong password provided for that user.', e);
+      }
+    }
+  }
+
+  void logIn(String email, password) async {
     try {
       await authentication.signInWithEmailAndPassword(
-          email: emailAddress, password: password);
+          email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         getErrorSnackBar('user-not-found', 'No user found for that email.', e);

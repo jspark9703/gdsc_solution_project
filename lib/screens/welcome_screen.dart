@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/controllers/Authcontroller.dart';
 import 'package:get/get.dart';
 
-class WelcomePage extends StatelessWidget {
-  WelcomePage({super.key});
+class WelcomeScreen extends StatelessWidget {
+  WelcomeScreen({super.key});
   AuthController authController = Get.put(AuthController());
 
   @override

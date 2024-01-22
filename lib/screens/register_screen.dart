@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/controllers/Authcontroller.dart';
 import 'package:get/get.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
-  RegisterPage({super.key});
+  RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

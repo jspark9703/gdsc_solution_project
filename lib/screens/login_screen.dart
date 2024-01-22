@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/controllers/Authcontroller.dart';
-import 'package:gdsc_solution_project/pages/register_page.dart';
+import 'package:gdsc_solution_project/screens/register_screen.dart';
 import 'package:get/get.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  LoginPage({super.key});
+  LoginScreen({super.key});
 
   AuthController authController = Get.put(AuthController());
   @override
@@ -36,9 +36,10 @@ class LoginPage extends StatelessWidget {
             const SizedBox(height: 32),
             ElevatedButton(
               onPressed: () {
-                //TODO 로그인
+                AuthController().logIn(_emailController.text.trim(),
+                    _passwordController.text.trim());
               },
-              child: const Text('Login'),
+              child: const Text('login'),
             ),
             const SizedBox(height: 32),
             Container(
@@ -49,7 +50,7 @@ class LoginPage extends StatelessWidget {
                   const SizedBox(width: 16),
                   ElevatedButton(
                     onPressed: () {
-                      Get.to(RegisterPage());
+                      Get.to(RegisterScreen());
                     },
                     child: const Text('register'),
                   ),
