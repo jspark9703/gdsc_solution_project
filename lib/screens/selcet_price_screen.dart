@@ -37,6 +37,7 @@ class _SelectPriceScreenState extends State<SelectPriceScreen> {
                 Container(
                   width: MediaQuery.of(context).size.width/3,
                   child: TextField(
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelStyle: TextStyle(color: GREY_COLOR),
                       enabledBorder: OutlineInputBorder(
@@ -56,6 +57,7 @@ class _SelectPriceScreenState extends State<SelectPriceScreen> {
                 Container(
                   width: MediaQuery.of(context).size.width/3,
                   child: TextField(
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelStyle: TextStyle(color: GREY_COLOR),
                       enabledBorder: OutlineInputBorder(

@@ -7,6 +7,8 @@ import 'package:gdsc_solution_project/screens/select_category_screen.dart';
 import 'package:get/get.dart';
 
 class SelectFilterScreen extends StatefulWidget {
+  //final String item;
+
   const SelectFilterScreen({super.key});
 
   @override
@@ -14,6 +16,8 @@ class SelectFilterScreen extends StatefulWidget {
 }
 
 class _SelectFilterScreenState extends State<SelectFilterScreen> {
+  List<String> filters = ['가격', '개당 중량', '총 중량', '조리 방법'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,15 +37,23 @@ class _SelectFilterScreenState extends State<SelectFilterScreen> {
             ),
             Column(
               children: [
-                CustomTextButton('가격', (){
-                  Get.to(SelectPriceScreen());
-                }),
-                CustomTextButton('개당 중량', (){}),
-                CustomTextButton('총 중량', (){
-                  Get.to(SelectCategoryScreen());
-                }),
-                CustomTextButton('조리 방법', (){}),
-                Divider(color: Colors.black,),
+                ...filters
+                    .map(
+                      (filter) => CustomTextButton(
+                        filter,
+                        () {
+                          if(filter == '가격'){
+                            Get.to(SelectPriceScreen());
+                          } else {
+                            Get.to(SelectCategoryScreen());
+                          }
+                        },
+                      ),
+                    )
+                    .toList(),
+                Divider(
+                  color: Colors.black,
+                ),
               ],
             ),
             CustomButton(
@@ -60,21 +72,26 @@ class _SelectFilterScreenState extends State<SelectFilterScreen> {
 
   Column CustomTextButton(String label, VoidCallback onPressed) {
     return Column(
+      children: [
+        Divider(
+          color: Colors.black,
+        ),
+        TextButton(
+          onPressed: onPressed,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Divider(
-                color: Colors.black,
-              ),
-              TextButton(
-                onPressed: onPressed,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(label, style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),),
-                  ],
-                ),
+              Text(
+                label,
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
               ),
             ],
-          );
+          ),
+        ),
+      ],
+    );
   }
-
 }

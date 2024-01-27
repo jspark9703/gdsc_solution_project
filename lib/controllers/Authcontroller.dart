@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/screens/login_screen.dart';
+import 'package:gdsc_solution_project/screens/search_screen.dart';
 import 'package:get/get.dart';
 
-import '../screens/welcome_screen.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
@@ -23,7 +23,7 @@ class AuthController extends GetxController {
     if (user == null) {
       Get.offAll(() => LoginScreen());
     } else {
-      Get.offAll(() => WelcomeScreen());
+      Get.offAll(() => SearchScreen());
     }
   }
 

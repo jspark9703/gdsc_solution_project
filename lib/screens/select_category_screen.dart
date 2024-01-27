@@ -17,6 +17,9 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    List<String> categorys = ['1kg 이하', '1~3kg', '3~5kg', '5kg 이상'];
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(16),
@@ -60,11 +63,7 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
                       ),
                     ],
                   ),
-                  CustomRadio('1kg 이하', 1),
-                  CustomRadio('1~3kg', 2),
-                  CustomRadio('3~5kg', 3),
-                  CustomRadio('5kg 이상', 4),
-                ],
+                  ...categorys.asMap().entries.map((entry) => CustomRadio(entry.value, entry.key)).toList(),                ],
               ),
             ),
             Column(
