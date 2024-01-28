@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/component/custom_button.dart';
+import 'package:gdsc_solution_project/commons/component/custom_button.dart';
 import 'package:gdsc_solution_project/const/color.dart';
-import 'package:gdsc_solution_project/screens/select_button_screen.dart';
-import 'package:gdsc_solution_project/screens/select_filter_screen.dart';
+import 'package:gdsc_solution_project/screens/filter_screen.dart';
+import 'package:gdsc_solution_project/screens/search_or_filter_screen.dart';
 import 'package:get/get.dart';
 
 class SelectCategoryScreen extends StatefulWidget {
@@ -18,13 +18,14 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            const Text(
               '원하시는 총 중량을 선택해 주세요.',
               style: TextStyle(
                 fontSize: 24,
@@ -33,13 +34,13 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
               ),
             ),
             Container(
-              color: Color(0xFFFAFAFA),
+              color: const Color(0xFFFAFAFA),
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         '총 중량',
                         style: TextStyle(
                           fontSize: 20,
@@ -49,7 +50,7 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           '선택',
                           style: TextStyle(
                             fontSize: 20,
@@ -72,18 +73,18 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
               children: [
                 CustomButton(
                   onPressed: () {
-                    Get.to(SelectFilterScreen());
+                    Get.to(const FilterScreen());
                   },
                   label: '필터 추가하기',
                   backgroundColor: LIGHT_GREEN_COLOR,
                   textColor: GREEN_COLOR,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 32,
                 ),
                 CustomButton(
                   onPressed: () {
-                    Get.to(SelectButtonScreen());
+                    Get.to(const SearchOrFilterScreen());
                   },
                   label: '바로 검색하기',
                   backgroundColor: GREEN_COLOR,

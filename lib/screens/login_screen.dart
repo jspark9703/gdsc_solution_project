@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/component/custom_button.dart';
-import 'package:gdsc_solution_project/component/custom_text_field.dart';
+import 'package:gdsc_solution_project/commons/component/custom_button.dart';
+import 'package:gdsc_solution_project/commons/component/custom_text_field.dart';
 import 'package:gdsc_solution_project/const/color.dart';
-import 'package:gdsc_solution_project/controllers/Authcontroller.dart';
+import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:gdsc_solution_project/screens/register_screen.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            const Text(
               '쇼핑 안내견 서비스를 이용하시려면,\n' '로그인을 진행해 주세요.',
               style: TextStyle(
                 fontSize: 24,
@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             const SizedBox(height: 32),
-            Text(
+            const Text(
               '이메일',
               style: TextStyle(fontSize: 20, color: GREY_COLOR),
             ),
@@ -49,9 +49,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 controller: _emailController,
                 hintText: '이메일을 입력해 주세요.',
                 obscure: false,
-                prefixIcons: Icon(Icons.email)),
+                prefixIcons: const Icon(Icons.email)),
             const SizedBox(height: 16),
-            Text(
+            const Text(
               '비밀번호',
               style: TextStyle(fontSize: 20, color: GREY_COLOR),
             ),
@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
               controller: _passwordController,
               hintText: '비밀번호를 입력해 주세요',
               obscure: true,
-              prefixIcons: Icon(Icons.lock),
+              prefixIcons: const Icon(Icons.lock),
             ),
             const SizedBox(height: 16),
             Row(
@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       activeColor: TEXTFIELD_COLOR,
                       checkColor: CHECK_COLOR,
                     ),
-                    Text(
+                    const Text(
                       '아이디 저장',
                       style: TextStyle(color: GREY_COLOR),
                     ),
@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 TextButton(
                   onPressed: () {},
-                  child: Text(
+                  child: const Text(
                     '아이디/비밀번호 찾기',
                     style: TextStyle(color: GREY_COLOR),
                   ),

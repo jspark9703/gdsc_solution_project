@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/component/custom_button.dart';
-import 'package:gdsc_solution_project/component/custom_text_field.dart';
+import 'package:gdsc_solution_project/commons/component/custom_button.dart';
+import 'package:gdsc_solution_project/commons/component/custom_text_field.dart';
 import 'package:gdsc_solution_project/const/color.dart';
-import 'package:gdsc_solution_project/controllers/Authcontroller.dart';
+import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:gdsc_solution_project/screens/login_screen.dart';
 import 'package:get/get.dart';
 
@@ -17,13 +17,14 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            const Text(
               '쇼핑 안내견 서비스를 이용하시려면,\n회원 가입을 진행해 주세요.',
               style: TextStyle(
                 fontSize: 24,
@@ -32,7 +33,7 @@ class RegisterScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 32),
-            Text(
+            const Text(
               '이메일',
               style: TextStyle(fontSize: 20, color: GREY_COLOR),
             ),
@@ -40,9 +41,9 @@ class RegisterScreen extends StatelessWidget {
                 controller: _emailController,
                 hintText: '이메일을 입력해 주세요',
                 obscure: false,
-                prefixIcons: Icon(Icons.email)),
+                prefixIcons: const Icon(Icons.email)),
             const SizedBox(height: 16),
-            Text(
+            const Text(
               '비밀번호',
               style: TextStyle(fontSize: 20, color: GREY_COLOR),
             ),
@@ -50,9 +51,9 @@ class RegisterScreen extends StatelessWidget {
                 controller: _passwordController,
                 hintText: '비밀번호를 입력해 주세요',
                 obscure: true,
-                prefixIcons: Icon(Icons.lock)),
+                prefixIcons: const Icon(Icons.lock)),
             const SizedBox(height: 16),
-            Text(
+            const Text(
               '비밀번호 확인',
               style: TextStyle(fontSize: 20, color: GREY_COLOR),
             ),
@@ -60,7 +61,7 @@ class RegisterScreen extends StatelessWidget {
                 controller: _confirmPasswordController,
                 hintText: '비밀번호를 입력해 주세요',
                 obscure: true,
-                prefixIcons: Icon(Icons.lock)),
+                prefixIcons: const Icon(Icons.lock)),
             const SizedBox(height: 32),
             CustomButton(
                 onPressed: () {
