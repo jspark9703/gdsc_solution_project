@@ -1,7 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/firebase_options.dart';
+import 'package:gdsc_solution_project/screens/detail_screen.dart';
+import 'package:gdsc_solution_project/screens/home_screen.dart';
+import 'package:gdsc_solution_project/screens/land_screen.dart';
 import 'package:gdsc_solution_project/screens/login_screen.dart';
+import 'package:gdsc_solution_project/screens/profile_screen.dart';
 import 'package:gdsc_solution_project/screens/register_screen.dart';
 import 'package:gdsc_solution_project/screens/splash_screen.dart';
 import 'package:get/get.dart';
@@ -38,8 +42,12 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         "/": (context) => SplashScreen(),
+        "/land": (context) => LandScreen(),
         '/login': (context) => LoginScreen(),
         '/reg': (context) => RegisterScreen(),
+        '/home': (context) => HomeScreen(),
+        '/profile': (context) => ProfileScreen(),
+        '/detail': (context) => DetailScreen(),
       },
     );
   }
