@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/components/input_wide_field.dart';
-import 'package:gdsc_solution_project/components/main_button.dart';
-import 'package:gdsc_solution_project/components/main_text.dart';
-import 'package:gdsc_solution_project/components/sub_button.dart';
+import 'package:gdsc_solution_project/commons/components/input_wide_field.dart';
+import 'package:gdsc_solution_project/commons/components/main_text.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:get/get.dart';
-import 'package:gdsc_solution_project/components/input_field.dart';
+import 'package:gdsc_solution_project/commons/components/input_field.dart';
+import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 import '../controllers/Authcontroller.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -59,7 +58,7 @@ class _LoginScreenState extends State<ProfileScreen> {
                       '식품을 고를 때,\n중요하게 생각하는 것이 무엇인가요?',
                       style: TextStyle(
                           fontSize: 20,
-                          color: INPUT_HINT_COLOR,
+                          color: GRAY_COLOR,
                           fontWeight: FontWeight.w600),
                     ),
                     CustomTextWideField(
@@ -71,10 +70,7 @@ class _LoginScreenState extends State<ProfileScreen> {
                 ),
               )
           ),
-          MainButton(
-            onPressed: () {},
-            buttonText: '등록하기',
-          ),
+          CustomButton(onPressed: (){}, label: '등록하기', backgroundColor: GREEN_COLOR, textColor: Colors.white,),
           SizedBox(height: 150.0),
         ],
       ),

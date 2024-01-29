@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/components/main_text.dart';
-import 'package:gdsc_solution_project/components/sub_button.dart';
+import 'package:gdsc_solution_project/commons/components/custom_button.dart';
+import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/controllers/Authcontroller.dart';
 import 'package:get/get.dart';
+import 'package:gdsc_solution_project/commons/components/main_text.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -25,27 +26,35 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 Flexible(
-                  child: SubButton(
+                  child: CustomButton(
                     onPressed: () {},
-                    buttonText: '쇼핑 안내견과 음식 검색하기',
+                    label: '쇼핑 안내견과 음식 검색하기',
+                    backgroundColor: LIGHT_GREEN_COLOR,
+                    textColor: GREEN_COLOR,
                   ),
                 ),
                 Flexible(
-                  child: SubButton(
+                  child: CustomButton(
                     onPressed: () {},
-                    buttonText: '최근 검색 목록 확인',
+                    label: '최근 검색 목록 확인',
+                    backgroundColor: LIGHT_GREEN_COLOR,
+                    textColor: GREEN_COLOR,
                   ),
                 ),
                 Flexible(
-                  child: SubButton(
+                  child: CustomButton(
                     onPressed: () {},
-                    buttonText: '프로필 설정',
+                    label: '프로필 설정',
+                    backgroundColor: LIGHT_GREEN_COLOR,
+                    textColor: GREEN_COLOR,
                   ),
                 ),
                 Flexible(
-                  child: SubButton(
+                  child: CustomButton(
                     onPressed: () {},
-                    buttonText: '쇼핑 안내견 사용법',
+                    label: '쇼핑 안내견 사용법',
+                    backgroundColor: LIGHT_GREEN_COLOR,
+                    textColor: GREEN_COLOR,
                   ),
                 ),
               ],

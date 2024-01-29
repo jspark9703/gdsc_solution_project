@@ -16,8 +16,8 @@ class TextTitleBox extends StatelessWidget {
 
     return Padding(
       padding: mode == "sub"
-          ? const EdgeInsets.symmetric(vertical: 10, horizontal: 24)
-          : const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+          ? const EdgeInsets.symmetric(vertical: 10)
+          : const EdgeInsets.symmetric(vertical: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

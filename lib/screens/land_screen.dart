@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/components/sub_button.dart';
+import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/controllers/Authcontroller.dart';
 import 'package:get/get.dart';
@@ -20,10 +20,7 @@ class LandScreen extends StatelessWidget {
           ),
           Positioned(
             bottom: 150,
-            child: SubButton(
-              onPressed: () {}, // 로그인,,, 혹은 자동 로그인 되면 홈으로 가도록 구현
-              buttonText: '가입 하기',
-            ),
+            child: CustomButton(onPressed: (){}, label: '가입하기', backgroundColor: GREEN_COLOR, textColor: Colors.white,),
           ),
         ],
       ),

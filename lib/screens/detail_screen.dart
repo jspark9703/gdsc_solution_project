@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/components/main_button.dart';
-import 'package:gdsc_solution_project/components/rating_star.dart';
-import 'package:gdsc_solution_project/components/sub_button.dart';
-import 'package:gdsc_solution_project/components/text_contents.dart';
-import 'package:gdsc_solution_project/components/text_title_box.dart';
+import 'package:gdsc_solution_project/commons/components/rating_star.dart';
+import 'package:gdsc_solution_project/commons/components/text_contents.dart';
+import 'package:gdsc_solution_project/commons/components/text_title_box.dart';
 import 'package:gdsc_solution_project/const/color.dart';
+import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 
 class DetailScreen extends StatelessWidget {
   @override
@@ -59,9 +58,9 @@ class DetailScreen extends StatelessWidget {
             TextTitleBox(mainText: '단점', mode: 'sub',),
             TextContentBox(mainText: '수입산 고기 사용: 몇몇 리뷰어들은 수입산 고기를 사용한 것이 아쉽다고 언급했으나...'),
             SizedBox(height: 12.0,),
-            SubButton(onPressed: (){}, buttonText: '리뷰 요약보기'),
+            CustomButton(onPressed: (){}, label: '리뷰 요약보기', backgroundColor: LIGHT_GREEN_COLOR, textColor: GREEN_COLOR,),
             SizedBox(height: 12.0,),
-            MainButton(onPressed: (){}, buttonText: '사이트 확인하기'),
+            CustomButton(onPressed: (){}, label: '사이트 확인하기', backgroundColor: GREEN_COLOR, textColor: Colors.white,),
           ],
         ),
       ),

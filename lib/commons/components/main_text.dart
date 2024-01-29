@@ -8,7 +8,7 @@ class MainText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(top: 90, left: 24),
+        padding: EdgeInsets.only(top: 90 ),
         child: Text(
           mainText,
           style: TextStyle(
