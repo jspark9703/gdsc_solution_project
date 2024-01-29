@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/component/custom_button.dart';
-import 'package:gdsc_solution_project/component/custom_text_field.dart';
+import 'package:gdsc_solution_project/commons/component/custom_button.dart';
+import 'package:gdsc_solution_project/commons/component/custom_text_field.dart';
 import 'package:gdsc_solution_project/const/color.dart';
-import 'package:gdsc_solution_project/controllers/Authcontroller.dart';
+import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:gdsc_solution_project/screens/register_screen.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();

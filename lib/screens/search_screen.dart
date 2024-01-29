@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/component/custom_button.dart';
+import 'package:gdsc_solution_project/commons/component/custom_button.dart';
+import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
-import 'package:gdsc_solution_project/screens/select_button_screen.dart';
+import 'package:gdsc_solution_project/screens/search_or_filter_screen.dart';
 import 'package:get/get.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -17,13 +18,14 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            const Text(
               '000주인님, 안녕하세요!\n어떤 제품을 찾고 계세요?\n검색어를 밑에 입력해주세요.',
               style: TextStyle(
                 fontSize: 24,
@@ -33,7 +35,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             TextField(
               controller: _searchController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: '식품 이름을 검색해보세요',
                 // fillColor: Colors.white,
                 // filled: true,
@@ -52,7 +54,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             CustomButton(
               onPressed: () {
-                Get.to(SelectButtonScreen());
+                Get.to(const SearchOrFilterScreen());
               },
               label: '다음으로 넘어가기',
               backgroundColor: GREEN_COLOR,
@@ -61,6 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: AppNavigationBar(currentIndex: 1),
     );
   }
 }

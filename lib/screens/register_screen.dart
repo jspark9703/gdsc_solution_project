@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/component/custom_button.dart';
-import 'package:gdsc_solution_project/component/custom_text_field.dart';
+import 'package:gdsc_solution_project/commons/component/custom_button.dart';
+import 'package:gdsc_solution_project/commons/component/custom_text_field.dart';
 import 'package:gdsc_solution_project/const/color.dart';
-import 'package:gdsc_solution_project/controllers/Authcontroller.dart';
+import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:gdsc_solution_project/screens/login_screen.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +17,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(

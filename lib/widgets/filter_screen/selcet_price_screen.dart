@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/component/custom_button.dart';
+import 'package:gdsc_solution_project/commons/component/custom_button.dart';
 import 'package:gdsc_solution_project/const/color.dart';
-import 'package:gdsc_solution_project/screens/select_button_screen.dart';
-import 'package:gdsc_solution_project/screens/select_filter_screen.dart';
+import 'package:gdsc_solution_project/screens/filter_screen.dart';
+import 'package:gdsc_solution_project/screens/search_or_filter_screen.dart';
 import 'package:get/get.dart';
 
 class SelectPriceScreen extends StatefulWidget {
@@ -16,13 +16,14 @@ class _SelectPriceScreenState extends State<SelectPriceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            const Text(
               '원하시는 가격대가 있으신가요?\n최소와 최대 금액을 입력해 주세요.',
               style: TextStyle(
                 fontSize: 24,
@@ -35,7 +36,7 @@ class _SelectPriceScreenState extends State<SelectPriceScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width/3,
+                  width: MediaQuery.of(context).size.width / 3,
                   child: TextField(
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
@@ -51,11 +52,18 @@ class _SelectPriceScreenState extends State<SelectPriceScreen> {
                     ),
                   ),
                 ),
-                SizedBox(width: 16,),
-                Text('~', style: TextStyle(fontSize: 20.0),),
-                SizedBox(width: 16,),
+                SizedBox(
+                  width: 16,
+                ),
+                Text(
+                  '~',
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                SizedBox(
+                  width: 16,
+                ),
                 Container(
-                  width: MediaQuery.of(context).size.width/3,
+                  width: MediaQuery.of(context).size.width / 3,
                   child: TextField(
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
@@ -71,8 +79,13 @@ class _SelectPriceScreenState extends State<SelectPriceScreen> {
                     ),
                   ),
                 ),
-                SizedBox(width: 16,),
-                Text('원', style: TextStyle(fontSize: 20.0),),
+                const SizedBox(
+                  width: 16,
+                ),
+                const Text(
+                  '원',
+                  style: TextStyle(fontSize: 20.0),
+                ),
               ],
             ),
             Column(
@@ -80,18 +93,18 @@ class _SelectPriceScreenState extends State<SelectPriceScreen> {
               children: [
                 CustomButton(
                   onPressed: () {
-                    Get.to(SelectFilterScreen());
+                    Get.to(const FilterScreen());
                   },
                   label: '필터 추가하기',
                   backgroundColor: LIGHT_GREEN_COLOR,
                   textColor: GREEN_COLOR,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 32,
                 ),
                 CustomButton(
                   onPressed: () {
-                    Get.to(SelectButtonScreen());
+                    Get.to(const SearchOrFilterScreen());
                   },
                   label: '바로 검색하기',
                   backgroundColor: GREEN_COLOR,
