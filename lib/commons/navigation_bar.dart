@@ -11,7 +11,7 @@ class AppNavigationBar extends StatelessWidget {
   int currentIndex;
 
   final List<Widget> _screens = [
-    AppHomeScreen(),
+    HomeScreen(),
     const SearchScreen(),
     // Add more screens as needed
   ];

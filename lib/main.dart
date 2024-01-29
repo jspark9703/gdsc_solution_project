@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/firebase_options.dart';
 import 'package:gdsc_solution_project/screens/filter_screen.dart';
 import 'package:gdsc_solution_project/screens/home_screen.dart';
+import 'package:gdsc_solution_project/screens/detail_screen.dart';
+import 'package:gdsc_solution_project/screens/home_screen.dart';
+import 'package:gdsc_solution_project/screens/land_screen.dart';
 import 'package:gdsc_solution_project/screens/login_screen.dart';
+import 'package:gdsc_solution_project/screens/profile_screen.dart';
 import 'package:gdsc_solution_project/screens/register_screen.dart';
 import 'package:gdsc_solution_project/screens/search_or_filter_screen.dart';
 import 'package:gdsc_solution_project/screens/search_screen.dart';
@@ -33,7 +37,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           fontFamily: 'Pretendard'),
       routes: {
-        "/": (context) => AppHomeScreen(),
+        "/": (context) => LandScreen(),
         '/login': (context) => LoginScreen(),
         '/reg': (context) => RegisterScreen(),
         '/search': (context) => const SearchScreen(),
@@ -44,6 +48,9 @@ class MyApp extends StatelessWidget {
             const SelectPriceScreen(),
         '/search/select_filter_screen/category': (context) =>
             const SelectCategoryScreen(),
+        '/home': (context) => HomeScreen(),
+        '/profile': (context) => ProfileScreen(),
+        '/detail': (context) => DetailScreen(),
       },
     );
   }

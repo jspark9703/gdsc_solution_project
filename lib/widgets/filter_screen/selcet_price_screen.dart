@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/commons/component/custom_button.dart';
 import 'package:gdsc_solution_project/const/color.dart';
+import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:gdsc_solution_project/screens/filter_screen.dart';
 import 'package:gdsc_solution_project/screens/search_or_filter_screen.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,7 @@ class _SelectPriceScreenState extends State<SelectPriceScreen> {
               '원하시는 가격대가 있으신가요?\n최소와 최대 금액을 입력해 주세요.',
               style: TextStyle(
                 fontSize: 24,
-                color: GREY_COLOR,
+                color: GRAY_COLOR,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -40,14 +41,14 @@ class _SelectPriceScreenState extends State<SelectPriceScreen> {
                   child: TextField(
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      labelStyle: TextStyle(color: GREY_COLOR),
+                      labelStyle: TextStyle(color: GRAY_COLOR),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        borderSide: BorderSide(color: GREY_COLOR),
+                        borderSide: BorderSide(color: GRAY_COLOR),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        borderSide: BorderSide(color: GREY_COLOR, width: 0.5),
+                        borderSide: BorderSide(color: GRAY_COLOR, width: 0.5),
                       ),
                     ),
                   ),
@@ -67,14 +68,14 @@ class _SelectPriceScreenState extends State<SelectPriceScreen> {
                   child: TextField(
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      labelStyle: TextStyle(color: GREY_COLOR),
+                      labelStyle: TextStyle(color: GRAY_COLOR),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        borderSide: BorderSide(color: GREY_COLOR),
+                        borderSide: BorderSide(color: GRAY_COLOR),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        borderSide: BorderSide(color: GREY_COLOR, width: 0.5),
+                        borderSide: BorderSide(color: GRAY_COLOR, width: 0.5),
                       ),
                     ),
                   ),
@@ -104,7 +105,7 @@ class _SelectPriceScreenState extends State<SelectPriceScreen> {
                 ),
                 CustomButton(
                   onPressed: () {
-                    Get.to(const SearchOrFilterScreen());
+                    Get.to(DetailScreen());
                   },
                   label: '바로 검색하기',
                   backgroundColor: GREEN_COLOR,

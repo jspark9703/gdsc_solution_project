@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/commons/component/custom_button.dart';
 import 'package:gdsc_solution_project/const/color.dart';
+import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:gdsc_solution_project/screens/filter_screen.dart';
 import 'package:gdsc_solution_project/screens/search_or_filter_screen.dart';
 import 'package:get/get.dart';
@@ -32,7 +33,7 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
               '원하시는 총 중량을 선택해 주세요.',
               style: TextStyle(
                 fontSize: 24,
-                color: GREY_COLOR,
+                color: GRAY_COLOR,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -83,7 +84,7 @@ class _SelectCategoryScreenState extends State<SelectCategoryScreen> {
                 ),
                 CustomButton(
                   onPressed: () {
-                    Get.to(const SearchOrFilterScreen());
+                    Get.to(DetailScreen());
                   },
                   label: '바로 검색하기',
                   backgroundColor: GREEN_COLOR,

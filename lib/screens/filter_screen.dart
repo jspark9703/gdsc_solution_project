@@ -29,7 +29,7 @@ class _FilterScreenState extends State<FilterScreen> {
               '조건은 설정할 필터를 선택해 주세요.\n필터는 총 0가지입니다.',
               style: TextStyle(
                 fontSize: 24,
-                color: GREY_COLOR,
+                color: GRAY_COLOR,
                 fontWeight: FontWeight.bold,
               ),
             ),

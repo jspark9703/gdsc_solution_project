@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-
-import '../../const/color.dart';
+import 'package:gdsc_solution_project/const/color.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final bool obscure;
-  final Icon prefixIcons;
+  final Icon? prefixIcons;
 
   const CustomTextField({
     required this.controller,
     required this.hintText,
     required this.obscure,
-    required this.prefixIcons,
+    this.prefixIcons,
     super.key,
   });
 
@@ -22,19 +21,19 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
-        fillColor: TEXTFIELD_COLOR,
+        fillColor: INPUT_COLOR,
         filled: true,
         border: InputBorder.none,
-        labelStyle: const TextStyle(color: GRAY_COLOR),
+        labelStyle: const TextStyle(color: INPUT_LABEL_COLOR),
         hintStyle: const TextStyle(color: GRAY_COLOR),
         prefixIcon: prefixIcons,
         enabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.all(Radius.circular(16.0)),
+          borderSide: BorderSide(width: 1, color: BORDER_COLOR),
         ),
         focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.all(Radius.circular(16.0)),
+          borderSide: BorderSide(width: 1, color: BORDER_COLOR),
         ),
       ),
       obscureText: obscure,

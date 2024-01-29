@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/commons/component/custom_button.dart';
 import 'package:gdsc_solution_project/const/color.dart';
+import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:gdsc_solution_project/widgets/filter_screen/selcet_price_screen.dart';
 import 'package:gdsc_solution_project/widgets/filter_screen/select_button_screen.dart';
 import 'package:gdsc_solution_project/widgets/filter_screen/select_category_screen.dart';
@@ -31,7 +32,7 @@ class _SelectFilterScreenState extends State<SelectFilterScreen> {
               '조건은 설정할 필터를 선택해 주세요.\n필터는 총 0가지입니다.',
               style: TextStyle(
                 fontSize: 24,
-                color: GREY_COLOR,
+                color: GRAY_COLOR,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -58,7 +59,7 @@ class _SelectFilterScreenState extends State<SelectFilterScreen> {
             ),
             CustomButton(
               onPressed: () {
-                Get.to(SelectButtonScreen());
+                Get.to(DetailScreen());
               },
               label: '바로 검색하기',
               backgroundColor: GREEN_COLOR,

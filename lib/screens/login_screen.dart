@@ -37,14 +37,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   '쇼핑 안내견 서비스를 이용하시려면,\n' '로그인을 진행해 주세요.',
                   style: TextStyle(
                     fontSize: 24,
-                    color: GREY_COLOR,
+                    color: GRAY_COLOR,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 32),
                 Text(
                   '이메일',
-                  style: TextStyle(fontSize: 20, color: GREY_COLOR),
+                  style: TextStyle(fontSize: 20, color: GRAY_COLOR),
                 ),
                 const SizedBox(height: 16),
                 CustomTextField(
@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 16),
                 Text(
                   '비밀번호',
-                  style: TextStyle(fontSize: 20, color: GREY_COLOR),
+                  style: TextStyle(fontSize: 20, color: GRAY_COLOR),
                 ),
                 CustomTextField(
                   controller: _passwordController,
@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Text(
                           '아이디 저장',
-                          style: TextStyle(color: GREY_COLOR),
+                          style: TextStyle(color: GRAY_COLOR),
                         ),
                       ],
                     ),
@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {},
                       child: Text(
                         '아이디/비밀번호 찾기',
-                        style: TextStyle(color: GREY_COLOR),
+                        style: TextStyle(color: GRAY_COLOR),
                       ),
                     ),
                   ],
@@ -108,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     const Text(
                       "아직 회원이 아니신가요?",
-                      style: TextStyle(color: GREY_COLOR),
+                      style: TextStyle(color: GRAY_COLOR),
                     ),
                     TextButton(
                       onPressed: () {

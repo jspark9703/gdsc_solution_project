@@ -30,14 +30,14 @@ class RegisterScreen extends StatelessWidget {
                   '쇼핑 안내견 서비스를 이용하시려면,\n회원 가입을 진행해 주세요.',
                   style: TextStyle(
                     fontSize: 24,
-                    color: GREY_COLOR,
+                    color: GRAY_COLOR,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 32),
                 Text(
                   '이메일',
-                  style: TextStyle(fontSize: 20, color: GREY_COLOR),
+                  style: TextStyle(fontSize: 20, color: GRAY_COLOR),
                 ),
                 CustomTextField(
                     controller: _emailController,
@@ -47,7 +47,7 @@ class RegisterScreen extends StatelessWidget {
                 const SizedBox(height: 16),
                 Text(
                   '비밀번호',
-                  style: TextStyle(fontSize: 20, color: GREY_COLOR),
+                  style: TextStyle(fontSize: 20, color: GRAY_COLOR),
                 ),
                 CustomTextField(
                     controller: _passwordController,
@@ -57,7 +57,7 @@ class RegisterScreen extends StatelessWidget {
                 const SizedBox(height: 16),
                 Text(
                   '비밀번호 확인',
-                  style: TextStyle(fontSize: 20, color: GREY_COLOR),
+                  style: TextStyle(fontSize: 20, color: GRAY_COLOR),
                 ),
                 CustomTextField(
                     controller: _confirmPasswordController,
@@ -91,7 +91,7 @@ class RegisterScreen extends StatelessWidget {
                   children: [
                     const Text(
                       "이미 계정이 있으신가요?",
-                      style: TextStyle(color: GREY_COLOR),
+                      style: TextStyle(color: GRAY_COLOR),
                     ),
                     TextButton(
                       onPressed: () {
