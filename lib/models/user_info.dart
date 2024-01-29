@@ -37,3 +37,42 @@ String userToJson(UserInfo user) {
   final Map<String, dynamic> jsonData = user.toJson();
   return json.encode(jsonData);
 }
+
+
+
+
+// Future<void> uploadUserInfoToFirestore(UserInfo userInfo) async {
+//   try {
+//     // Get the current user's UID
+//     String uid = FirebaseAuth.instance.currentUser!.uid;
+
+//     // Reference to the "user_info" collection with the user's UID as the document name
+//     CollectionReference userCollection = FirebaseFirestore.instance.collection('user_info');
+
+//     // Convert UserInfo object to JSON
+//     Map<String, dynamic> userData = userInfo.toJson();
+
+//     // Upload the user data to Firestore
+//     await userCollection.doc(uid).set(userData);
+
+//     print('UserInfo uploaded to Firestore successfully!');
+//   } catch (e) {
+//     print('Error uploading UserInfo to Firestore: $e');
+//   }
+// }
+
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+  
+//   // Initialize Firebase
+//   await Firebase.initializeApp();
+
+//   UserInfo userInfo = UserInfo(
+//     user_name: 'John Doe',
+//     user_class: 10,
+//     user_detail: 'Some details about the user.',
+//   );
+
+//   // Upload UserInfo to Firestore
+//   await uploadUserInfoToFirestore(userInfo);
+// }
