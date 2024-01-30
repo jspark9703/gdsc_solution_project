@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/commons/component/custom_button.dart';
 import 'package:gdsc_solution_project/const/color.dart';
-import 'package:gdsc_solution_project/screens/detail_screen.dart';
+import 'package:gdsc_solution_project/screens/detail_list_screen.dart';
 import 'package:gdsc_solution_project/widgets/filter_screen/selcet_price_screen.dart';
-import 'package:gdsc_solution_project/widgets/filter_screen/select_button_screen.dart';
 import 'package:gdsc_solution_project/widgets/filter_screen/select_category_screen.dart';
 import 'package:get/get.dart';
 
@@ -59,7 +58,7 @@ class _SelectFilterScreenState extends State<SelectFilterScreen> {
             ),
             CustomButton(
               onPressed: () {
-                Get.to(DetailScreen());
+                Get.to(DetailListScreen());
               },
               label: '바로 검색하기',
               backgroundColor: GREEN_COLOR,

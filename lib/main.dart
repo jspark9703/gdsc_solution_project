@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/firebase_options.dart';
+import 'package:gdsc_solution_project/screens/detail_list_screen.dart';
 import 'package:gdsc_solution_project/screens/filter_screen.dart';
 import 'package:gdsc_solution_project/screens/home_screen.dart';
 import 'package:gdsc_solution_project/screens/detail_screen.dart';
-import 'package:gdsc_solution_project/screens/home_screen.dart';
 import 'package:gdsc_solution_project/screens/land_screen.dart';
 import 'package:gdsc_solution_project/screens/login_screen.dart';
 import 'package:gdsc_solution_project/screens/profile_screen.dart';
@@ -50,6 +50,7 @@ class MyApp extends StatelessWidget {
             const SelectCategoryScreen(),
         '/home': (context) => HomeScreen(),
         '/profile': (context) => ProfileScreen(),
+        '/detaillist': (context) => DetailListScreen(),
         '/detail': (context) => DetailScreen(),
       },
     );

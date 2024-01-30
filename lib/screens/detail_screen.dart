@@ -5,7 +5,14 @@ import 'package:gdsc_solution_project/commons/components/text_title_box.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
+  @override
+  _DetailScreenState createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  bool _isDetailVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +27,7 @@ class DetailScreen extends StatelessWidget {
                 child: Image.asset('assets/images/land.png'),
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,24 +50,80 @@ class DetailScreen extends StatelessWidget {
                       height: 0.10,
                     ),
                   ),
+                  TextTitleBox(mainText: '가격', subText: '30,600원'),
+                  TextTitleBox(mainText: '주요정보'),
+                  TextTitleBox(mainText: '리뷰'),
+                  TextTitleBox(
+                    mainText: '총점',
+                    subText: '1,233개 리뷰',
+                    mode: 'sub',
+                  ),
+                  TextTitleBox(
+                    mainIcon: StarRating(rating: 3),
+                    subText: '4/5 점',
+                    mode: 'sub',
+                  ),
+                  TextTitleBox(
+                    mainText: '종합 리뷰',
+                    mode: 'sub',
+                  ),
+                  TextContentBox(
+                    mainText: '곰곰 고추장 제육 불고기는...',
+                  ),
+                  Visibility(
+                    visible: _isDetailVisible,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextTitleBox(
+                          mainText: '장점',
+                          mode: 'sub',
+                        ),
+                        TextContentBox(
+                          mainText: '맛과 식감: 사용자는 제품의 맛을 극찬하며, ...',
+                        ),
+                        TextTitleBox(
+                          mainText: '단점',
+                          mode: 'sub',
+                        ),
+                        TextContentBox(
+                          mainText:
+                              '수입산 고기 사용: 몇몇 리뷰어들은 수입산 고기를 사용한 것이 아쉽다고 언급했으나...',
+                        ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SizedBox(
+                        height: 12.0,
+                      ),
+                      CustomButton(
+                        onPressed: () {
+                          setState(() {
+                            _isDetailVisible = !_isDetailVisible; // 상태 업데이트
+                          });
+                        },
+                        label: _isDetailVisible ? '리뷰 요약보기' : '리뷰 자세히 보기',
+                        backgroundColor: LIGHT_GREEN_COLOR,
+                        textColor: GREEN_COLOR,
+                      ),
+                      SizedBox(
+                        height: 12.0,
+                      ),
+                      CustomButton(
+                        onPressed: () {},
+                        label: '사이트 확인하기',
+                        backgroundColor: GREEN_COLOR,
+                        textColor: Colors.white,
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
-            TextTitleBox(mainText: '가격', subText: '30,600원'),
-            TextTitleBox(mainText: '주요정보'),
-            TextTitleBox(mainText: '리뷰'),
-            TextTitleBox(mainText: '총점', subText: '1,233개 리뷰', mode: 'sub',),
-            TextTitleBox(mainIcon: StarRating(rating: 3), subText: '4/5 점', mode: 'sub',),
-            TextTitleBox(mainText: '종합 리뷰', mode: 'sub',),
-            TextContentBox(mainText: '곰곰 고추장 제육 불고기는...',),
-            TextTitleBox(mainText: '장점', mode: 'sub',),
-            TextContentBox(mainText: '맛과 식감: 사용자는 제품의 맛을 극찬하며, ...',),
-            TextTitleBox(mainText: '단점', mode: 'sub',),
-            TextContentBox(mainText: '수입산 고기 사용: 몇몇 리뷰어들은 수입산 고기를 사용한 것이 아쉽다고 언급했으나...'),
-            SizedBox(height: 12.0,),
-            CustomButton(onPressed: (){}, label: '리뷰 요약보기', backgroundColor: LIGHT_GREEN_COLOR, textColor: GREEN_COLOR,),
-            SizedBox(height: 12.0,),
-            CustomButton(onPressed: (){}, label: '사이트 확인하기', backgroundColor: GREEN_COLOR, textColor: Colors.white,),
           ],
         ),
       ),

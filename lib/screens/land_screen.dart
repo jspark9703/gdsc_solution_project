@@ -19,17 +19,25 @@ class LandScreen extends StatelessWidget {
           Center(
             child: Image.asset('assets/images/land.png', fit: BoxFit.cover),
           ),
-          Positioned(
-            bottom: 150,
-            child: CustomButton(
-              onPressed: () {
-                Get.to(
-                  LoginScreen(),
-                );
-              },
-              label: '가입하기',
-              backgroundColor: GREEN_COLOR,
-              textColor: Colors.white,
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CustomButton(
+                  onPressed: () {
+                    Get.to(
+                      LoginScreen(),
+                    );
+                  },
+                  label: '가입하기',
+                  backgroundColor: GREEN_COLOR,
+                  textColor: Colors.white,
+                ),
+                const SizedBox(height: 150,),
+              ],
             ),
           ),
         ],
