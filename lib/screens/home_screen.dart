@@ -28,54 +28,50 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 94.0),
-            Flexible(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Flexible(
-                    child: CustomButton(
-                      onPressed: () {
-                        Get.to(SearchScreen());
-                      },
-                      label: '쇼핑 안내견과 음식 검색하기',
-                      backgroundColor: LIGHT_GREEN_COLOR,
-                      textColor: GREEN_COLOR,
-                    ),
-                  ),
-                  SizedBox(height: 24.0),
-                  Flexible(
-                    child: CustomButton(
-                      onPressed: () {},
-                      label: '최근 검색 목록 확인',
-                      backgroundColor: LIGHT_GREEN_COLOR,
-                      textColor: GREEN_COLOR,
-                    ),
-                  ),
-                  SizedBox(height: 24.0),
-                  Flexible(
-                    child: CustomButton(
-                      onPressed: () {
-                        Get.to(ProfileScreen());
-                      },
-                      label: '프로필 설정',
-                      backgroundColor: LIGHT_GREEN_COLOR,
-                      textColor: GREEN_COLOR,
-                    ),
-                  ),
-                  SizedBox(height: 24.0),
-                  Flexible(
-                    child: CustomButton(
-                      onPressed: () {},
-                      label: '쇼핑 안내견 사용법',
-                      backgroundColor: LIGHT_GREEN_COLOR,
-                      textColor: GREEN_COLOR,
-                    ),
-                  ),
-                ],
-              ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CustomButton(
+                  onPressed: () {
+                    Get.to(SearchScreen());
+                  },
+                  label: '쇼핑 안내견과 음식 검색하기',
+                  backgroundColor: LIGHT_GREEN_COLOR,
+                  textColor: GREEN_COLOR,
+                ),
+                SizedBox(height: 24.0),
+                CustomButton(
+                  onPressed: () {},
+                  label: '인기 상품 골라보기',
+                  backgroundColor: LIGHT_GREEN_COLOR,
+                  textColor: GREEN_COLOR,
+                ),
+                SizedBox(height: 24.0),
+                CustomButton(
+                  onPressed: () {},
+                  label: '최근 검색 목록 확인',
+                  backgroundColor: LIGHT_GREEN_COLOR,
+                  textColor: GREEN_COLOR,
+                ),
+                SizedBox(height: 24.0),
+                CustomButton(
+                  onPressed: () {
+                    Get.to(ProfileScreen());
+                  },
+                  label: '프로필 설정',
+                  backgroundColor: LIGHT_GREEN_COLOR,
+                  textColor: GREEN_COLOR,
+                ),
+                SizedBox(height: 24.0),
+                CustomButton(
+                  onPressed: () {},
+                  label: '쇼핑 안내견 사용법',
+                  backgroundColor: LIGHT_GREEN_COLOR,
+                  textColor: GREEN_COLOR,
+                ),
+              ],
             ),
-            SizedBox(height: 150.0),
           ],
         ),
       ),

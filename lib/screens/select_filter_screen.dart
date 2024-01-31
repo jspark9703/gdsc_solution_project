@@ -16,7 +16,7 @@ class SelectFilterScreen extends StatefulWidget {
 }
 
 class _SelectFilterScreenState extends State<SelectFilterScreen> {
-  List<String> filters = ['가격', '개당 중량', '총 중량', '조리 방법'];
+  List<String> filters = ['베이커리', '샐러드', '오일', '설 선물 세트'];
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _SelectFilterScreenState extends State<SelectFilterScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              '조건은 설정할 필터를 선택해 주세요.\n필터는 총 0가지입니다.',
+              '특정 카테고리의\n인기상품을 골라주세요',
               style: TextStyle(
                 fontSize: 24,
                 color: GRAY_COLOR,
