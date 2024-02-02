@@ -12,7 +12,6 @@ class ProdList {
     List<Prod> prods = prodsJson.map((prodJson) {
       return Prod.fromJson(prodJson);
     }).toList();
-
     return ProdList(prods: prods);
   }
 
