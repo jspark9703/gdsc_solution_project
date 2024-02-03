@@ -1,65 +1,51 @@
-import 'dart:convert';
+// Prod 모델
+class Prod {
+  String link;
+  String name;
+  String price;
+  String dimm;
+  String ratingNum;
 
+  Prod({
+    required this.link,
+    required this.name,
+    required this.price,
+    required this.dimm,
+    required this.ratingNum,
+  });
+
+  // JSON에서 Prod 객체로 변환하는 팩토리 생성자
+  factory Prod.fromJson(Map<String, dynamic> json) => Prod(
+        link: json['link'],
+        name: json['name'],
+        price: json['price'],
+        dimm: json['dimm'],
+        ratingNum: json['rating_num'],
+      );
+
+  // Prod 객체에서 JSON으로 변환하는 메소드
+  Map<String, dynamic> toJson() => {
+        'link': link,
+        'name': name,
+        'price': price,
+        'dimm': dimm,
+        'rating_num': ratingNum,
+      };
+}
+
+// ProdList 모델
 class ProdList {
   List<Prod> prods;
 
-  ProdList({
-    required this.prods,
-  });
+  ProdList({required this.prods});
 
-  factory ProdList.fromJson(String jsonString) {
-    List<dynamic> prodsJson = json.decode(jsonString)['prods'];
-    List<Prod> prods = prodsJson.map((prodJson) {
-      return Prod.fromJson(prodJson);
-    }).toList();
+  // JSON에서 ProdList 객체로 변환하는 팩토리 생성자
+  factory ProdList.fromJson(Map<String, dynamic> json) => ProdList(
+        prods: List<Prod>.from(json['prods'].map((x) => Prod.fromJson(x))),
+      );
 
-    return ProdList(prods: prods);
-  }
-
-  String toJson() {
-    List<Map<String, dynamic>> prodsJson =
-        prods.map((prod) => prod.toJson()).toList();
-
-    return json.encode({'prods': prodsJson});
-  }
-}
-
-class Prod {
-  String name;
-  String price;
-  String couponPrice;
-  int rating;
-  int ratingNum;
-  String link;
-
-  Prod({
-    required this.name,
-    required this.price,
-    required this.couponPrice,
-    required this.rating,
-    required this.ratingNum,
-    required this.link,
-  });
-
-  factory Prod.fromJson(Map<String, dynamic> json) {
-    return Prod(
-      name: json['name'].toString(),
-      price: json['price'].toString(),
-      couponPrice: json['coupon_price'].toString(),
-      rating: json['rating'] as int,
-      ratingNum: json['rating_num'] as int,
-      link: json['link'].toString(),
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'price': price,
-      'coupon_price': couponPrice,
-      'rating': rating,
-      'rating_num': ratingNum,
-      'link': link,
-    };
-  }
+  // ProdList 객체에서 JSON으로 변환하는 메소드
+  Map<String, dynamic> toJson() => {
+        'prods': List<dynamic>.from(prods.map((x) => x.toJson())),
+      };
 }

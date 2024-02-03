@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
+import 'package:gdsc_solution_project/screens/filter_screen.dart';
 import 'package:gdsc_solution_project/screens/profile_screen.dart';
 import 'package:gdsc_solution_project/screens/search_screen.dart';
 import 'package:get/get.dart';
@@ -42,7 +43,10 @@ class HomeScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 24.0),
                 CustomButton(
-                  onPressed: () {},
+                  onPressed: () {
+
+                    Get.to(FilterScreen());
+                  },
                   label: '인기 상품 골라보기',
                   backgroundColor: LIGHT_GREEN_COLOR,
                   textColor: GREEN_COLOR,

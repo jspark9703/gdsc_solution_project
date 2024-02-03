@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/commons/component/custom_button.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
-import 'package:gdsc_solution_project/screens/search_or_filter_screen.dart';
+import 'package:gdsc_solution_project/screens/detail_list_screen.dart';
 import 'package:get/get.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -54,9 +54,9 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             CustomButton(
               onPressed: () {
-                Get.to(const SearchOrFilterScreen());
+                Get.to(const DetailListScreen());
               },
-              label: '다음으로 넘어가기',
+              label: '검색하기',
               backgroundColor: GREEN_COLOR,
               textColor: Colors.white,
             ),

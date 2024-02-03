@@ -1,42 +1,69 @@
-import 'dart:convert';
+// Item 모델
+class Item {
+  String itemCate;
+  String itemName;
+  String itemContent;
 
-class ProductDetail {
-  String brand;
-  String title;
-  String seller;
-  String prodSalePrice;
-  String prodCouponPrice;
-  String prodDescription;
-
-  ProductDetail({
-    required this.brand,
-    required this.title,
-    required this.seller,
-    required this.prodSalePrice,
-    required this.prodCouponPrice,
-    required this.prodDescription,
+  Item({
+    required this.itemCate,
+    required this.itemName,
+    required this.itemContent,
   });
 
-  factory ProductDetail.fromJson(String jsonString) {
-    Map<String, dynamic> jsonMap = json.decode(jsonString);
-    return ProductDetail(
-      brand: jsonMap['brand'].toString(),
-      title: jsonMap['title'].toString(),
-      seller: jsonMap['seller'].toString(),
-      prodSalePrice: jsonMap['prod_sale_price'].toString(),
-      prodCouponPrice: jsonMap['prod_coupon_price'].toString(),
-      prodDescription: jsonMap['prod_description'].toString(),
-    );
-  }
+  // JSON에서 Item 객체로 변환하는 팩토리 생성자
+  factory Item.fromJson(Map<String, dynamic> json) => Item(
+        itemCate: json['item_cate'],
+        itemName: json['item_name'],
+        itemContent: json['item_content'],
+      );
 
-  String toJson() {
-    return json.encode({
-      'brand': brand,
-      'title': title,
-      'seller': seller,
-      'prod_sale_price': prodSalePrice,
-      'prod_coupon_price': prodCouponPrice,
-      'prod_description': prodDescription,
-    });
-  }
+  // Item 객체에서 JSON으로 변환하는 메소드
+  Map<String, dynamic> toJson() => {
+        'item_cate': itemCate,
+        'item_name': itemName,
+        'item_content': itemContent,
+      };
+}
+
+// ProductDetail 모델
+class ProductDetail {
+  String prodImgUrl;
+  String title;
+  String subTitle;
+  String price;
+  String dimmPrice;
+  String description;
+  List<Item> details;
+
+  ProductDetail({
+    required this.prodImgUrl,
+    required this.title,
+    required this.subTitle,
+    required this.price,
+    required this.dimmPrice,
+    required this.description,
+    required this.details,
+  });
+
+  // JSON에서 ProductDetail 객체로 변환하는 팩토리 생성자
+  factory ProductDetail.fromJson(Map<String, dynamic> json) => ProductDetail(
+        prodImgUrl: json['prod_img_url'],
+        title: json['title'],
+        subTitle: json['sub_title'],
+        price: json['price'],
+        dimmPrice: json['dimm_price'],
+        description: json['description'],
+        details: List<Item>.from(json['details'].map((x) => Item.fromJson(x))),
+      );
+
+  // ProductDetail 객체에서 JSON으로 변환하는 메소드
+  Map<String, dynamic> toJson() => {
+        'prod_img_url': prodImgUrl,
+        'title': title,
+        'sub_title': subTitle,
+        'price': price,
+        'dimm_price': dimmPrice,
+        'description': description,
+        'details': List<dynamic>.from(details.map((x) => x.toJson())),
+      };
 }

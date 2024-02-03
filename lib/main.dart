@@ -9,7 +9,6 @@ import 'package:gdsc_solution_project/screens/land_screen.dart';
 import 'package:gdsc_solution_project/screens/login_screen.dart';
 import 'package:gdsc_solution_project/screens/profile_screen.dart';
 import 'package:gdsc_solution_project/screens/register_screen.dart';
-import 'package:gdsc_solution_project/screens/search_or_filter_screen.dart';
 import 'package:gdsc_solution_project/screens/search_screen.dart';
 import 'package:get/get.dart';
 
@@ -41,8 +40,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginScreen(),
         '/reg': (context) => RegisterScreen(),
         '/search': (context) => const SearchScreen(),
-        '/search/select_button_screen': (context) =>
-            const SearchOrFilterScreen(),
+        
         '/search/select_filter_screen': (context) => const FilterScreen(),
         '/search/select_filter_screen/price': (context) =>
             const SelectPriceScreen(),

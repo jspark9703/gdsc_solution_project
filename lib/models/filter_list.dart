@@ -1,56 +1,43 @@
-import 'dart:convert';
+// Filter 모델
+class Filter {
+  String title;
+  String num;
+  String url;
 
+  Filter({
+    required this.title,
+    required this.num,
+    required this.url,
+  });
+
+  // JSON에서 Filter 객체로 변환하는 팩토리 생성자
+  factory Filter.fromJson(Map<String, dynamic> json) => Filter(
+        title: json['title'],
+        num: json['num'],
+        url: json['url'],
+      );
+
+  // Filter 객체에서 JSON으로 변환하는 메소드
+  Map<String, dynamic> toJson() => {
+        'title': title,
+        'num': num,
+        'url': url,
+      };
+}
+
+// FilterList 모델
 class FilterList {
   List<Filter> filterList;
 
-  FilterList({
-    required this.filterList,
-  });
+  FilterList({required this.filterList});
 
-  factory FilterList.fromJson(String jsonString) {
-    List<dynamic> filterListJson = json.decode(jsonString)['filterList'];
-    List<Filter> filters = filterListJson.map((filterJson) {
-      return Filter.fromJson(filterJson);
-    }).toList();
+  // JSON에서 FilterList 객체로 변환하는 팩토리 생성자
+  factory FilterList.fromJson(Map<String, dynamic> json) => FilterList(
+        filterList: List<Filter>.from(json['filter_list'].map((x) => Filter.fromJson(x))),
+      );
 
-    return FilterList(filterList: filters);
-  }
-
-  String toJson() {
-    List<Map<String, dynamic>> filterListJson =
-        filterList.map((filter) => filter.toJson()).toList();
-
-    return json.encode({'filterList': filterListJson});
-  }
-}
-
-class Filter {
-  String filterTitle;
-  List<String> filterContent;
-
-  Filter({
-    required this.filterTitle,
-    required this.filterContent,
-  });
-
-  factory Filter.fromJson(Map<String, dynamic> json) {
-    List<dynamic> filterContentJson = json['filterContent'];
-    List<String> filterContent =
-        filterContentJson.map((content) => content.toString()).toList();
-
-    return Filter(
-      filterTitle: json['filterTitle'].toString(),
-      filterContent: filterContent,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    List<String> filterContentJson =
-        filterContent.map((content) => content).toList();
-
-    return {
-      'filterTitle': filterTitle,
-      'filterContent': filterContentJson,
-    };
-  }
+  // FilterList 객체에서 JSON으로 변환하는 메소드
+  Map<String, dynamic> toJson() => {
+        'filter_list': List<dynamic>.from(filterList.map((x) => x.toJson())),
+      };
 }
