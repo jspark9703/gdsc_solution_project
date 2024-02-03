@@ -54,7 +54,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             CustomButton(
               onPressed: () {
-                Get.to(const DetailListScreen());
+                Get.to( DetailListScreen(kwds: _searchController.text,));
               },
               label: '검색하기',
               backgroundColor: GREEN_COLOR,

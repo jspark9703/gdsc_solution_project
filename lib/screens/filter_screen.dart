@@ -67,7 +67,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                   // '가격' 필터에 대한 조건을 체크합니다.
                                   Get.to(SelectPriceScreen());
                                 } else {
-                                  Get.to(DetailListScreen());
+                                  Get.to(DetailListScreen(isBestUrl:filter.url));
                                 }
                               },
                             ),

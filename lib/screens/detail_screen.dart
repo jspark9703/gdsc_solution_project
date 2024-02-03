@@ -6,8 +6,12 @@ import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 
 class DetailScreen extends StatefulWidget {
+  DetailScreen({this.url,super.key});
+  String? url;
   @override
   _DetailScreenState createState() => _DetailScreenState();
+
+  
 }
 
 class _DetailScreenState extends State<DetailScreen> {

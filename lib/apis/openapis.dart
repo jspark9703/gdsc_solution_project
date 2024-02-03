@@ -24,10 +24,12 @@ class ApiService {
   }
 
   // 'search_prod' 엔드포인트 호출
-  Future<List<Prod>> searchProd(String? kwds, String? isBestUrl) async {
+  Future<ProdList> searchProd(String? kwds, String? isBestUrl) async {
     try {
       final response = await _dio.get('$_baseUrl/search_prod', queryParameters: {'kwds': kwds, 'is_best_url': isBestUrl});
-      return (response.data['data'] as List).map((x) => Prod.fromJson(x)).toList();
+
+      final data=  ProdList.fromJson(response.data["data"]);
+      return data;
     } catch (e) {
       throw Exception('Failed to search products: $e');
     }
@@ -47,7 +49,7 @@ class ApiService {
   Future<ReviewList> prodReviews(UserUrl userUrl) async {
     try {
       final response = await _dio.get('$_baseUrl/prod_reviews', queryParameters: userUrl.toJson());
-      return ReviewList.fromJson(response.data);
+      return ReviewList.fromJson(response.data["data"]);
     } catch (e) {
       throw Exception('Failed to get product reviews: $e');
     }
@@ -62,7 +64,7 @@ class ApiService {
         ...userUrl.toJson(),
         ...{'review_list': reviewList.toJson()} // 이 부분은 API와 정확히 일치하는지 확인해야 합니다.
       });
-      return response.data; // 적절한 모델로 변환하세요.
+      return response.data["data"]; // 적절한 모델로 변환하세요.
     } catch (e) {
       throw Exception('Failed to get review summary: $e');
     }

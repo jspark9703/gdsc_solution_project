@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomeScreen(),
         '/profile': (context) => ProfileScreen(),
         '/detaillist': (context) => DetailListScreen(),
-        '/detail': (context) => DetailScreen(),
+        '/detail:isbssturl': (context) => DetailScreen(),
       },
     );
   }
