@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/apis/openapis.dart';
-import 'package:gdsc_solution_project/commons/components/detail_list/contents.dart';
 import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:get/get.dart';
-import '../commons/components/main_text.dart';
+import 'package:logger/logger.dart';
 
 class DetailListScreen extends StatelessWidget {
   DetailListScreen({this.kwds, this.isBestUrl, super.key});
@@ -23,6 +22,8 @@ class DetailListScreen extends StatelessWidget {
               } else if (snapshot.hasError) {
                 return Text("오류가 발생했습니다: ${snapshot.error}");
               } else if (snapshot.hasData) {
+
+                Logger().d(snapshot.data!.prods);
                 return ListView.builder(
                   itemCount: snapshot.data!.prods.length,
                   itemBuilder: (context, index) {

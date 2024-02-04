@@ -55,7 +55,6 @@ class _FilterScreenState extends State<FilterScreen> {
                   filters =
                       snapshot.data!.filterList;
                       
-                      Logger().d(filters ); // FilterList에서 필터 목록을 가져옵니다.
                   return Column(
                     children: [
                       ...filters
@@ -63,12 +62,9 @@ class _FilterScreenState extends State<FilterScreen> {
                             (filter) => CustomTextButton(
                               filter.title, // Filter 모델의 title 필드를 사용합니다.
                               () {
-                                if (filter.title == '가격') {
-                                  // '가격' 필터에 대한 조건을 체크합니다.
-                                  Get.to(SelectPriceScreen());
-                                } else {
+                                
                                   Get.to(DetailListScreen(isBestUrl:filter.url));
-                                }
+                                
                               },
                             ),
                           )
@@ -81,14 +77,7 @@ class _FilterScreenState extends State<FilterScreen> {
                 }
               },
             ),
-            CustomButton(
-              onPressed: () {
-                Get.to(DetailListScreen());
-              },
-              label: '바로 검색하기',
-              backgroundColor: GREEN_COLOR,
-              textColor: Colors.white,
-            ),
+            
           ],
         ),
       ),
