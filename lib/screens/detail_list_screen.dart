@@ -20,8 +20,8 @@ class DetailListScreen extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                return Text("오류가 발생했습니다: ${snapshot.error}");
-              } else if (snapshot.hasData) {
+                return Text("오류가 발생했습니다\n ${snapshot.error}");
+              }else if (snapshot.hasData) {
 
                 Logger().d(snapshot.data!.prods);
                 return ListView.builder(
