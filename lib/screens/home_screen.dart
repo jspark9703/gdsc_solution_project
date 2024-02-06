@@ -54,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 24.0),
                 CustomButton(
                   onPressed: () {},
-                  label: '최근 검색 목록 확인',
+                  label: '찜한 상품 보기',
                   backgroundColor: LIGHT_GREEN_COLOR,
                   textColor: GREEN_COLOR,
                 ),
@@ -63,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                   onPressed: () {
                     Get.to(ProfileScreen());
                   },
-                  label: '프로필 설정',
+                  label: '사용 설정',
                   backgroundColor: LIGHT_GREEN_COLOR,
                   textColor: GREEN_COLOR,
                 ),

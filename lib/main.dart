@@ -13,7 +13,6 @@ import 'package:gdsc_solution_project/screens/search_screen.dart';
 import 'package:get/get.dart';
 
 import 'widgets/filter_screen/selcet_price_screen.dart';
-import 'widgets/filter_screen/select_category_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,8 +43,7 @@ class MyApp extends StatelessWidget {
         '/search/select_filter_screen': (context) => const FilterScreen(),
         '/search/select_filter_screen/price': (context) =>
             const SelectPriceScreen(),
-        '/search/select_filter_screen/category': (context) =>
-            const SelectCategoryScreen(),
+        
         '/home': (context) => HomeScreen(),
         '/profile': (context) => ProfileScreen(),
         '/detaillist': (context) => DetailListScreen(),

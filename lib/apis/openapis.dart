@@ -34,11 +34,11 @@ class ApiService {
       throw Exception('Failed to search products: $e');
     }
   }
-
+//TODO url로 수정
   // 'prod_detail' 엔드포인트 호출
-  Future<ProductDetail> prodDetail(UserUrl userProdUrl) async {
+  Future<ProductDetail> prodDetail(String prodUrl) async {
     try {
-      final response = await _dio.get('$_baseUrl/prod_detail',options: Options(headers: {"Origin":_baseUrl}), queryParameters: userProdUrl.toJson());
+      final response = await _dio.get('$_baseUrl/prod_detail',options: Options(headers: {"Origin":_baseUrl}), queryParameters: {"produrl":prodUrl});
       return ProductDetail.fromJson(response.data['data']);
     } catch (e) {
       throw Exception('Failed to get product detail: $e');

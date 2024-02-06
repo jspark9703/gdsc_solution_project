@@ -9,7 +9,6 @@ import 'package:gdsc_solution_project/widgets/filter_screen/selcet_price_screen.
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
-import '../widgets/filter_screen/select_category_screen.dart';
 
 class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});

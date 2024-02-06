@@ -1,7 +1,7 @@
 import 'package:gdsc_solution_project/models/prod_list.dart';
 import 'package:get/get.dart';
 
-class ProdListController extends GetxController {
+class SelectedProdListController extends GetxController {
   RxList<Prod> prodList = <Prod>[].obs;
 
   void addProd(Prod prod) {
