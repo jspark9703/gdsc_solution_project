@@ -28,7 +28,7 @@ class _DetailScreenState extends State<DetailScreen> {
           future: ApiService().prodDetail(widget.url!),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Text("오류가 발생했습니다\n ${snapshot.error}");
             } else if (snapshot.hasData) {
@@ -43,7 +43,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           Image.network(product.prodImgUrl, fit: BoxFit.cover),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 24),
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -56,7 +56,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 children: [
                                   Text(
                                     product.title,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: BLACK_COLOR,
                                       fontSize: 20,
                                       fontWeight: FontWeight.w700,
@@ -79,7 +79,9 @@ class _DetailScreenState extends State<DetailScreen> {
                                   icon: Icon(Icons.favorite_outline))
                             ],
                           ),
-                          SizedBox(height: 12.0,),
+                          SizedBox(
+                            height: 12.0,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -100,29 +102,76 @@ class _DetailScreenState extends State<DetailScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 12.0,),
+                          SizedBox(
+                            height: 12.0,
+                          ),
                           Text(
                             '주요정보',
                             style: TextStyle(
                               color: BLACK_COLOR,
-                              fontSize: 24,
+                              fontSize: 20,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          SizedBox(height: 12.0,),
+                          SizedBox(
+                            height: 12.0,
+                          ),
                           Column(
                               children: product.details.map((e) {
-                            return Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.start,
+                            return Column(
                               children: [
-                                Text(e.itemCate),
-                                Text(e.itemName),
-                                Text(e.itemContent),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Text(
+                                          e.itemCate,
+                                          style: TextStyle(
+                                            color: DETAIL_COLOR,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: 24.0,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            e.itemName,
+                                            style: TextStyle(
+                                              color: DETAIL_COLOR,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                            softWrap: true,
+                                          ),
+                                          if (e.itemContent != '')
+                                            Text(
+                                              e.itemContent,
+                                              style: TextStyle(
+                                                color: DETAIL_COLOR,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
                               ],
                             );
                           }).toList()),
-
+                          SizedBox(
+                            height: 12.0,
+                          ),
                           Text(
                             '리뷰',
                             style: TextStyle(
