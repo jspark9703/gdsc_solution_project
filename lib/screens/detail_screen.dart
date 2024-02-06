@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/apis/openapis.dart';
-import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 import 'package:gdsc_solution_project/commons/components/rating_star.dart';
 import 'package:gdsc_solution_project/commons/components/text_contents.dart';
 import 'package:gdsc_solution_project/commons/components/text_title_box.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
-
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 import 'package:gdsc_solution_project/models/prod_list.dart';
 import 'package:gdsc_solution_project/models/review_list.dart';
@@ -27,7 +25,6 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-
 
       //TODO futurebuilder이용해서 디테일 정보 받아오기
       body: SingleChildScrollView(
@@ -56,11 +53,11 @@ class _DetailScreenState extends State<DetailScreen> {
                             children: [
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
@@ -93,7 +90,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               ),
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     '가격',
@@ -112,7 +109,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                                     .lineThrough)),
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.end,
+                                          MainAxisAlignment.end,
                                           children: [
                                             ...product.price
                                                 .split('%')
@@ -122,28 +119,28 @@ class _DetailScreenState extends State<DetailScreen> {
                                                     left: 12.0),
                                                 child: Text(
                                                   part ==
-                                                          product.price
-                                                              .split('%')
-                                                              .first
+                                                      product.price
+                                                          .split('%')
+                                                          .first
                                                       ? part + '%'
                                                       : part,
                                                   style: TextStyle(
                                                     fontSize: part ==
-                                                            product.price
-                                                                .split('%')
-                                                                .first
+                                                        product.price
+                                                            .split('%')
+                                                            .first
                                                         ? 18
                                                         : 20,
                                                     color: part ==
-                                                            product.price
-                                                                .split('%')
-                                                                .first
+                                                        product.price
+                                                            .split('%')
+                                                            .first
                                                         ? Colors.red
                                                         : BLACK_COLOR,
                                                     fontWeight: part ==
-                                                            product.price
-                                                                .split('%')
-                                                                .first
+                                                        product.price
+                                                            .split('%')
+                                                            .first
                                                         ? FontWeight.w400
                                                         : FontWeight.w700,
                                                   ),
@@ -174,87 +171,66 @@ class _DetailScreenState extends State<DetailScreen> {
                                   color: BLACK_COLOR,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w700,
-
-   
                                 ),
-                              ],
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.favorite_outline),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              '가격',
-                              style: TextStyle(
-                                color: BLACK_COLOR,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
                               ),
-
                               SizedBox(
                                 height: 12.0,
                               ),
                               Column(
                                   children: product.details.map((e) {
-                                return Column(
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                    return Column(
                                       children: [
-                                        Column(
+                                        Row(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              e.itemCate,
-                                              style: TextStyle(
-                                                color: DETAIL_COLOR,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
+                                            Column(
+                                              children: [
+                                                Text(
+                                                  e.itemCate,
+                                                  style: TextStyle(
+                                                    color: DETAIL_COLOR,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              width: 24.0,
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                    e.itemName,
+                                                    style: TextStyle(
+                                                      color: DETAIL_COLOR,
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),
+                                                    softWrap: true,
+                                                  ),
+                                                  if (e.itemContent != '')
+                                                    Text(
+                                                      e.itemContent,
+                                                      style: TextStyle(
+                                                        color: DETAIL_COLOR,
+                                                        fontSize: 12,
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                ],
                                               ),
                                             ),
                                           ],
                                         ),
-                                        SizedBox(
-                                          width: 24.0,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                e.itemName,
-                                                style: TextStyle(
-                                                  color: DETAIL_COLOR,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                                softWrap: true,
-                                              ),
-                                              if (e.itemContent != '')
-                                                Text(
-                                                  e.itemContent,
-                                                  style: TextStyle(
-                                                    color: DETAIL_COLOR,
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                            ],
-                                          ),
-                                        ),
+                                        Divider(),
                                       ],
-                                    ),
-                                    Divider(),
-                                  ],
-                                );
-                              }).toList()),
+                                    );
+                                  }).toList()),
                               SizedBox(
                                 height: 12.0,
                               ),
@@ -343,7 +319,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             ),
                             TextContentBox(
                               mainText:
-                                  '수입산 고기 사용: 몇몇 리뷰어들은 수입산 고기를 사용한 것이 아쉽다고 언급했으나...',
+                              '수입산 고기 사용: 몇몇 리뷰어들은 수입산 고기를 사용한 것이 아쉽다고 언급했으나...',
                             ),
                           ],
                         ),
@@ -387,7 +363,6 @@ class _DetailScreenState extends State<DetailScreen> {
         ),
       ),
       bottomNavigationBar: AppNavigationBar(currentIndex: 2),
-
     );
   }
 }
