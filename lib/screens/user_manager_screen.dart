@@ -8,21 +8,21 @@ import 'package:gdsc_solution_project/commons/components/input_field.dart';
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 import '../provider/Authcontroller.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+class UserManagerScreen extends StatefulWidget {
+  const UserManagerScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<UserManagerScreen> createState() => _UserManagerScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _UserManagerScreenState extends State<UserManagerScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _classController = TextEditingController();
   final TextEditingController _considerationController =
       TextEditingController();
 
   AuthController authController = Get.put(AuthController());
-
+  bool _isMessageSelected = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +32,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
-            MainText(mainText: '더 편한 이용을 위해서,\n이용자 등록을 해주세요.'),
+            MainText(mainText: '사용 설정을 변경할 수 있습니다. \n 안내메세지 , 사용사 정보 변경'),
+                              SizedBox(height: 10,),
+
+            ListTile(
+      title: Text(
+                    _isMessageSelected? '안내메세지 끄기':'안내메세지 켜기',
+                    style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
+                  ),
+      trailing: Switch(
+        value: _isMessageSelected,
+        onChanged: (bool newValue) {
+          setState(() {
+            _isMessageSelected = newValue;
+          });
+        },
+      ),
+    ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 CustomButton(
                   onPressed: () {},
-                  label: '등록하기',
+                  label: '변경하기',
                   backgroundColor: GREEN_COLOR,
                   textColor: Colors.white,
                 ),
@@ -88,6 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: AppNavigationBar(currentIndex: 3),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:gdsc_solution_project/screens/home_screen.dart';
 import 'package:gdsc_solution_project/screens/profile_screen.dart';
 import 'package:gdsc_solution_project/screens/search_screen.dart';
 import 'package:gdsc_solution_project/screens/selected_list_screen.dart';
+import 'package:gdsc_solution_project/screens/user_manager_screen.dart';
 import 'package:get/get.dart';
 
 class AppNavigationBar extends StatelessWidget {
@@ -17,14 +18,14 @@ class AppNavigationBar extends StatelessWidget {
     HomeScreen(),
     const SearchScreen(),
     SelectedListScreen(),
-    ProfileScreen(),
+    UserManagerScreen(),
     // Add more screens as needed
   ];
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      
+
       selectedFontSize:12 ,
       showUnselectedLabels: true,
       backgroundColor:GREEN_COLOR ,
