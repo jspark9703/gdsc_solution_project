@@ -46,9 +46,9 @@ class ApiService {
   }
 
   // 'prod_reviews' 엔드포인트 호출
-  Future<ReviewList> prodReviews(UserUrl userUrl) async {
+  Future<ReviewList> prodReviews( String url) async {
     try {
-      final response = await _dio.get('$_baseUrl/prod_reviews', queryParameters: userUrl.toJson());
+      final response = await _dio.get('$_baseUrl/prod_reviews', queryParameters: {"url":url});
       return ReviewList.fromJson(response.data["data"]);
     } catch (e) {
       throw Exception('Failed to get product reviews: $e');
@@ -56,12 +56,12 @@ class ApiService {
   }
 
   // 'review_sum' 엔드포인트 호출
-  Future<dynamic> prodReviewSum(UserUrl userUrl, ReviewList reviewList) async {
+  Future<dynamic> prodReviewSum(String userInfo,  ReviewList reviewList) async {
     // 이 메소드는 반환 타입이 프로젝트에 따라 다를 수 있으므로 예제에서는 구체적인 모델 변환을 생략합니다.
     // 적절한 반환 타입과 JSON 파싱 로직을 추가하세요.
     try {
       final response = await _dio.get('$_baseUrl/review_sum', queryParameters: {
-        ...userUrl.toJson(),
+        "user_info":userInfo,
         ...{'review_list': reviewList.toJson()} // 이 부분은 API와 정확히 일치하는지 확인해야 합니다.
       });
       return response.data["data"]; // 적절한 모델로 변환하세요.

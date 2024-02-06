@@ -22,7 +22,7 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
       TextEditingController();
 
   AuthController authController = Get.put(AuthController());
-  bool _isMessageSelected = false;
+  bool _isMessageOn = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,14 +37,14 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
 
             ListTile(
       title: Text(
-                    _isMessageSelected? '안내메세지 끄기':'안내메세지 켜기',
+                    _isMessageOn? '안내메세지 끄기':'안내메세지 켜기',
                     style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
                   ),
       trailing: Switch(
-        value: _isMessageSelected,
+        value: _isMessageOn,
         onChanged: (bool newValue) {
           setState(() {
-            _isMessageSelected = newValue;
+            _isMessageOn = newValue;
           });
         },
       ),

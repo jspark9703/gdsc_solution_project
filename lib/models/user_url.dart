@@ -21,22 +21,3 @@ class User {
       };
 }
 
-// UserUrl 모델
-class UserUrl {
-  User user;
-  String url;
-
-  UserUrl({required this.user, required this.url});
-
-  // JSON에서 UserUrl 객체로 변환하는 팩토리 생성자
-  factory UserUrl.fromJson(Map<String, dynamic> json) => UserUrl(
-        user: User.fromJson(json['user']),
-        url: json['url'],
-      );
-
-  // UserUrl 객체에서 JSON으로 변환하는 메소드
-  Map<String, dynamic> toJson() => {
-        'user': user.toJson(),
-        'url': url,
-      };
-}
