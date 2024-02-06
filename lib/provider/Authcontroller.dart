@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gdsc_solution_project/database/dbservice.dart';
 import 'package:gdsc_solution_project/screens/home_screen.dart';
 import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:gdsc_solution_project/screens/land_screen.dart';
@@ -53,6 +54,7 @@ class AuthController extends GetxController {
     try {
       await authentication.signInWithEmailAndPassword(
           email: email, password: password);
+      DBService().setProfile(getCurrentUser());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         getErrorSnackBar('user-not-found', 'No user found for that email.', e);
@@ -67,6 +69,7 @@ class AuthController extends GetxController {
     try {
       await authentication.createUserWithEmailAndPassword(
           email: email, password: password);
+      DBService().setProfile(getCurrentUser());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Get.snackbar(
@@ -103,5 +106,16 @@ class AuthController extends GetxController {
 
   void logout() {
     authentication.signOut();
+  }
+
+  String getCurrentUser() {
+    final User? user = authentication.currentUser;
+
+    if (user != null) {
+      return user.uid;
+    } else {
+      print('No user is signed in.');
+      return '';
+    }
   }
 }
