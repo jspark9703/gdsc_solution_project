@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "590620223268",
-    "project_id": "gdsc-kw-solution",
-    "storage_bucket": "gdsc-kw-solution.appspot.com"
+    "project_number": "856991396566",
+    "project_id": "solution-1954e",
+    "storage_bucket": "solution-1954e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:590620223268:android:482421a88e1a804e7db5b1",
+        "mobilesdk_app_id": "1:856991396566:android:afdf427743bb92297c8f77",
         "android_client_info": {
           "package_name": "com.example.gdsc_solution_project"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyClLJPEDZuVbGoR3H9cCMNEcz8q4D3ChUI"
+          "current_key": "AIzaSyC3FNvjC5kuzFctk1-wlR0N-cUPuMMwqKg"
         }
       ],
       "services": {
