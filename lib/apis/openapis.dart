@@ -39,6 +39,7 @@ class ApiService {
   Future<ProductDetail> prodDetail(String prodUrl) async {
     try {
       final response = await _dio.get('$_baseUrl/prod_detail',options: Options(headers: {"Origin":_baseUrl}), queryParameters: {"produrl":prodUrl});
+      print(response.data['data']);
       return ProductDetail.fromJson(response.data['data']);
     } catch (e) {
       throw Exception('Failed to get product detail: $e');

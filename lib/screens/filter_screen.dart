@@ -4,6 +4,7 @@ import 'package:gdsc_solution_project/commons/component/custom_button.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/models/filter_list.dart';
+import 'package:gdsc_solution_project/screens/best_list_screen.dart';
 import 'package:gdsc_solution_project/screens/detail_list_screen.dart';
 import 'package:gdsc_solution_project/widgets/filter_screen/selcet_price_screen.dart';
 import 'package:get/get.dart';
@@ -63,7 +64,7 @@ class _FilterScreenState extends State<FilterScreen> {
                               filter.title, // Filter 모델의 title 필드를 사용합니다.
                               () {
                                 
-                                  Get.to(DetailListScreen(isBestUrl:filter.url));
+                                  Get.to(BestListScreen(isBestUrl:filter.url, title: filter.title,));
                                 
                               },
                             ),

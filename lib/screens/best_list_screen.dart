@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/apis/openapis.dart';
-
-import 'package:gdsc_solution_project/commons/navigation_bar.dart';
-
 import 'package:gdsc_solution_project/const/color.dart';
-
 import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
-class DetailListScreen extends StatelessWidget {
-  DetailListScreen({this.kwds, this.isBestUrl, super.key});
+class BestListScreen extends StatelessWidget {
+  BestListScreen({this.kwds, this.isBestUrl, required this.title, super.key});
 
   String? kwds;
   String? isBestUrl;
+  String title;
 
   @override
   Widget build(BuildContext context) {
@@ -25,32 +22,17 @@ class DetailListScreen extends StatelessWidget {
             future: ApiService().searchProd(kwds, isBestUrl),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return Text("오류가 발생했습니다\n ${snapshot.error}");
               } else if (snapshot.hasData) {
                 Logger().d(snapshot.data!.prods);
-
-                return ListView.builder(
-                  itemCount: snapshot.data!.prods.length,
-                  itemBuilder: (context, index) {
-                    final prod = snapshot.data!.prods[index];
-                    final url = prod.link;
-                    return InkWell(
-                      onTap: () {
-                        Get.to(DetailScreen(url: url,));
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: 20),
-                        child:
-                            Text(prod.name), // 여기서 prod 객체의 속성을 사용하여 위젯을 구성합니다.
-
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '$kwds 상품의 추천 리스트 입니다.\n가격과 혜택 여부를\n선택하실 수 있습니다.',
-                      style: TextStyle(
+                      '$title 카테고리의 베스트 상품 입니다.',
+                      style: const TextStyle(
                         fontSize: 24,
                         color: GRAY_COLOR,
                         fontWeight: FontWeight.bold,
@@ -69,7 +51,7 @@ class DetailListScreen extends StatelessWidget {
                               ));
                             },
                             child: Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   border: Border(
                                       top: BorderSide(color: Colors.grey))),
                               margin: const EdgeInsets.symmetric(
@@ -79,7 +61,7 @@ class DetailListScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     '${prod.name}(${prod.ratingNum})',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -93,7 +75,7 @@ class DetailListScreen extends StatelessWidget {
                                     ),
                                   Text(
                                     prod.price,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -102,17 +84,15 @@ class DetailListScreen extends StatelessWidget {
                             ),
                           );
                         },
-
                       ),
                     ),
                   ],
                 );
               } else {
-                return Text("데이터가 없습니다.");
+                return const Text("데이터가 없습니다.");
               }
             },
           )),
-          bottomNavigationBar: AppNavigationBar(currentIndex:2 ),
     );
   }
 }
