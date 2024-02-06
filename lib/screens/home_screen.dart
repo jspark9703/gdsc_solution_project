@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
+import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:gdsc_solution_project/screens/filter_screen.dart';
@@ -79,6 +80,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: AppNavigationBar(currentIndex: 0),
     );
   }
 }

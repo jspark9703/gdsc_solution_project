@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/apis/openapis.dart';
 import 'package:gdsc_solution_project/commons/component/custom_button.dart';
+import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/models/filter_list.dart';
 import 'package:gdsc_solution_project/screens/detail_list_screen.dart';
@@ -80,6 +81,7 @@ class _FilterScreenState extends State<FilterScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: AppNavigationBar(currentIndex: 3),
     );
   }
 

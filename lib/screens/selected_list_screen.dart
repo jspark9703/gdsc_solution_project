@@ -5,8 +5,8 @@ import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
-class DetailListScreen extends StatelessWidget {
-  DetailListScreen({this.kwds, this.isBestUrl, super.key});
+class SelectedListScreen extends StatelessWidget {
+  SelectedListScreen({ super.key});
   String? kwds;
   String? isBestUrl;
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/commons/components/input_wide_field.dart';
 import 'package:gdsc_solution_project/commons/components/main_text.dart';
+import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:get/get.dart';
 import 'package:gdsc_solution_project/commons/components/input_field.dart';
@@ -87,6 +88,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: AppNavigationBar(currentIndex: 3)
     );
   }
 }
