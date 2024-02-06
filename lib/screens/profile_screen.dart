@@ -22,6 +22,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   AuthController authController = Get.put(AuthController());
 
+  bool isChecked = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +31,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-
           children: [
             MainText(mainText: '더 편한 이용을 위해서,\n이용자 등록을 해주세요.'),
             Expanded(
@@ -46,7 +47,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     hintText: '닉네임을 입력해 주세요.',
                     obscure: false,
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   const Text(
                     '장애등급',
                     style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
@@ -54,9 +57,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   CustomTextField(
                     controller: _classController,
                     hintText: '장애등급을 입력해 주세요',
-                    obscure: true,
+                    obscure: false,
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   const Text(
                     '식품을 고를 때,\n중요하게 생각하는 것이 무엇인가요?',
                     style: TextStyle(
@@ -67,7 +72,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   CustomTextWideField(
                     controller: _considerationController,
                     hintText: '(예시)\n매운 것을 못 먹음, 전자레인지 조리 선호,\n유제품 알러지',
-                    obscure: true,
+                    obscure: false,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '안내메시지를 표시하시겠습니까?',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: GRAY_COLOR,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      CheckboxListTile(
+                        title: Text('안내메시지 표시'),
+                        value: isChecked,
+                        onChanged: (bool? value) {
+                          if (value != null) {
+                            setState(() {
+                              isChecked = value;
+                            });
+                          }
+                        },
+                        controlAffinity: ListTileControlAffinity.leading,
+                      ),
+                    ],
                   ),
                 ],
               ),
