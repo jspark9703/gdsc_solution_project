@@ -63,7 +63,7 @@ class _FilterScreenState extends State<FilterScreen> {
                               filter.title, // Filter 모델의 title 필드를 사용합니다.
                               () {
                                 
-                                  Get.to(BestListScreen(isBestUrl:filter.url));
+                                  Get.to(BestListScreen(isBestUrl:filter.url, title: filter.title,));
                                 
                               },
                             ),

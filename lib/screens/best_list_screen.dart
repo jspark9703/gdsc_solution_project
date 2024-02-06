@@ -6,10 +6,11 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
 class BestListScreen extends StatelessWidget {
-  BestListScreen({this.kwds, this.isBestUrl, super.key});
+  BestListScreen({this.kwds, this.isBestUrl, required this.title, super.key});
 
   String? kwds;
   String? isBestUrl;
+  String title;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class BestListScreen extends StatelessWidget {
             future: ApiService().searchProd(kwds, isBestUrl),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return Text("오류가 발생했습니다\n ${snapshot.error}");
               } else if (snapshot.hasData) {
@@ -30,8 +31,8 @@ class BestListScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '00 카테고리의 베스트 상품 입니다.',
-                      style: TextStyle(
+                      '$title 카테고리의 베스트 상품 입니다.',
+                      style: const TextStyle(
                         fontSize: 24,
                         color: GRAY_COLOR,
                         fontWeight: FontWeight.bold,
@@ -50,7 +51,7 @@ class BestListScreen extends StatelessWidget {
                               ));
                             },
                             child: Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   border: Border(
                                       top: BorderSide(color: Colors.grey))),
                               margin: const EdgeInsets.symmetric(
@@ -60,7 +61,7 @@ class BestListScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     '${prod.name}(${prod.ratingNum})',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -74,7 +75,7 @@ class BestListScreen extends StatelessWidget {
                                     ),
                                   Text(
                                     prod.price,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -88,7 +89,7 @@ class BestListScreen extends StatelessWidget {
                   ],
                 );
               } else {
-                return Text("데이터가 없습니다.");
+                return const Text("데이터가 없습니다.");
               }
             },
           )),
