@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/apis/openapis.dart';
+
+import 'package:gdsc_solution_project/commons/navigation_bar.dart';
+
 import 'package:gdsc_solution_project/const/color.dart';
+
 import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:get/get.dart';
 
@@ -24,6 +28,24 @@ class DetailListScreen extends StatelessWidget {
               } else if (snapshot.hasError) {
                 return Text("오류가 발생했습니다\n ${snapshot.error}");
               } else if (snapshot.hasData) {
+
+                Logger().d(snapshot.data!.prods);
+
+                return ListView.builder(
+                  itemCount: snapshot.data!.prods.length,
+                  itemBuilder: (context, index) {
+                    final prod = snapshot.data!.prods[index];
+                    final url = prod.link;
+                    return InkWell(
+                      onTap: () {
+                        Get.to(DetailScreen(url: url,));
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 20),
+                        child:
+                            Text(prod.name), // 여기서 prod 객체의 속성을 사용하여 위젯을 구성합니다.
+
+
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -81,6 +103,7 @@ class DetailListScreen extends StatelessWidget {
                             ),
                           );
                         },
+
                       ),
                     ),
                   ],
@@ -90,6 +113,7 @@ class DetailListScreen extends StatelessWidget {
               }
             },
           )),
+          bottomNavigationBar: AppNavigationBar(currentIndex:2 ),
     );
   }
 }

@@ -25,7 +25,10 @@ class AuthController extends GetxController {
   _moveToPage(User? user) {
     if (user == null) {
       Get.offAll(() => HomeScreen());
-      //TODO LANDSCREEN으로 교체
+
+      //TODO 완료되면 바꿔놓기
+      // Get.offAll(() => LandScreen());
+
     } else {
       Get.offAll(() => HomeScreen());
     }
