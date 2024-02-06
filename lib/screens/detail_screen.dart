@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/apis/openapis.dart';
+import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 import 'package:gdsc_solution_project/commons/components/rating_star.dart';
 import 'package:gdsc_solution_project/commons/components/text_contents.dart';
 import 'package:gdsc_solution_project/commons/components/text_title_box.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
+
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 import 'package:gdsc_solution_project/models/prod_list.dart';
 import 'package:gdsc_solution_project/models/review_list.dart';
@@ -25,6 +27,7 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
+
 
       //TODO futurebuilder이용해서 디테일 정보 받아오기
       body: SingleChildScrollView(
@@ -171,8 +174,29 @@ class _DetailScreenState extends State<DetailScreen> {
                                   color: BLACK_COLOR,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w700,
+
+   
                                 ),
+                              ],
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.favorite_outline),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              '가격',
+                              style: TextStyle(
+                                color: BLACK_COLOR,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
                               ),
+
                               SizedBox(
                                 height: 12.0,
                               ),
@@ -363,6 +387,7 @@ class _DetailScreenState extends State<DetailScreen> {
         ),
       ),
       bottomNavigationBar: AppNavigationBar(currentIndex: 2),
+
     );
   }
 }
