@@ -3,6 +3,7 @@ import 'package:gdsc_solution_project/apis/openapis.dart';
 import 'package:gdsc_solution_project/commons/components/rating_star.dart';
 import 'package:gdsc_solution_project/commons/components/text_contents.dart';
 import 'package:gdsc_solution_project/commons/components/text_title_box.dart';
+import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 
@@ -323,11 +324,20 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                   ],
                 ),
+
+              ],
+            ),
+          );
+        }
+      ),
+      bottomNavigationBar: AppNavigationBar(currentIndex: 2),
+
               );
             } else {
               return Text('데이터가 없습니다.');
             }
           }),
+
     );
   }
 }

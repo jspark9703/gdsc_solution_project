@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/apis/openapis.dart';
 import 'package:gdsc_solution_project/commons/component/custom_button.dart';
+import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/models/filter_list.dart';
 import 'package:gdsc_solution_project/screens/best_list_screen.dart';
 import 'package:gdsc_solution_project/screens/detail_list_screen.dart';
 import 'package:gdsc_solution_project/widgets/filter_screen/selcet_price_screen.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 
 
 class FilterScreen extends StatefulWidget {
@@ -46,7 +46,6 @@ class _FilterScreenState extends State<FilterScreen> {
                   // 데이터를 기다리는 동안 로딩 인디케이터를 표시합니다.
                   return Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
-                  Logger().d(snapshot.data);
 
                   // 에러가 발생한 경우 에러 메시지를 표시합니다.
                   return Text('Error: ${snapshot.error}');
@@ -81,6 +80,7 @@ class _FilterScreenState extends State<FilterScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: AppNavigationBar(currentIndex: 3),
     );
   }
 
