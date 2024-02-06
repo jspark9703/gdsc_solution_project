@@ -45,7 +45,7 @@ class BestListScreen extends StatelessWidget {
                           return InkWell(
                             onTap: () {
                               Get.to(DetailScreen(
-                                url: url,
+                                prod: prod,
                               ));
                             },
                             child: Container(

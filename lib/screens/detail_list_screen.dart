@@ -50,7 +50,7 @@ class DetailListScreen extends StatelessWidget {
                         final url = prod.link;
                         return InkWell(
                           onTap: () {
-                            Get.to(() => DetailScreen(url: url));
+                            Get.to(() => DetailScreen(prod: prod,));
                           },
                           child: Container(
                             decoration: BoxDecoration(
