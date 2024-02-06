@@ -95,9 +95,59 @@ class _DetailScreenState extends State<DetailScreen> {
                               ),
                               Column(
                                 children: [
-                                  if (product.dimmPrice != '')
-                                    Text(product.dimmPrice),
-                                  Text(product.price),
+                                  if (product.dimmPrice != '') ...[
+                                    Text(product.dimmPrice,
+                                        style: TextStyle(
+                                            decoration:
+                                                TextDecoration.lineThrough)),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        ...product.price.split('%').map((part) {
+                                          return Container(
+                                            padding: const EdgeInsets.only(
+                                                left: 12.0),
+                                            child: Text(
+                                              part ==
+                                                      product.price
+                                                          .split('%')
+                                                          .first
+                                                  ? part + '%'
+                                                  : part,
+                                              style: TextStyle(
+                                                fontSize: part ==
+                                                        product.price
+                                                            .split('%')
+                                                            .first
+                                                    ? 18
+                                                    : 20,
+                                                color: part ==
+                                                        product.price
+                                                            .split('%')
+                                                            .first
+                                                    ? Colors.red
+                                                    : BLACK_COLOR,
+                                                fontWeight: part ==
+                                                        product.price
+                                                            .split('%')
+                                                            .first
+                                                    ? FontWeight.w400
+                                                    : FontWeight.w700,
+                                              ),
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ],
+                                    ),
+                                  ] else ...[
+                                    Text(
+                                      product.price,
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: BLACK_COLOR,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  ],
                                 ],
                               ),
                             ],
