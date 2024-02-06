@@ -4,7 +4,6 @@ import 'package:gdsc_solution_project/models/prod_detail.dart';
 import 'package:gdsc_solution_project/models/prod_list.dart';
 import 'package:gdsc_solution_project/models/review_list.dart';
 import 'package:gdsc_solution_project/models/user_url.dart';
-import 'package:logger/logger.dart';
 
 class ApiService {
   final Dio _dio = Dio();

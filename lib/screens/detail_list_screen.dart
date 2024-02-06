@@ -7,7 +7,6 @@ import 'package:gdsc_solution_project/const/color.dart';
 
 import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 
 class DetailListScreen extends StatelessWidget {
   DetailListScreen({this.kwds, this.isBestUrl, super.key});
@@ -29,6 +28,7 @@ class DetailListScreen extends StatelessWidget {
               } else if (snapshot.hasError) {
                 return Text("오류가 발생했습니다\n ${snapshot.error}");
               } else if (snapshot.hasData) {
+
                 Logger().d(snapshot.data!.prods);
 
                 return ListView.builder(
@@ -44,6 +44,7 @@ class DetailListScreen extends StatelessWidget {
                         margin: const EdgeInsets.only(bottom: 20),
                         child:
                             Text(prod.name), // 여기서 prod 객체의 속성을 사용하여 위젯을 구성합니다.
+
 
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

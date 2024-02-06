@@ -3,7 +3,6 @@ import 'package:gdsc_solution_project/apis/openapis.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 
 class BestListScreen extends StatelessWidget {
   BestListScreen({this.kwds, this.isBestUrl, required this.title, super.key});
@@ -26,7 +25,6 @@ class BestListScreen extends StatelessWidget {
               } else if (snapshot.hasError) {
                 return Text("오류가 발생했습니다\n ${snapshot.error}");
               } else if (snapshot.hasData) {
-                Logger().d(snapshot.data!.prods);
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
