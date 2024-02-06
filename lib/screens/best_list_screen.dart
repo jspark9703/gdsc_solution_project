@@ -5,8 +5,8 @@ import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
-class DetailListScreen extends StatelessWidget {
-  DetailListScreen({this.kwds, this.isBestUrl, super.key});
+class BestListScreen extends StatelessWidget {
+  BestListScreen({this.kwds, this.isBestUrl, super.key});
 
   String? kwds;
   String? isBestUrl;
@@ -30,7 +30,7 @@ class DetailListScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '$kwds 상품의 추천 리스트 입니다.\n가격과 혜택 여부를\n선택하실 수 있습니다.',
+                      '00 카테고리의 베스트 상품 입니다.',
                       style: TextStyle(
                         fontSize: 24,
                         color: GRAY_COLOR,

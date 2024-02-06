@@ -40,7 +40,7 @@ dependencies:
   firebase_core: ^2.24.2
   firebase_storage: 
   go_router: ^13.0.1
-  dio: ^5.4.0
+  dio:
   logger:
   shared_preferences: ^2.2.2
 dev_dependencies:

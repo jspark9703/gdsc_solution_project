@@ -7,8 +7,8 @@ class ProdList {
     required this.prods,
   });
 
-  factory ProdList.fromJson(String jsonString) {
-    List<dynamic> prodsJson = json.decode(jsonString)['prods'];
+  factory ProdList.fromJson(Map<String, dynamic> json) {
+    List<dynamic> prodsJson = json['prods'];
     List<Prod> prods = prodsJson.map((prodJson) {
       return Prod.fromJson(prodJson);
     }).toList();
@@ -17,7 +17,7 @@ class ProdList {
 
   String toJson() {
     List<Map<String, dynamic>> prodsJson =
-        prods.map((prod) => prod.toJson()).toList();
+    prods.map((prod) => prod.toJson()).toList();
 
     return json.encode({'prods': prodsJson});
   }
@@ -26,28 +26,25 @@ class ProdList {
 class Prod {
   String name;
   String price;
-  String couponPrice;
-  int rating;
-  int ratingNum;
+  String dimm;
+  String ratingNum;
   String link;
 
   Prod({
     required this.name,
     required this.price,
-    required this.couponPrice,
-    required this.rating,
+    required this.dimm,
     required this.ratingNum,
     required this.link,
   });
 
   factory Prod.fromJson(Map<String, dynamic> json) {
     return Prod(
-      name: json['name'].toString(),
-      price: json['price'].toString(),
-      couponPrice: json['coupon_price'].toString(),
-      rating: json['rating'] as int,
-      ratingNum: json['rating_num'] as int,
-      link: json['link'].toString(),
+      name: json['name'],
+      price: json['price'],
+      dimm: json['dimm'] ?? "",
+      ratingNum: json['rating_num'] ?? '0',
+      link: json['link'],
     );
   }
 
@@ -55,8 +52,7 @@ class Prod {
     return {
       'name': name,
       'price': price,
-      'coupon_price': couponPrice,
-      'rating': rating,
+      'dimm': dimm,
       'rating_num': ratingNum,
       'link': link,
     };

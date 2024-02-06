@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_solution_project/apis/openapis.dart';
 import 'package:gdsc_solution_project/commons/components/rating_star.dart';
 import 'package:gdsc_solution_project/commons/components/text_contents.dart';
 import 'package:gdsc_solution_project/commons/components/text_title_box.dart';
@@ -23,8 +24,9 @@ class _DetailScreenState extends State<DetailScreen> {
       appBar: AppBar(),
 
       //TODO futurebuilder이용해서 디테일 정보 받아오기
-      body: Builder(
-        builder: (context) {
+      body: FutureBuilder(
+        future: ApiService().prodDetail(widget.url),
+        builder: (context, snapshot) {
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

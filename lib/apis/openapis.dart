@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:gdsc_solution_project/models/filter_list.dart';
 import 'package:gdsc_solution_project/models/prod_detail.dart';
@@ -15,21 +17,25 @@ class ApiService {
     try {
       final response = await _dio.get('$_baseUrl/best_filter');
 
-      final data=  FilterList.fromJson(response.data["data"]);
-      return data;
-    } catch (e) {
+      final data = json.decode(response.data["data"]);  // JSON 문자열을 파싱
+      print(data);
+      final filterList = FilterList.fromJson(data);  // 파싱된 JSON 객체를 사용
 
+      return filterList;
+    } catch (e) {
       throw Exception('Failed to load best filters: $e');
     }
   }
+
 
   // 'search_prod' 엔드포인트 호출
   Future<ProdList> searchProd(String? kwds, String? isBestUrl) async {
     try {
       final response = await _dio.get('$_baseUrl/search_prod', queryParameters: {'kwds': kwds, 'is_best_url': isBestUrl});
-
-      final data=  ProdList.fromJson(response.data["data"]);
+      print(response.data['data']);
+      final data=  ProdList.fromJson(response.data['data']);
       return data;
+
     } catch (e) {
       throw Exception('Failed to search products: $e');
     }
