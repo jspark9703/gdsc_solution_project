@@ -25,7 +25,7 @@ class AuthController extends GetxController {
 
   _moveToPage(User? user) {
     if (user == null) {
-      Get.offAll(() => HomeScreen());
+      Get.offAll(() => LandScreen());
 
       //TODO 완료되면 바꿔놓기
       // Get.offAll(() => LandScreen());
@@ -54,7 +54,6 @@ class AuthController extends GetxController {
     try {
       await authentication.signInWithEmailAndPassword(
           email: email, password: password);
-      DBService().setProfile(getCurrentUser());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         getErrorSnackBar('user-not-found', 'No user found for that email.', e);
@@ -69,7 +68,6 @@ class AuthController extends GetxController {
     try {
       await authentication.createUserWithEmailAndPassword(
           email: email, password: password);
-      DBService().setProfile(getCurrentUser());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Get.snackbar(
@@ -112,6 +110,7 @@ class AuthController extends GetxController {
     final User? user = authentication.currentUser;
 
     if (user != null) {
+      print('uid: ${user.uid}');
       return user.uid;
     } else {
       print('No user is signed in.');

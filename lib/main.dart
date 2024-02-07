@@ -7,9 +7,9 @@ import 'package:gdsc_solution_project/screens/home_screen.dart';
 import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:gdsc_solution_project/screens/land_screen.dart';
 import 'package:gdsc_solution_project/screens/login_screen.dart';
-import 'package:gdsc_solution_project/screens/profile_screen.dart';
 import 'package:gdsc_solution_project/screens/register_screen.dart';
 import 'package:gdsc_solution_project/screens/search_screen.dart';
+import 'package:gdsc_solution_project/screens/user_manager_screen.dart';
 import 'package:get/get.dart';
 
 import 'widgets/filter_screen/selcet_price_screen.dart';
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
             const SelectPriceScreen(),
         
         '/home': (context) => HomeScreen(),
-        '/profile': (context) => ProfileScreen(),
+        '/profile': (context) => UserManagerScreen(),
         '/detaillist': (context) => DetailListScreen(),
         '/detail:isbssturl': (context) => DetailScreen(),
       },
