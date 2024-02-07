@@ -52,6 +52,7 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
     UserInfoController userController = Get.find<UserInfoController>();
   
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(

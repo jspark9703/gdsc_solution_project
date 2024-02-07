@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/apis/openapis.dart';
 import 'package:gdsc_solution_project/commons/components/rating_star.dart';
+import 'package:gdsc_solution_project/commons/components/review_card.dart';
 import 'package:gdsc_solution_project/commons/components/text_contents.dart';
 import 'package:gdsc_solution_project/commons/components/text_title_box.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
@@ -112,10 +113,12 @@ class _DetailScreenState extends State<DetailScreen> {
                                     ],
                                   ),
                                   IconButton(
+
                                     onPressed: () {
                                       setState(() {
                                         _isLiked = !_isLiked;
                                       });
+
                                     },
                                     icon: _isLiked
                                         ? Icon(Icons.favorite)
@@ -293,7 +296,9 @@ class _DetailScreenState extends State<DetailScreen> {
                   final reviewList = snapshot.data!.reviewList;
                   Logger().d(reviewList);
 
+
                   reviews = ReviewList(reviewList: reviewList);
+                  print(reviews.reviewList.length);
 
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -309,6 +314,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
+                        SizedBox(height: 8.0,),
                         Text(
                           '${widget.prod!.ratingNum}개의 리뷰',
                           style: TextStyle(
@@ -317,16 +323,44 @@ class _DetailScreenState extends State<DetailScreen> {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
+                        SizedBox(height: 16.0,),
+                        ReviewCard(reviewList: reviews),
 
+                      ],
+                    ),
+                  );
+                } else {
+                  return Text('데이터가 없습니다.');
+                }
+              },
+            ),
+            FutureBuilder(
+                future: ApiService().prodReviewSum('', reviews),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Text("오류가 발생했습니다\n ${snapshot.error}");
+                  } else if (snapshot.hasData) {
+                    var review_data = snapshot.data;
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
                         //TODO futurebuilder이용해서 리뷰 정보, 리뷰 요약 받아오기
 
-                        TextTitleBox(
-                          mainText: '종합 리뷰',
-                          mode: 'sub',
+                        Text(
+                          '종합 리뷰',
+                          style: TextStyle(
+                            color: BLACK_COLOR,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                        TextContentBox(
-                          mainText: '곰곰 고추장 제육 불고기는...',
-                        ),
+                        Text('곰곰 고추장 제육 불고기는...', style: TextStyle(
+                          color: GRAY_COLOR,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),),
                         Visibility(
                           visible: _isDetailVisible,
                           child: Column(
@@ -350,45 +384,42 @@ class _DetailScreenState extends State<DetailScreen> {
                             ],
                           ),
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            SizedBox(
-                              height: 12.0,
-                            ),
-                            CustomButton(
-                              onPressed: () {
-                                setState(() {
-                                  _isDetailVisible =
-                                      !_isDetailVisible; // 상태 업데이트
-                                });
-                              },
-                              label: _isDetailVisible ? '리뷰 요약보기' : '리뷰 자세히 보기',
-                              backgroundColor: LIGHT_GREEN_COLOR,
-                              textColor: GREEN_COLOR,
-                            ),
-                            SizedBox(
-                              height: 12.0,
-                            ),
-                            CustomButton(
-                              onPressed: () {},
-                              label: '사이트 확인하기',
-                              backgroundColor: GREEN_COLOR,
-                              textColor: Colors.white,
-                            ),
-                            SizedBox(
-                              height: 12.0,
-                            ),
-                          ],
-                        ),
                       ],
-                    ),
-                  );
-                } else {
-                  return Text('데이터가 없습니다.');
-                }
-              },
+                    );
+                  } else {
+                    return Text('데이터가 없습니다.');
+                  }
+                }),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(
+                  height: 12.0,
+                ),
+                CustomButton(
+                  onPressed: () {
+                    setState(() {
+                      _isDetailVisible = !_isDetailVisible; // 상태 업데이트
+                    });
+                  },
+                  label: _isDetailVisible ? '리뷰 요약보기' : '리뷰 자세히 보기',
+                  backgroundColor: LIGHT_GREEN_COLOR,
+                  textColor: GREEN_COLOR,
+                ),
+                SizedBox(
+                  height: 12.0,
+                ),
+                CustomButton(
+                  onPressed: () {},
+                  label: '사이트 확인하기',
+                  backgroundColor: GREEN_COLOR,
+                  textColor: Colors.white,
+                ),
+                SizedBox(
+                  height: 12.0,
+                ),
+              ],
             ),
           ],
         ),

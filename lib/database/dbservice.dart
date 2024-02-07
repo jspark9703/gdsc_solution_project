@@ -8,6 +8,7 @@ class DBService {
 
 
 
+
   // 데이터베이스에서 특정 사용자의 데이터 변화를 감지하는 리스너를 설정하는 함수
   void subscribeToUserProfile(String uid, void Function(User) onDataChanged) {
     _realtime.ref('users/$uid').onValue.listen((event) {
@@ -19,17 +20,19 @@ class DBService {
     });
   }
   setProfile(String uid) async{
+
     await _realtime.ref().child('users').set({
       'UID': uid,
     });
   }
 
-  updateProfile(String uid, User user) async{
+  updateProfile(String uid, User user) async {
     await _realtime.ref().child('users').child(uid).update(user.toJson());
   }
 
   Future<User> readProfile(String uid) async {
-    DataSnapshot _snapshot = await _realtime.ref().child('users').child(uid).get();
+    DataSnapshot _snapshot =
+        await _realtime.ref().child('users').child(uid).get();
     if (_snapshot.value is Map<String, dynamic>) {
       User data = User.fromJson(_snapshot.value as Map<String, dynamic>);
       return data;
@@ -39,7 +42,8 @@ class DBService {
   }
 
   Future<String> getUserName() async {
-    User user = await DBService().readProfile(AuthController().getCurrentUser());
+    User user =
+        await DBService().readProfile(AuthController().getCurrentUser());
     return user.userName!;
   }
 

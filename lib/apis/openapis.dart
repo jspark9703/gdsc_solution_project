@@ -28,6 +28,7 @@ class ApiService {
           queryParameters: {'kwds': kwds, 'is_best_url': isBestUrl});
 
       final data = ProdList.fromJson(response.data["data"]);
+
       return data;
     } catch (e) {
       throw Exception('Failed to search products: $e');
