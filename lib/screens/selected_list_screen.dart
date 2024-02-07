@@ -25,7 +25,16 @@ class SelectedListScreen extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Text("오류가 발생했습니다\n${snapshot.error}");
+              return Center(
+                child: Text(
+                "좋아요 누른 상품이 없습니다.",
+                style: const TextStyle(
+                  fontSize: 24,
+                  color: GRAY_COLOR,
+                  fontWeight: FontWeight.bold,
+                ),
+                            ),
+              );
             } else if (snapshot.hasData) {
               // 데이터 타입 처리가 필요합니다. 예를 들어, snapshot.data를 적절한 타입으로 캐스팅
               

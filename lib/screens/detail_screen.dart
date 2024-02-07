@@ -126,7 +126,18 @@ class _DetailScreenState extends State<DetailScreen> {
                                 ),
                                 IconButton(
                                   onPressed: () {
+                                    final String url = widget.prod!.link;
+                                      Uri uri = Uri.parse(url);
+                                      String _prodId = uri.pathSegments.last;
+                                      if (_isLiked) {
+                                        DBService().deleteLike(uid, _prodId);
+                                      } else {
+                                        DBService().setLike(
+                                            uid, widget.prod!, _prodId);
+                                      }
                                     setState(() {
+                                      
+                                      
                                       _isLiked = !_isLiked;
                                     });
                                   },

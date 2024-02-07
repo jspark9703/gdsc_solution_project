@@ -56,8 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
 
-            Obx(() => GuideMessage(text: "안녕하세요.\n${userInfoController.user.value!.userName} 주인님 무엇을 도와드릴까요? \n 총 4가지 기능이 준비되어 있습니다.")) ,
-            SizedBox(height: 94.0),
+            Obx(() => GuideMessage(text: "안녕하세요.\n${userInfoController.user.value!.userName} 주인님 무엇을 도와드릴까요? \n총 4가지 기능이 준비되어 있습니다.")) ,
+            
 
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () {
                     Get.to(()=>SelectedListScreen());
                   },
-                  label: '찜한 상품 보기',
+                  label: '좋아요 누른 상품 보기',
                   backgroundColor: LIGHT_GREEN_COLOR,
                   textColor: GREEN_COLOR,
                 ),

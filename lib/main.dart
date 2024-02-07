@@ -43,12 +43,11 @@ class MyApp extends StatelessWidget {
         '/reg': (context) => RegisterScreen(),
         '/reg/reg_info':(context) => RegisterInfoScreen(),
         '/search': (context) => const SearchScreen(),
-        
         '/search/select_filter_screen': (context) => const FilterScreen(),
         '/selected_list':(context) => SelectedListScreen(),
         '/home': (context) => HomeScreen(),
         '/profile': (context) => UserManagerScreen(),
-        '/detaillist': (context) => DetailListScreen(),
+        '/detail_list': (context) => DetailListScreen(),
         '/detail': (context) => DetailScreen(),
         
       },

@@ -19,7 +19,7 @@ class _GuideMessageState extends State<GuideMessage> {
 
     return Column(
       children: [
-        SizedBox(height: 50),
+        SizedBox(height: 10),
         Obx(() {
 
           bool isMessageOn = userController.user.value?.showMessage ?? true;
