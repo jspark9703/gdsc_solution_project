@@ -15,9 +15,10 @@ import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:logger/logger.dart';
 
 class DetailScreen extends StatefulWidget {
-  DetailScreen({this.prod, super.key});
+  DetailScreen({this.prod, this.isliked, super.key});
 
   Prod? prod;
+  bool? isliked;
 
   @override
   _DetailScreenState createState() => _DetailScreenState();
@@ -25,9 +26,28 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   bool _isDetailVisible = false;
-  bool _isLiked = false;
+  late bool _isLiked;
   String uid = AuthController().getCurrentUser();
   ReviewList reviews = ReviewList(reviewList: []);
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _isLiked = widget.isliked ?? false;
+  }
+
+  @override
+  void dispose() {
+    final String url = widget.prod!.link;
+    Uri uri = Uri.parse(url);
+    String _prodId = uri.pathSegments.last;
+    if (_isLiked) {
+      DBService().deleteLike(uid, _prodId);
+    } else {
+      DBService().setLike(uid, widget.prod!, _prodId);
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,18 +113,12 @@ class _DetailScreenState extends State<DetailScreen> {
                                     ],
                                   ),
                                   IconButton(
-                                    onPressed: () async {
-                                      bool isLiked = await DBService()
-                                          .isLiked(uid, _ProdId);
+
+                                    onPressed: () {
                                       setState(() {
-                                        _isLiked = isLiked;
+                                        _isLiked = !_isLiked;
                                       });
-                                      if (_isLiked) {
-                                        DBService().deleteLike(uid, _ProdId);
-                                      } else {
-                                        DBService().setLike(
-                                            uid, widget.prod!, _ProdId);
-                                      }
+
                                     },
                                     icon: _isLiked
                                         ? Icon(Icons.favorite)
@@ -282,6 +296,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   final reviewList = snapshot.data!.reviewList;
                   Logger().d(reviewList);
 
+
                   reviews = ReviewList(reviewList: reviewList);
                   print(reviews.reviewList.length);
 
@@ -310,6 +325,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         ),
                         SizedBox(height: 16.0,),
                         ReviewCard(reviewList: reviews),
+
                       ],
                     ),
                   );

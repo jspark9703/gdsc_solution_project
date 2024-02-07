@@ -51,7 +51,7 @@ class DetailListScreen extends StatelessWidget {
                         return InkWell(
                           onTap: () {
 
-                            Get.to(() => DetailScreen(prod: prod,));
+                            Get.to(() => DetailScreen(prod: prod));
 
                            
 

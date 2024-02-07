@@ -32,7 +32,7 @@ class SelectedListScreen extends StatelessWidget {
                     final url = prod.link;
                     return InkWell(
                       onTap: () {
-                        Get.to(DetailScreen(prod: prod,));
+                        Get.to(DetailScreen(prod: prod, isliked: true,));
                       },
                       child: Container(
                         margin: const EdgeInsets.only(bottom: 20),

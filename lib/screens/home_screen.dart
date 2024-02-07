@@ -12,6 +12,8 @@ import 'package:gdsc_solution_project/screens/user_manager_screen.dart';
 import 'package:get/get.dart';
 import 'package:gdsc_solution_project/commons/components/main_text.dart';
 
+import '../provider/user_info_provider.dart';
+
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
 
@@ -32,12 +34,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void fetchUserName() async {
     nickname = await DBService().getUserName();
-    setState(() {});
+    
   }
 
   @override
   Widget build(BuildContext context) {
-
+    final UserInfoController userInfoController=  Get.put(UserInfoController()); 
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -46,8 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            GuideMessage(text: "안녕하세요. ${nickname ?? ''} 주인님 무엇을 도와드릴까요?"),
-            //SizedBox(height: 94.0),
+
+            Obx(() => GuideMessage(text: "안녕하세요.\n${userInfoController.user.value!.userName} 주인님 무엇을 도와드릴까요? \n 총 4가지 기능이 준비되어 있습니다.")) ,
+            SizedBox(height: 94.0),
+
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -85,13 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   backgroundColor: LIGHT_GREEN_COLOR,
                   textColor: GREEN_COLOR,
                 ),
-                SizedBox(height: 24.0),
-                CustomButton(
-                  onPressed: () {},
-                  label: '쇼핑 안내견 사용법',
-                  backgroundColor: LIGHT_GREEN_COLOR,
-                  textColor: GREEN_COLOR,
-                ),
+                
               ],
             ),
           ],
