@@ -41,7 +41,6 @@ class BestListScreen extends StatelessWidget {
                         itemCount: snapshot.data!.prods.length,
                         itemBuilder: (context, index) {
                           final prod = snapshot.data!.prods[index];
-                          final url = prod.link;
                           return InkWell(
                             onTap: () {
                               Get.to(DetailScreen(

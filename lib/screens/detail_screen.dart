@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/apis/openapis.dart';
 import 'package:gdsc_solution_project/commons/components/rating_star.dart';
+import 'package:gdsc_solution_project/commons/components/review_card.dart';
 import 'package:gdsc_solution_project/commons/components/text_contents.dart';
 import 'package:gdsc_solution_project/commons/components/text_title_box.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
