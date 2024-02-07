@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/apis/openapis.dart';
 import 'package:gdsc_solution_project/commons/component/custom_button.dart';
+import 'package:gdsc_solution_project/commons/guidemessage.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/models/filter_list.dart';
@@ -29,14 +30,7 @@ class _FilterScreenState extends State<FilterScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              '특정 카테고리의\n인기상품을 골라주세요',
-              style: TextStyle(
-                fontSize: 24,
-                color: GRAY_COLOR,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+           GuideMessage(text: '카테고리 별 인기상품을 확인해보세요! 총 10개의 카테고리가 준비되어 있습니다.'),
             FutureBuilder<FilterList>(
               future:
                   ApiService().getBestFilters(), // 비동기 작업으로 FilterList를 가져옵니다.

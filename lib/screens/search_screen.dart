@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/commons/component/custom_button.dart';
+import 'package:gdsc_solution_project/commons/guidemessage.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/database/dbservice.dart';
@@ -39,14 +40,7 @@ class _SearchScreenState extends State<SearchScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-             Text(
-              '${nickname ?? ''} 주인님, 안녕하세요!\n어떤 제품을 찾고 계세요?\n검색어를 밑에 입력해주세요.',
-              style: TextStyle(
-                fontSize: 24,
-                color: GRAY_COLOR,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+             GuideMessage(text: "${nickname} 주인님, 어떤 제품을 찾고 계세요? \n검색창에 검색어를 입력해주세요."),
             TextField(
               controller: _searchController,
               decoration: const InputDecoration(

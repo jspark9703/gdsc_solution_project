@@ -5,7 +5,7 @@ import 'package:gdsc_solution_project/screens/home_screen.dart';
 import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:gdsc_solution_project/screens/land_screen.dart';
 import 'package:gdsc_solution_project/screens/login_screen.dart';
-import 'package:gdsc_solution_project/screens/resister_info_screen.dart';
+import 'package:gdsc_solution_project/screens/register_info_screen.dart';
 import 'package:gdsc_solution_project/screens/search_screen.dart';
 import 'package:gdsc_solution_project/screens/user_manager_screen.dart';
 import 'package:get/get.dart';
@@ -16,8 +16,9 @@ class AuthController extends GetxController {
   late Rx<User?> _user;
   FirebaseAuth authentication = FirebaseAuth.instance;
   //TODO 새로고침하면 펄스로 바뀜
-  
-  RxBool isRegistered = false.obs; // 사용자 등록 상태를 관리하는 변수
+
+  RxBool isRegistered = false.obs; 
+  // 사용자 등록 상태를 관리하는 변수
   @override
   void onReady() {
     super.onReady();
@@ -33,11 +34,15 @@ class AuthController extends GetxController {
 
 
     } else {
+
+
      if (isRegistered.isTrue) {
         Get.offAll(() => HomeScreen()); // 등록이 완료되었다면 홈 화면으로 이동
       } else {
+
         Get.offAll(() => HomeScreen()); // 추가 정보 입력 화면으로 이동
       } //RegisterInfoScreen()
+
     }
   }
 

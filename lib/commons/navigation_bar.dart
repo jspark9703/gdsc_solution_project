@@ -13,11 +13,11 @@ class AppNavigationBar extends StatelessWidget {
 
   int currentIndex;
 
-  final List<Widget> _screens = [
-    HomeScreen(),
-    const SearchScreen(),
-    SelectedListScreen(),
-    UserManagerScreen(),
+  final List<String> _screens = [
+    "/home",
+    "/search",
+    '/selected_list',
+    '/profile',
     // Add more screens as needed
   ];
 
@@ -32,7 +32,7 @@ class AppNavigationBar extends StatelessWidget {
       onTap: (index) {
         // Handle item tap
         if (index != currentIndex) {
-          Get.offAll(_screens[index]);
+          Get.toNamed(_screens[index]);
           currentIndex = index;
         }
       },

@@ -11,45 +11,59 @@ import 'package:gdsc_solution_project/commons/components/input_field.dart';
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 import '../provider/Authcontroller.dart';
 
-class ResisterInfoScreen extends StatefulWidget {
-  const ResisterInfoScreen({super.key});
+class RegisterInfoScreen extends StatefulWidget {
+  const RegisterInfoScreen({super.key});
 
   @override
-  State<ResisterInfoScreen> createState() => _ResisterInfoScreenState();
+  State<RegisterInfoScreen> createState() => _RegisterInfoScreenState();
 }
 
-class _ResisterInfoScreenState extends State<ResisterInfoScreen> {
+class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _classController = TextEditingController();
   final TextEditingController _considerationController =
       TextEditingController();
 
-  AuthController authController = Get.put(AuthController());
-  bool? _isMessageOn;
+ 
+  bool _isMessageOn = true; // 기본값으로 true 설정
   User? currentUser;
+  AuthController authController = Get.put(AuthController());
+  @override
+  void initState() {
+    super.initState();
+    fetchProfile(); // 프로필 정보 불러오기
+  }
 
   void fetchProfile() async {
-    currentUser =
+     currentUser =
         await DBService().readProfile(AuthController().getCurrentUser());
     _isMessageOn = currentUser?.showMessage ?? true;
     _nameController.text = currentUser?.userName ?? "";
     _classController.text = currentUser?.userClass ?? '';
     _considerationController.text = currentUser?.userInfo ?? '';
     setState(() {});
-  }
 
+  }
 
  
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            
-            GuideMessage(text: '원활한 서비스 이용을 위해 추가정보를 입력하여주세요.'),
+            SizedBox(height: 50),
+            Text(
+              '원활한 서비스 이용을 위해 추가정보를 입력하여주세요.',
+              style: const TextStyle(
+                fontSize: 24,
+                color: GRAY_COLOR,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             SizedBox(
               height: 10,
             ),
@@ -106,15 +120,15 @@ class _ResisterInfoScreenState extends State<ResisterInfoScreen> {
                 CustomButton(
                   onPressed: () {
                     DBService().updateProfile(
-                        AuthController().getCurrentUser(),
+                        authController.getCurrentUser(),
                         User(
                             userName: _nameController.text,
                             userClass: _classController.text,
                             userInfo: _considerationController.text,
                             showMessage: true));
-                     AuthController().completeRegistration();   
+                     authController.completeRegistration();   
                   },
-                  label: '변경하기',
+                  label: '등록하기',
                   backgroundColor: GREEN_COLOR,
                   textColor: Colors.white,
                 ),

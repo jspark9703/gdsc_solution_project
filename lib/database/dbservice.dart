@@ -6,7 +6,21 @@ import '../models/user_url.dart';
 class DBService {
   FirebaseDatabase _realtime = FirebaseDatabase.instance;
 
-  setProfile(String uid) async {
+
+
+
+  // 데이터베이스에서 특정 사용자의 데이터 변화를 감지하는 리스너를 설정하는 함수
+  void subscribeToUserProfile(String uid, void Function(User) onDataChanged) {
+    _realtime.ref('users/$uid').onValue.listen((event) {
+      final userMap = event.snapshot.value as Map<String, dynamic>?;
+      if (userMap != null) {
+        final user = User.fromJson(userMap);
+        onDataChanged(user);
+      }
+    });
+  }
+  setProfile(String uid) async{
+
     await _realtime.ref().child('users').set({
       'UID': uid,
     });
@@ -32,6 +46,7 @@ class DBService {
         await DBService().readProfile(AuthController().getCurrentUser());
     return user.userName!;
   }
+
 
   setLike(String uid, Prod prod, String prodId) async {
     await _realtime
@@ -65,4 +80,5 @@ class DBService {
     DataSnapshot _snapshot = (await _realtime.ref().child('users').child(uid).child('Like').child(prodId).once()).snapshot;
     return _snapshot.value != null;
   }
+
 }
