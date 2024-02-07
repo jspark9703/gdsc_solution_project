@@ -6,9 +6,12 @@ import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/database/dbservice.dart';
 import 'package:gdsc_solution_project/models/user_url.dart';
+import 'package:gdsc_solution_project/provider/user_info_provider.dart';
+import 'package:gdsc_solution_project/screens/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:gdsc_solution_project/commons/components/input_field.dart';
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
+import 'package:logger/logger.dart';
 import '../provider/Authcontroller.dart';
 
 class UserManagerScreen extends StatefulWidget {
@@ -24,54 +27,52 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
   final TextEditingController _considerationController =
       TextEditingController();
 
-  AuthController authController = Get.put(AuthController());
-  bool? _isMessageOn;
+    UserInfoController userController = Get.find<UserInfoController>();
   User? currentUser;
 
   @override
   void initState() {
     super.initState();
     fetchProfile();
+        Get.lazyPut(() => UserInfoController());
+
   }
 
   void fetchProfile() async {
     currentUser =
         await DBService().readProfile(AuthController().getCurrentUser());
-    _isMessageOn = currentUser?.showMessage ?? true;
     _nameController.text = currentUser?.userName ?? "";
     _classController.text = currentUser?.userClass ?? '';
     _considerationController.text = currentUser?.userInfo ?? '';
-    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+
+    UserInfoController userController = Get.find<UserInfoController>();
+  
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GuideMessage(text: '사용 설정을 변경할 수 있습니다. \n 안내메세지 , 사용사 정보 변경'),
+            GuideMessage(text: '사용 설정을 변경할 수 있습니다. \n 안내메세지 관리, 사용사 정보 변경'),
             SizedBox(
               height: 10,
             ),
-            ListTile(
+            Obx(()=>ListTile(
               title: Text(
-                _isMessageOn! ? '안내메세지 끄기' : '안내메세지 켜기',
+                userController.user.value!.showMessage! ? '안내메세지 끄기' : '안내메세지 켜기',
                 style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
               ),
               trailing: Switch(
-                value: _isMessageOn!,
+                value: userController.user.value!.showMessage!,
                 onChanged: (bool newValue) {
-                  setState(() {
-                    _isMessageOn = newValue;
-
-
-                  });
+                  userController.updateShowMessage(newValue);
                 },
               ),
-            ),
+            ),),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,14 +125,18 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
               children: [
                 CustomButton(
                   onPressed: () {
+                    
                     DBService().updateProfile(
                         AuthController().getCurrentUser(),
                         User(
                             userName: _nameController.text,
                             userClass: _classController.text,
                             userInfo: _considerationController.text,
-                            showMessage: _isMessageOn!));
-                    Get.back();
+                            showMessage: userController.user.value!.showMessage!!));
+
+                            userController.updateShowMessage(userController.user.value!.showMessage!);
+
+                    Get.to(()=>HomeScreen());
                   },
                   label: '변경하기',
                   backgroundColor: GREEN_COLOR,

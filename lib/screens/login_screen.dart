@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Get.to(RegisterScreen());
+                        Get.to(()=>RegisterScreen());
                       },
                       child: const Text(
                         '회원가입',
