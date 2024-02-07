@@ -11,6 +11,7 @@ import 'package:gdsc_solution_project/database/dbservice.dart';
 import 'package:gdsc_solution_project/models/prod_list.dart';
 import 'package:gdsc_solution_project/models/review_list.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
+import 'package:logger/logger.dart';
 
 class DetailScreen extends StatefulWidget {
   DetailScreen({this.prod, super.key});
@@ -25,6 +26,7 @@ class _DetailScreenState extends State<DetailScreen> {
   bool _isDetailVisible = false;
   bool _isLiked = false;
   String uid = AuthController().getCurrentUser();
+  ReviewList reviews = ReviewList(reviewList: []);
 
   @override
   Widget build(BuildContext context) {
@@ -262,16 +264,21 @@ class _DetailScreenState extends State<DetailScreen> {
             FutureBuilder(
               future: ApiService()
                   .prodReviews(widget.prod!.link)
-                  .then((resolvedReviewList) {
-                return ApiService().prodReviewSum('', resolvedReviewList);
-              }),
+                  ,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Text("오류가 발생했습니다\n ${snapshot.error}");
                 } else if (snapshot.hasData) {
-                  final product = snapshot.data!;
+                  
+                  final reviewList= snapshot.data!.reviewList;
+                  Logger().d(reviewList);
+                  
+                    reviews = ReviewList(reviewList: reviewList);
+                  
+                  
+                  
                   return Column(
                     children: [
                       Text(

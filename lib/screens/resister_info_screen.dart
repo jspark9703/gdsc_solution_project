@@ -11,14 +11,14 @@ import 'package:gdsc_solution_project/commons/components/input_field.dart';
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 import '../provider/Authcontroller.dart';
 
-class UserManagerScreen extends StatefulWidget {
-  const UserManagerScreen({super.key});
+class ResisterInfoScreen extends StatefulWidget {
+  const ResisterInfoScreen({super.key});
 
   @override
-  State<UserManagerScreen> createState() => _UserManagerScreenState();
+  State<ResisterInfoScreen> createState() => _ResisterInfoScreenState();
 }
 
-class _UserManagerScreenState extends State<UserManagerScreen> {
+class _ResisterInfoScreenState extends State<ResisterInfoScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _classController = TextEditingController();
   final TextEditingController _considerationController =
@@ -27,12 +27,6 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
   AuthController authController = Get.put(AuthController());
   bool? _isMessageOn;
   User? currentUser;
-
-  @override
-  void initState() {
-    super.initState();
-    fetchProfile();
-  }
 
   void fetchProfile() async {
     currentUser =
@@ -44,6 +38,8 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
     setState(() {});
   }
 
+
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,25 +48,10 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GuideMessage(text: '사용 설정을 변경할 수 있습니다. \n 안내메세지 , 사용사 정보 변경'),
+            
+            GuideMessage(text: '원활한 서비스 이용을 위해 추가정보를 입력하여주세요.'),
             SizedBox(
               height: 10,
-            ),
-            ListTile(
-              title: Text(
-                _isMessageOn! ? '안내메세지 끄기' : '안내메세지 켜기',
-                style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
-              ),
-              trailing: Switch(
-                value: _isMessageOn!,
-                onChanged: (bool newValue) {
-                  setState(() {
-                    _isMessageOn = newValue;
-
-
-                  });
-                },
-              ),
             ),
             Expanded(
               child: Column(
@@ -130,8 +111,8 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
                             userName: _nameController.text,
                             userClass: _classController.text,
                             userInfo: _considerationController.text,
-                            showMessage: _isMessageOn!));
-                    Get.back();
+                            showMessage: true));
+                     AuthController().completeRegistration();   
                   },
                   label: '변경하기',
                   backgroundColor: GREEN_COLOR,
@@ -143,7 +124,6 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: AppNavigationBar(currentIndex: 3),
     );
   }
 }

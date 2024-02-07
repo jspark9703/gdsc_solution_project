@@ -28,7 +28,7 @@ class DBService {
 
   Future<String> getUserName() async {
     User user = await DBService().readProfile(AuthController().getCurrentUser());
-    return user.userName;
+    return user.userName!;
   }
 
 

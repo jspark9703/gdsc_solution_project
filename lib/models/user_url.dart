@@ -1,11 +1,11 @@
 // User 모델
 class User {
-  String userName;
-  String userClass;
-  String userInfo;
-  bool showMessage;
+  String? userName;
+  String? userClass;
+  String? userInfo;
+  bool? showMessage;
 
-  User({required this.userName, required this.userClass, required this.userInfo, required this.showMessage});
+  User({ this.userName,  this.userClass,  this.userInfo,  this.showMessage});
 
   // JSON에서 User 객체로 변환하는 팩토리 생성자
   factory User.fromJson(Map<String, dynamic> json) => User(

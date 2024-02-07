@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
+import 'package:gdsc_solution_project/commons/guidemessage.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/database/dbservice.dart';
@@ -44,11 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              child: MainText(
-                mainText: '${nickname ?? ''} 주인님, 반갑습니다.\n무엇을 도와드릴까요?\n저희 어플의 기능을 골라주세요.',
-              ),
-            ),
+            GuideMessage(text: "안녕하세요. 주인님 무엇을 도와드릴까요?"),
             SizedBox(height: 94.0),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
