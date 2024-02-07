@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/commons/component/custom_button.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
+import 'package:gdsc_solution_project/database/dbservice.dart';
 import 'package:gdsc_solution_project/screens/detail_list_screen.dart';
 import 'package:get/get.dart';
 
@@ -15,6 +16,19 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
 
+  String? nickname;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserName();
+  }
+
+  void fetchUserName() async {
+    nickname = await DBService().getUserName();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +39,8 @@ class _SearchScreenState extends State<SearchScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
-              '000주인님, 안녕하세요!\n어떤 제품을 찾고 계세요?\n검색어를 밑에 입력해주세요.',
+             Text(
+              '${nickname ?? ''} 주인님, 안녕하세요!\n어떤 제품을 찾고 계세요?\n검색어를 밑에 입력해주세요.',
               style: TextStyle(
                 fontSize: 24,
                 color: GRAY_COLOR,

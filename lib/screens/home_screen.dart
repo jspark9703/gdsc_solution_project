@@ -3,22 +3,42 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
+import 'package:gdsc_solution_project/database/dbservice.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:gdsc_solution_project/screens/filter_screen.dart';
-import 'package:gdsc_solution_project/screens/profile_screen.dart';
 import 'package:gdsc_solution_project/screens/search_screen.dart';
+import 'package:gdsc_solution_project/screens/user_manager_screen.dart';
 import 'package:get/get.dart';
 import 'package:gdsc_solution_project/commons/components/main_text.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   AuthController authController = Get.put(AuthController());
+
+  String? nickname;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserName();
+  }
+
+  void fetchUserName() async {
+    nickname = await DBService().getUserName();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-appBar: AppBar(),
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -26,7 +46,7 @@ appBar: AppBar(),
           children: [
             SizedBox(
               child: MainText(
-                mainText: '000 주인님, 반갑습니다.\n무엇을 도와드릴까요?\n저희 어플의 기능을 골라주세요.',
+                mainText: '${nickname ?? ''} 주인님, 반갑습니다.\n무엇을 도와드릴까요?\n저희 어플의 기능을 골라주세요.',
               ),
             ),
             SizedBox(height: 94.0),
@@ -45,7 +65,6 @@ appBar: AppBar(),
                 SizedBox(height: 24.0),
                 CustomButton(
                   onPressed: () {
-
                     Get.to(FilterScreen());
                   },
                   label: '인기 상품 골라보기',
@@ -62,7 +81,7 @@ appBar: AppBar(),
                 SizedBox(height: 24.0),
                 CustomButton(
                   onPressed: () {
-                    Get.to(ProfileScreen());
+                    Get.to(UserManagerScreen());
                   },
                   label: '사용 설정',
                   backgroundColor: LIGHT_GREEN_COLOR,
@@ -82,5 +101,7 @@ appBar: AppBar(),
       ),
       bottomNavigationBar: AppNavigationBar(currentIndex: 0),
     );
+
+
   }
 }

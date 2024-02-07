@@ -52,6 +52,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '856991396566',
     projectId: 'solution-1954e',
     authDomain: 'solution-1954e.firebaseapp.com',
+    databaseURL: 'https://solution-1954e-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'solution-1954e.appspot.com',
     measurementId: 'G-5TE0XRYL84',
   );
@@ -61,6 +62,7 @@ class DefaultFirebaseOptions {
     appId: '1:856991396566:android:afdf427743bb92297c8f77',
     messagingSenderId: '856991396566',
     projectId: 'solution-1954e',
+    databaseURL: 'https://solution-1954e-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'solution-1954e.appspot.com',
   );
 
@@ -69,6 +71,7 @@ class DefaultFirebaseOptions {
     appId: '1:856991396566:ios:935ba2dc61716aad7c8f77',
     messagingSenderId: '856991396566',
     projectId: 'solution-1954e',
+    databaseURL: 'https://solution-1954e-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'solution-1954e.appspot.com',
     iosBundleId: 'com.example.gdscSolutionProject',
   );

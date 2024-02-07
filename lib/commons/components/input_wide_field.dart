@@ -6,12 +6,14 @@ class CustomTextWideField extends StatelessWidget {
   final String hintText;
   final bool obscure;
   final Icon? prefixIcons;
+  final String? helperText;
 
   const CustomTextWideField({
     required this.controller,
     required this.hintText,
     required this.obscure,
     this.prefixIcons,
+    this.helperText,
     super.key,
   });
 
@@ -22,6 +24,7 @@ class CustomTextWideField extends StatelessWidget {
       maxLines: null,
       decoration: InputDecoration(
         hintText: hintText,
+        helperText: helperText,
         border: InputBorder.none,
         labelStyle: const TextStyle(color: INPUT_LABEL_COLOR),
         hintStyle: const TextStyle(color: INPUT_LABEL_COLOR),

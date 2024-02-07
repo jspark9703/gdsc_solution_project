@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:gdsc_solution_project/screens/home_screen.dart';
-import 'package:gdsc_solution_project/screens/profile_screen.dart';
 import 'package:gdsc_solution_project/screens/search_screen.dart';
 import 'package:gdsc_solution_project/screens/selected_list_screen.dart';
 import 'package:gdsc_solution_project/screens/user_manager_screen.dart';

@@ -3,6 +3,8 @@ import 'package:gdsc_solution_project/commons/components/input_wide_field.dart';
 import 'package:gdsc_solution_project/commons/components/main_text.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
+import 'package:gdsc_solution_project/database/dbservice.dart';
+import 'package:gdsc_solution_project/models/user_url.dart';
 import 'package:get/get.dart';
 import 'package:gdsc_solution_project/commons/components/input_field.dart';
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
@@ -22,7 +24,25 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
       TextEditingController();
 
   AuthController authController = Get.put(AuthController());
-  bool _isMessageOn = false;
+  bool? _isMessageOn;
+  User? currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchProfile();
+  }
+
+  void fetchProfile() async {
+    currentUser =
+        await DBService().readProfile(AuthController().getCurrentUser());
+    _isMessageOn = currentUser?.showMessage ?? true;
+    _nameController.text = currentUser?.userName ?? '';
+    _classController.text = currentUser?.userClass ?? '';
+    _considerationController.text = currentUser?.userInfo ?? '';
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,25 +50,25 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-
           children: [
             MainText(mainText: '사용 설정을 변경할 수 있습니다. \n 안내메세지 , 사용사 정보 변경'),
-                              SizedBox(height: 10,),
-
+            SizedBox(
+              height: 10,
+            ),
             ListTile(
-      title: Text(
-                    _isMessageOn? '안내메세지 끄기':'안내메세지 켜기',
-                    style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
-                  ),
-      trailing: Switch(
-        value: _isMessageOn,
-        onChanged: (bool newValue) {
-          setState(() {
-            _isMessageOn = newValue;
-          });
-        },
-      ),
-    ),
+              title: Text(
+                _isMessageOn! ? '안내메세지 끄기' : '안내메세지 켜기',
+                style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
+              ),
+              trailing: Switch(
+                value: _isMessageOn!,
+                onChanged: (bool newValue) {
+                  setState(() {
+                    _isMessageOn = newValue;
+                  });
+                },
+              ),
+            ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,20 +80,27 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
                   ),
                   CustomTextField(
                     controller: _nameController,
-                    hintText: '닉네임을 입력해 주세요.',
+                    hintText:
+                        '닉네임을 입력해 주세요.',
                     obscure: false,
+
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   const Text(
                     '장애등급',
                     style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
                   ),
                   CustomTextField(
                     controller: _classController,
-                    hintText: '장애등급을 입력해 주세요',
-                    obscure: true,
+                    hintText:
+                        '장애등급을 입력해 주세요',
+                    obscure: false,
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   const Text(
                     '식품을 고를 때,\n중요하게 생각하는 것이 무엇인가요?',
                     style: TextStyle(
@@ -84,7 +111,7 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
                   CustomTextWideField(
                     controller: _considerationController,
                     hintText: '(예시)\n매운 것을 못 먹음, 전자레인지 조리 선호,\n유제품 알러지',
-                    obscure: true,
+                    obscure: false,
                   ),
                 ],
               ),
@@ -93,7 +120,16 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 CustomButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    DBService().updateProfile(
+                        AuthController().getCurrentUser(),
+                        User(
+                            userName: _nameController.text,
+                            userClass: _classController.text,
+                            userInfo: _considerationController.text,
+                            showMessage: _isMessageOn!));
+                    Get.back();
+                  },
                   label: '변경하기',
                   backgroundColor: GREEN_COLOR,
                   textColor: Colors.white,
