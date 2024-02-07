@@ -30,7 +30,10 @@ class ReviewCard extends StatelessWidget {
                   itemCount: reviewList.reviewList.length,
                   itemBuilder: (context, index) {
                     return Container(
-                      color: TEXTFIELD_COLOR,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                        color: TEXTFIELD_COLOR,
+                      ),
                       width: constraint.maxWidth,
                       height: constraint.maxHeight * 0.8,
                       child: Row(
@@ -49,7 +52,9 @@ class ReviewCard extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(width: 24.0,),
+                          SizedBox(
+                            width: 24.0,
+                          ),
                           Expanded(
                             child: SingleChildScrollView(
                               child: Column(
@@ -64,6 +69,9 @@ class ReviewCard extends StatelessWidget {
                                 ],
                               ),
                             ),
+                          ),
+                          SizedBox(
+                            width: 1.0,
                           ),
                         ],
                       ),
