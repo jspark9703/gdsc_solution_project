@@ -52,7 +52,7 @@ class AppNavigationBar extends StatelessWidget {
                 backgroundColor:GREEN_COLOR ,
 
           icon: Icon(Icons.favorite),
-          label: '찜한 상품 보기',
+          label: '좋아요 상품 보기',
         ),
         BottomNavigationBarItem(
                 backgroundColor:GREEN_COLOR ,

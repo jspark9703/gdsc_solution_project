@@ -74,7 +74,7 @@ class _FilterScreenState extends State<FilterScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: AppNavigationBar(currentIndex: 3),
+      bottomNavigationBar: AppNavigationBar(currentIndex: 1),
     );
   }
 

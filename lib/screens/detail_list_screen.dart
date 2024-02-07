@@ -34,7 +34,7 @@ class DetailListScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 20.0),
                     child: Text(
-                      '$kwds 상품의 추천 리스트입니다.\n가격과 혜택 여부를\n선택하실 수 있습니다.',
+                      '$kwds 검색결과입니다.\n 총 ${data.prods.length} 상품이 준비되었습니다.',
                       style: const TextStyle(
                         fontSize: 24,
                         color: GRAY_COLOR,
@@ -103,7 +103,7 @@ class DetailListScreen extends StatelessWidget {
           },
         ),
       ),
-      bottomNavigationBar: AppNavigationBar(currentIndex: 2),
+      bottomNavigationBar: AppNavigationBar(currentIndex: 1),
     );
   }
 }

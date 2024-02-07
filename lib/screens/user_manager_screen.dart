@@ -27,7 +27,6 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
   final TextEditingController _considerationController =
       TextEditingController();
 
-    UserInfoController userController = Get.find<UserInfoController>();
   User? currentUser;
 
   @override

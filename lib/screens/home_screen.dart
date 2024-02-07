@@ -8,9 +8,11 @@ import 'package:gdsc_solution_project/database/dbservice.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:gdsc_solution_project/screens/filter_screen.dart';
 import 'package:gdsc_solution_project/screens/search_screen.dart';
+import 'package:gdsc_solution_project/screens/selected_list_screen.dart';
 import 'package:gdsc_solution_project/screens/user_manager_screen.dart';
 import 'package:get/get.dart';
 import 'package:gdsc_solution_project/commons/components/main_text.dart';
+import 'package:logger/logger.dart';
 
 import '../provider/user_info_provider.dart';
 
@@ -25,22 +27,27 @@ class _HomeScreenState extends State<HomeScreen> {
   AuthController authController = Get.put(AuthController());
 
   String? nickname;
-
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
     fetchUserName();
+    isLoading = false;
   }
 
   void fetchUserName() async {
-    nickname = await DBService().getUserName();
-    
+    try {
+          nickname = await DBService().getUserName();
+
+    } catch (e) {
+      Logger().d(e);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final UserInfoController userInfoController=  Get.put(UserInfoController()); 
-    return Scaffold(
+    return isLoading? Center(child: CircularProgressIndicator(),): Scaffold(
       appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -72,7 +79,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SizedBox(height: 24.0),
                 CustomButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(()=>SelectedListScreen());
+                  },
                   label: '찜한 상품 보기',
                   backgroundColor: LIGHT_GREEN_COLOR,
                   textColor: GREEN_COLOR,
