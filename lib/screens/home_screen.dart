@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final UserInfoController userInfoController=  Get.put(UserInfoController()); 
     return isLoading? Center(child: CircularProgressIndicator(),): Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text("홈")),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(

@@ -14,7 +14,7 @@ class BestListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text("인기상품")),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: FutureBuilder(

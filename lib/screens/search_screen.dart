@@ -33,7 +33,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text("검색")),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

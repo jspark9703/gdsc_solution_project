@@ -55,19 +55,7 @@ class _DetailScreenState extends State<DetailScreen> {
     });
   }
 
-  @override
-  void dispose() {
-    final String url = widget.prod!.link;
-    Uri uri = Uri.parse(url);
-    String _prodId = uri.pathSegments.last;
-    if (!_isLiked) {
-      DBService().deleteLike(uid, _prodId);
-    } else {
-      DBService().setLike(uid, widget.prod!, _prodId);
-    }
-    super.dispose();
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     final String url = widget.prod!.link;
@@ -79,7 +67,7 @@ class _DetailScreenState extends State<DetailScreen> {
             child: CircularProgressIndicator(),
           )
         : Scaffold(
-            appBar: AppBar(),
+            appBar: AppBar(title: Text("상세정보")),
 
             //TODO futurebuilder이용해서 디테일 정보 받아오기
             body: SingleChildScrollView(

@@ -51,17 +51,28 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
     UserInfoController userController = Get.find<UserInfoController>();
   
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text("사용설정")),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GuideMessage(text: '사용 설정을 변경할 수 있습니다. \n 안내메세지 관리, 사용사 정보 변경'),
+            SizedBox(
+              height: 20,
+            ),
+             Text(
+               '사용 설정을 변경할 수 있습니다. \n안내메세지 관리, 사용사 정보 변경',
+              style: const TextStyle(
+                fontSize: 24,
+                color: GRAY_COLOR,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             SizedBox(
               height: 10,
             ),
             Obx(()=>ListTile(
+              
               title: Text(
                 userController.user.value!.showMessage! ? '안내메세지 끄기' : '안내메세지 켜기',
                 style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),

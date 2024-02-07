@@ -16,7 +16,7 @@ class SelectedListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text("찜한 상품")),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: FutureBuilder(
@@ -27,7 +27,7 @@ class SelectedListScreen extends StatelessWidget {
             } else if (snapshot.hasError) {
               return Center(
                 child: Text(
-                "좋아요 누른 상품이 없습니다.",
+                "찜한 상품이 없습니다.",
                 style: const TextStyle(
                   fontSize: 24,
                   color: GRAY_COLOR,
@@ -43,7 +43,7 @@ class SelectedListScreen extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  GuideMessage(text: "주인님이 좋아요를 누른 상품 ${data.length}가지가 준비되었습니다."),
+                  GuideMessage(text: "주인님이 찜한 상품, ${data.length}가지가 준비되었습니다."),
                   Expanded(
                     child: ListView.builder(
                       itemCount: data.length, // 이 부분은 실제 데이터 타입에 맞게 수정해야 합니다.

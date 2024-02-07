@@ -14,7 +14,7 @@ class DetailListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text("상품 리스트")),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: FutureBuilder(
