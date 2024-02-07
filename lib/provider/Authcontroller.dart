@@ -36,8 +36,8 @@ class AuthController extends GetxController {
      if (isRegistered.isTrue) {
         Get.offAll(() => HomeScreen()); // 등록이 완료되었다면 홈 화면으로 이동
       } else {
-        Get.offAll(() => ResisterInfoScreen()); // 추가 정보 입력 화면으로 이동
-      }
+        Get.offAll(() => HomeScreen()); // 추가 정보 입력 화면으로 이동
+      } //RegisterInfoScreen()
     }
   }
 
@@ -123,7 +123,6 @@ class AuthController extends GetxController {
     final User? user = authentication.currentUser;
 
     if (user != null) {
-      print('uid: ${user.uid}');
       return user.uid;
     } else {
       print('No user is signed in.');

@@ -44,9 +44,10 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            GuideMessage(text: "안녕하세요. 주인님 무엇을 도와드릴까요?"),
-            SizedBox(height: 94.0),
+            GuideMessage(text: "안녕하세요. ${nickname ?? ''} 주인님 무엇을 도와드릴까요?"),
+            //SizedBox(height: 94.0),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -6,18 +6,19 @@ import '../models/user_url.dart';
 class DBService {
   FirebaseDatabase _realtime = FirebaseDatabase.instance;
 
-  setProfile(String uid) async{
+  setProfile(String uid) async {
     await _realtime.ref().child('users').set({
       'UID': uid,
     });
   }
 
-  updateProfile(String uid, User user) async{
+  updateProfile(String uid, User user) async {
     await _realtime.ref().child('users').child(uid).update(user.toJson());
   }
 
   Future<User> readProfile(String uid) async {
-    DataSnapshot _snapshot = await _realtime.ref().child('users').child(uid).get();
+    DataSnapshot _snapshot =
+        await _realtime.ref().child('users').child(uid).get();
     if (_snapshot.value is Map<String, dynamic>) {
       User data = User.fromJson(_snapshot.value as Map<String, dynamic>);
       return data;
@@ -27,31 +28,41 @@ class DBService {
   }
 
   Future<String> getUserName() async {
-    User user = await DBService().readProfile(AuthController().getCurrentUser());
+    User user =
+        await DBService().readProfile(AuthController().getCurrentUser());
     return user.userName!;
   }
 
-
-  setLike(String uid, Prod prod) async{
-    await _realtime.ref().child('users').child(uid).child('Like').set(prod.toJson());
+  setLike(String uid, Prod prod, String prodId) async {
+    await _realtime
+        .ref()
+        .child('users')
+        .child(uid)
+        .child('Like')
+        .child(prodId)
+        .set(prod.toJson());
   }
 
-  deleteLike(String uid, String prodName) async{
-    await _realtime.ref().child('users').child(uid).child('Like').child(prodName).remove();
+  deleteLike(String uid, String prodId) async {
+    await _realtime
+        .ref()
+        .child('users')
+        .child(uid)
+        .child('Like')
+        .child(prodId)
+        .remove();
   }
 
-  Future<List<Prod>> readLike(String uid) async{
-    DataSnapshot _snapshot = await _realtime.ref().child('users').child(uid).child('Like').get();
+  Future<List<Prod>> readLike(String uid) async {
+    DataSnapshot _snapshot =
+        await _realtime.ref().child('users').child(uid).child('Like').get();
     Map<dynamic, dynamic> _value = _snapshot.value as Map<dynamic, dynamic>;
     List<Prod> data = _value.values.map((e) => Prod.fromJson(e)).toList();
     return data;
   }
 
-  Future<bool> isLiked(String uid, String prodName) async {
-    DataSnapshot _snapshot = (await _realtime.ref().child('users').child(uid).child('Like').child(prodName).once()) as DataSnapshot;
+  Future<bool> isLiked(String uid, String prodId) async {
+    DataSnapshot _snapshot = (await _realtime.ref().child('users').child(uid).child('Like').child(prodId).once()).snapshot;
     return _snapshot.value != null;
   }
-
-
-
 }
