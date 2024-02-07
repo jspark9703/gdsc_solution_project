@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void fetchUserName() async {
     nickname = await DBService().getUserName();
-    setState(() {});
+    
   }
 
   @override
