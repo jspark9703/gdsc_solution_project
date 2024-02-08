@@ -14,7 +14,7 @@ class BestListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text("인기상품")),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: FutureBuilder(
@@ -29,7 +29,7 @@ class BestListScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '$title 카테고리의 베스트 상품 입니다.',
+                      '$title 카테고리의 베스트 상품 입니다. \n총 ${snapshot.data!.prods.length}개 상품이 준비되어있습니다.',
                       style: const TextStyle(
                         fontSize: 24,
                         color: GRAY_COLOR,

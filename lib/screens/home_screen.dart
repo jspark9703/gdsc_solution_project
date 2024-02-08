@@ -8,9 +8,11 @@ import 'package:gdsc_solution_project/database/dbservice.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:gdsc_solution_project/screens/filter_screen.dart';
 import 'package:gdsc_solution_project/screens/search_screen.dart';
+import 'package:gdsc_solution_project/screens/selected_list_screen.dart';
 import 'package:gdsc_solution_project/screens/user_manager_screen.dart';
 import 'package:get/get.dart';
 import 'package:gdsc_solution_project/commons/components/main_text.dart';
+import 'package:logger/logger.dart';
 
 import '../provider/user_info_provider.dart';
 
@@ -25,23 +27,28 @@ class _HomeScreenState extends State<HomeScreen> {
   AuthController authController = Get.put(AuthController());
 
   String? nickname;
-
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
     fetchUserName();
+    isLoading = false;
   }
 
   void fetchUserName() async {
-    nickname = await DBService().getUserName();
-    
+    try {
+          nickname = await DBService().getUserName();
+
+    } catch (e) {
+      Logger().d(e);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final UserInfoController userInfoController=  Get.put(UserInfoController()); 
-    return Scaffold(
-      appBar: AppBar(),
+    return isLoading? Center(child: CircularProgressIndicator(),): Scaffold(
+      appBar: AppBar(title: Text("홈")),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -49,8 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
 
-            Obx(() => GuideMessage(text: "안녕하세요.\n${userInfoController.user.value!.userName} 주인님 무엇을 도와드릴까요? \n 총 4가지 기능이 준비되어 있습니다.")) ,
-            SizedBox(height: 94.0),
+            Obx(() => GuideMessage(text: "안녕하세요.\n${userInfoController.user.value!.userName} 주인님 무엇을 도와드릴까요? \n총 4가지 기능이 준비되어 있습니다.")) ,
+            
 
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -75,8 +82,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SizedBox(height: 24.0),
                 CustomButton(
-                  onPressed: () {},
-                  label: '찜한 상품 보기',
+                  onPressed: () {
+                    Get.to(()=>SelectedListScreen());
+                  },
+                  label: '좋아요 누른 상품 보기',
                   backgroundColor: LIGHT_GREEN_COLOR,
                   textColor: GREEN_COLOR,
                 ),

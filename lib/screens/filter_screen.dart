@@ -23,14 +23,14 @@ class _FilterScreenState extends State<FilterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text("인기상품")),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-           GuideMessage(text: '카테고리 별 인기상품을 확인해보세요! 총 10개의 카테고리가 준비되어 있습니다.'),
+           GuideMessage(text: '카테고리 별 인기상품을 확인해보세요!\n 총 10개의 카테고리가 준비되어 있습니다.'),
             FutureBuilder<FilterList>(
               future:
                   ApiService().getBestFilters(), // 비동기 작업으로 FilterList를 가져옵니다.
@@ -73,7 +73,7 @@ class _FilterScreenState extends State<FilterScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: AppNavigationBar(currentIndex: 3),
+      bottomNavigationBar: AppNavigationBar(currentIndex: 1),
     );
   }
 

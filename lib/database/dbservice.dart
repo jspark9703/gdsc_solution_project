@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:gdsc_solution_project/models/prod_list.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
+import 'package:logger/logger.dart';
 import '../models/user_url.dart';
 
 class DBService {
@@ -71,7 +72,9 @@ class DBService {
   Future<List<Prod>> readLike(String uid) async {
     DataSnapshot _snapshot =
         await _realtime.ref().child('users').child(uid).child('Like').get();
+
     Map<dynamic, dynamic> _value = _snapshot.value as Map<dynamic, dynamic>;
+    Logger().d(_value);
     List<Prod> data = _value.values.map((e) => Prod.fromJson(e)).toList();
     return data;
   }
