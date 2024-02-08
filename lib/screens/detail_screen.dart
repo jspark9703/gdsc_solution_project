@@ -12,6 +12,7 @@ import 'package:gdsc_solution_project/database/dbservice.dart';
 import 'package:gdsc_solution_project/models/prod_detail.dart';
 import 'package:gdsc_solution_project/models/prod_list.dart';
 import 'package:gdsc_solution_project/models/review_list.dart';
+import 'package:gdsc_solution_project/models/user_url.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:logger/logger.dart';
 
@@ -32,6 +33,8 @@ class _DetailScreenState extends State<DetailScreen> {
   ReviewList reviews = ReviewList(reviewList: []);
   ProductDetail? _product; // 상품 상세 정보를 저장할 변수
   ReviewList? _reviews; // 리뷰 정보를 저장할 변 수
+  late bool _isImageVisible;
+  User? currentUser;
 
   @override
   void initState() {
@@ -41,6 +44,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
     fetchProductDetail(); // 상품 상세 정보를 불러오는 메서드 호출
     fetchReviews(); // 리뷰 정보를 불러오는 메서드 호출
+    fetchUserClass();
   }
 
   void fetchProductDetail() async {
@@ -56,8 +60,20 @@ class _DetailScreenState extends State<DetailScreen> {
       _reviews = reviewList; // 리뷰 정보를 상태 변수에 저장
       print(_reviews!.reviewList.length);
     });
-
   }
+
+  void fetchUserClass() async {
+    currentUser =
+    await DBService().readProfile(AuthController().getCurrentUser());
+
+    setState(() {
+      if(currentUser?.userClass == '1등급' || currentUser?.userClass == '2등급'){
+        _isImageVisible = false;
+      } else {
+        _isImageVisible = true;
+      };
+    });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -74,9 +90,12 @@ class _DetailScreenState extends State<DetailScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Container(
-                        child: Image.network(_product!.prodImgUrl,
-                            fit: BoxFit.cover),
+                      Visibility(
+                        visible: _isImageVisible,
+                        child: Container(
+                          child: Image.network(_product!.prodImgUrl,
+                              fit: BoxFit.cover),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24),
