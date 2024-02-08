@@ -18,8 +18,8 @@ import 'package:logger/logger.dart';
 class DetailScreen extends StatefulWidget {
   DetailScreen({this.prod, this.isliked, super.key});
 
-  Prod? prod;
-  bool? isliked;
+  final Prod? prod;
+  final bool? isliked;
 
   @override
   _DetailScreenState createState() => _DetailScreenState();
@@ -31,7 +31,8 @@ class _DetailScreenState extends State<DetailScreen> {
   String uid = AuthController().getCurrentUser();
   ReviewList reviews = ReviewList(reviewList: []);
   ProductDetail? _product; // 상품 상세 정보를 저장할 변수
-  ReviewList? _reviews; // 리뷰 정보를 저장할 변수
+  ReviewList? _reviews; // 리뷰 정보를 저장할 변 수
+
   @override
   void initState() {
     // TODO: implement initState
@@ -53,14 +54,13 @@ class _DetailScreenState extends State<DetailScreen> {
     final reviewList = await ApiService().prodReviews(widget.prod!.link);
     setState(() {
       _reviews = reviewList; // 리뷰 정보를 상태 변수에 저장
+      print(_reviews!.reviewList.length);
     });
+
   }
 
   @override
   Widget build(BuildContext context) {
-    final String url = widget.prod!.link;
-    Uri uri = Uri.parse(url);
-    String _ProdId = uri.pathSegments.last;
 
     return _product == null
         ? Center(
@@ -68,8 +68,6 @@ class _DetailScreenState extends State<DetailScreen> {
           )
         : Scaffold(
             appBar: AppBar(title: Text("상세정보")),
-
-            //TODO futurebuilder이용해서 디테일 정보 받아오기
             body: SingleChildScrollView(
               child: Column(
                 children: [
@@ -115,17 +113,15 @@ class _DetailScreenState extends State<DetailScreen> {
                                 IconButton(
                                   onPressed: () {
                                     final String url = widget.prod!.link;
-                                      Uri uri = Uri.parse(url);
-                                      String _prodId = uri.pathSegments.last;
-                                      if (_isLiked) {
-                                        DBService().deleteLike(uid, _prodId);
-                                      } else {
-                                        DBService().setLike(
-                                            uid, widget.prod!, _prodId);
-                                      }
+                                    Uri uri = Uri.parse(url);
+                                    String _prodId = uri.pathSegments.last;
+                                    if (_isLiked) {
+                                      DBService().deleteLike(uid, _prodId);
+                                    } else {
+                                      DBService()
+                                          .setLike(uid, widget.prod!, _prodId);
+                                    }
                                     setState(() {
-
-
                                       _isLiked = !_isLiked;
                                     });
                                   },
@@ -313,107 +309,105 @@ class _DetailScreenState extends State<DetailScreen> {
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
-    SizedBox(height: 16.0,),
-    ReviewCard(reviewList: reviews),
-                      ],
-                    ),
-                  );
-                } else {
-                  return Text('데이터가 없습니다.');
-                }
-              },
-            ),
-            FutureBuilder(
-                future: ApiService().prodReviewSum('', reviews),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Text("오류가 발생했습니다\n ${snapshot.error}");
-                  } else if (snapshot.hasData) {
-                    var review_data = snapshot.data;
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        //TODO futurebuilder이용해서 리뷰 정보, 리뷰 요약 받아오기
-
-                      Text(
-'종합 리뷰',
-style: TextStyle(
-color: BLACK_COLOR,
-fontSize: 16,
-fontWeight: FontWeight.w500,
-),
-),
-Text(_reviews!.reviewList.first.review, style: TextStyle(
-color: GRAY_COLOR,
-fontSize: 12,
-fontWeight: FontWeight.w500,
-),),
-
-                              Visibility(
-                                visible: _isDetailVisible,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextTitleBox(
-                                      mainText: '장점',
-                                      mode: 'sub',
-                                    ),
-                                    TextContentBox(
-                                      mainText: '맛과 식감: 사용자는 제품의 맛을 극찬하며, ...',
-                                    ),
-                                    TextTitleBox(
-                                      mainText: '단점',
-                                      mode: 'sub',
-                                    ),
-                                    TextContentBox(
-                                      mainText:
-                                          '수입산 고기 사용: 몇몇 리뷰어들은 수입산 고기를 사용한 것이 아쉽다고 언급했으나...',
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  children: [
-                                    SizedBox(
-                                      height: 12.0,
-                                    ),
-                                    CustomButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          _isDetailVisible =
-                                              !_isDetailVisible; // 상태 업데이트
-                                        });
-                                      },
-                                      label: _isDetailVisible
-                                          ? '리뷰 요약보기'
-                                          : '리뷰 자세히 보기',
-                                      backgroundColor: LIGHT_GREEN_COLOR,
-                                      textColor: GREEN_COLOR,
-                                    ),
-                                    SizedBox(
-                                      height: 12.0,
-                                    ),
-                                    CustomButton(
-                                      onPressed: () {},
-                                      label: '사이트 확인하기',
-                                      backgroundColor: GREEN_COLOR,
-                                      textColor: Colors.white,
-                                    ),
-                                    SizedBox(
-                                      height: 12.0,
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              SizedBox(height: 16.0),
+                              ReviewCard(reviewList: _reviews!),
                             ],
                           ),
                         ),
+                  FutureBuilder(
+                    future: ApiService().prodReviewSum('', _reviews!),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return Text("오류가 발생했습니다\n ${snapshot.error}");
+                      } else if (snapshot.hasData) {
+                        var review_data = snapshot.data;
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              '종합 리뷰',
+                              style: TextStyle(
+                                color: BLACK_COLOR,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Text(_reviews!.reviewList.first.review, style: TextStyle(
+                              color: GRAY_COLOR,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),),
+                            Visibility(
+                              visible: _isDetailVisible,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextTitleBox(
+                                    mainText: '장점',
+                                    mode: 'sub',
+                                  ),
+                                  TextContentBox(
+                                    mainText: '맛과 식감: 사용자는 제품의 맛을 극찬하며, ...',
+                                  ),
+                                  TextTitleBox(
+                                    mainText: '단점',
+                                    mode: 'sub',
+                                  ),
+                                  TextContentBox(
+                                    mainText:
+                                        '수입산 고기 사용: 몇몇 리뷰어들은 수입산 고기를 사용한 것이 아쉽다고 언급했으나...',
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                          ],
+                        );
+                      } else {
+                        return Text('데이터가 없습니다.');
+                      }
+                    },
+                  ),
+                  Padding(
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        SizedBox(
+                          height: 12.0,
+                        ),
+                        CustomButton(
+                          onPressed: () {
+                            setState(() {
+                              _isDetailVisible =
+                              !_isDetailVisible; // 상태 업데이트
+                            });
+                          },
+                          label: _isDetailVisible
+                              ? '리뷰 요약보기'
+                              : '리뷰 자세히 보기',
+                          backgroundColor: LIGHT_GREEN_COLOR,
+                          textColor: GREEN_COLOR,
+                        ),
+                        SizedBox(
+                          height: 12.0,
+                        ),
+                        CustomButton(
+                          onPressed: () {},
+                          label: '사이트 확인하기',
+                          backgroundColor: GREEN_COLOR,
+                          textColor: Colors.white,
+                        ),
+                        SizedBox(
+                          height: 12.0,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

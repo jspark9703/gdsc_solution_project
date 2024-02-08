@@ -49,59 +49,61 @@ class _HomeScreenState extends State<HomeScreen> {
     final UserInfoController userInfoController=  Get.put(UserInfoController()); 
     return isLoading? Center(child: CircularProgressIndicator(),): Scaffold(
       appBar: AppBar(title: Text("홈")),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
 
-            Obx(() => GuideMessage(text: "안녕하세요.\n${userInfoController.user.value!.userName} 주인님 무엇을 도와드릴까요? \n총 4가지 기능이 준비되어 있습니다.")) ,
-            
+              Obx(() => GuideMessage(text: "안녕하세요.\n${userInfoController.user.value!.userName} 주인님 무엇을 도와드릴까요? \n총 4가지 기능이 준비되어 있습니다.")) ,
 
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                CustomButton(
-                  onPressed: () {
-                    Get.to(SearchScreen());
-                  },
-                  label: '쇼핑 안내견과 음식 검색하기',
-                  backgroundColor: LIGHT_GREEN_COLOR,
-                  textColor: GREEN_COLOR,
-                ),
-                SizedBox(height: 24.0),
-                CustomButton(
-                  onPressed: () {
-                    Get.to(FilterScreen());
-                  },
-                  label: '인기 상품 골라보기',
-                  backgroundColor: LIGHT_GREEN_COLOR,
-                  textColor: GREEN_COLOR,
-                ),
-                SizedBox(height: 24.0),
-                CustomButton(
-                  onPressed: () {
-                    Get.to(()=>SelectedListScreen());
-                  },
-                  label: '좋아요 누른 상품 보기',
-                  backgroundColor: LIGHT_GREEN_COLOR,
-                  textColor: GREEN_COLOR,
-                ),
-                SizedBox(height: 24.0),
-                CustomButton(
-                  onPressed: () {
-                    Get.to(UserManagerScreen());
-                  },
-                  label: '사용 설정',
-                  backgroundColor: LIGHT_GREEN_COLOR,
-                  textColor: GREEN_COLOR,
-                ),
-                
-              ],
-            ),
-          ],
+
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  CustomButton(
+                    onPressed: () {
+                      Get.to(SearchScreen());
+                    },
+                    label: '쇼핑 안내견과 음식 검색하기',
+                    backgroundColor: LIGHT_GREEN_COLOR,
+                    textColor: GREEN_COLOR,
+                  ),
+                  SizedBox(height: 24.0),
+                  CustomButton(
+                    onPressed: () {
+                      Get.to(FilterScreen());
+                    },
+                    label: '인기 상품 골라보기',
+                    backgroundColor: LIGHT_GREEN_COLOR,
+                    textColor: GREEN_COLOR,
+                  ),
+                  SizedBox(height: 24.0),
+                  CustomButton(
+                    onPressed: () {
+                      Get.to(()=>SelectedListScreen());
+                    },
+                    label: '좋아요 누른 상품 보기',
+                    backgroundColor: LIGHT_GREEN_COLOR,
+                    textColor: GREEN_COLOR,
+                  ),
+                  SizedBox(height: 24.0),
+                  CustomButton(
+                    onPressed: () {
+                      Get.to(UserManagerScreen());
+                    },
+                    label: '사용 설정',
+                    backgroundColor: LIGHT_GREEN_COLOR,
+                    textColor: GREEN_COLOR,
+                  ),
+
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: AppNavigationBar(currentIndex: 0),
