@@ -7,7 +7,6 @@ import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/models/filter_list.dart';
 import 'package:gdsc_solution_project/screens/best_list_screen.dart';
 import 'package:gdsc_solution_project/screens/detail_list_screen.dart';
-import 'package:gdsc_solution_project/widgets/filter_screen/selcet_price_screen.dart';
 import 'package:get/get.dart';
 
 
