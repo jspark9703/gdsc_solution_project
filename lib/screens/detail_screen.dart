@@ -12,6 +12,7 @@ import 'package:gdsc_solution_project/database/dbservice.dart';
 import 'package:gdsc_solution_project/models/prod_detail.dart';
 import 'package:gdsc_solution_project/models/prod_list.dart';
 import 'package:gdsc_solution_project/models/review_list.dart';
+import 'package:gdsc_solution_project/models/review_sum.dart';
 import 'package:gdsc_solution_project/models/user_url.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:logger/logger.dart';
@@ -35,6 +36,8 @@ class _DetailScreenState extends State<DetailScreen> {
   ReviewList? _reviews; // 리뷰 정보를 저장할 변 수
   late bool _isImageVisible;
   User? currentUser;
+  String? _userInfo;
+  ReviewSum? _reviewSum;
 
   @override
   void initState() {
@@ -45,6 +48,7 @@ class _DetailScreenState extends State<DetailScreen> {
     fetchProductDetail(); // 상품 상세 정보를 불러오는 메서드 호출
     fetchReviews(); // 리뷰 정보를 불러오는 메서드 호출
     fetchUserClass();
+    fetchReviewSum(_userInfo!, _reviews!);
   }
 
   void fetchProductDetail() async {
@@ -64,20 +68,29 @@ class _DetailScreenState extends State<DetailScreen> {
 
   void fetchUserClass() async {
     currentUser =
-    await DBService().readProfile(AuthController().getCurrentUser());
-
+        await DBService().readProfile(AuthController().getCurrentUser());
+    final userInfo = currentUser!.userInfo;
     setState(() {
-      if(currentUser?.userClass == '1등급' || currentUser?.userClass == '2등급'){
+      if (currentUser?.userClass == '1등급' || currentUser?.userClass == '2등급') {
         _isImageVisible = false;
       } else {
         _isImageVisible = true;
       };
+      _userInfo = userInfo;
     });
-}
+  }
+
+  void fetchReviewSum(String userInfo, ReviewList reviews) async {
+    final ReviewSum reviewSum =
+        await ApiService().prodReviewSum(userInfo ?? '', reviews);
+    setState(() {
+      _reviewSum = reviewSum;
+    });
+    print(reviewSum);
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return _product == null
         ? Center(
             child: CircularProgressIndicator(),
@@ -333,16 +346,9 @@ class _DetailScreenState extends State<DetailScreen> {
                             ],
                           ),
                         ),
-                  FutureBuilder(
-                    future: ApiService().prodReviewSum('', _reviews!),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-                        return Text("오류가 발생했습니다\n ${snapshot.error}");
-                      } else if (snapshot.hasData) {
-                        var review_data = snapshot.data;
-                        return Column(
+                  _reviewSum == null
+                      ? CircularProgressIndicator()
+                      : Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Text(
@@ -353,11 +359,14 @@ class _DetailScreenState extends State<DetailScreen> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            Text(_reviews!.reviewList.first.review, style: TextStyle(
-                              color: GRAY_COLOR,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                            ),),
+                            Text(
+                              _reviews!.reviewList.first.review,
+                              style: TextStyle(
+                                color: GRAY_COLOR,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                             Visibility(
                               visible: _isDetailVisible,
                               child: Column(
@@ -381,17 +390,10 @@ class _DetailScreenState extends State<DetailScreen> {
                                 ],
                               ),
                             ),
-
                           ],
-                        );
-                      } else {
-                        return Text('데이터가 없습니다.');
-                      }
-                    },
-                  ),
+                        ),
                   Padding(
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -402,13 +404,10 @@ class _DetailScreenState extends State<DetailScreen> {
                         CustomButton(
                           onPressed: () {
                             setState(() {
-                              _isDetailVisible =
-                              !_isDetailVisible; // 상태 업데이트
+                              _isDetailVisible = !_isDetailVisible; // 상태 업데이트
                             });
                           },
-                          label: _isDetailVisible
-                              ? '리뷰 요약보기'
-                              : '리뷰 자세히 보기',
+                          label: _isDetailVisible ? '리뷰 요약보기' : '리뷰 자세히 보기',
                           backgroundColor: LIGHT_GREEN_COLOR,
                           textColor: GREEN_COLOR,
                         ),

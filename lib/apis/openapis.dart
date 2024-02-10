@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
+import "dart:convert";
 import 'package:gdsc_solution_project/models/filter_list.dart';
 import 'package:gdsc_solution_project/models/prod_detail.dart';
 import 'package:gdsc_solution_project/models/prod_list.dart';
 import 'package:gdsc_solution_project/models/review_list.dart';
-import 'package:gdsc_solution_project/models/user_url.dart';
+import 'package:gdsc_solution_project/models/review_sum.dart';
 
 class ApiService {
   final Dio _dio = Dio();
@@ -28,6 +29,7 @@ class ApiService {
           queryParameters: {'kwds': kwds, 'is_best_url': isBestUrl});
 
       final data = ProdList.fromJson(response.data["data"]);
+
       return data;
     } catch (e) {
       throw Exception('Failed to search products: $e');
@@ -59,17 +61,16 @@ class ApiService {
     }
   }
 
-  // 'review_sum' 엔드포인트 호출
-  Future<dynamic> prodReviewSum(String userInfo, ReviewList reviewList) async {
-    // 이 메소드는 반환 타입이 프로젝트에 따라 다를 수 있으므로 예제에서는 구체적인 모델 변환을 생략합니다.
-    // 적절한 반환 타입과 JSON 파싱 로직을 추가하세요.
+  Future<ReviewSum> prodReviewSum(String userInfo, ReviewList reviewList) async {
     try {
-      final response = await _dio.get('$_baseUrl/review_sum', queryParameters: {
-        "user_info": userInfo,
-        ...{'review_list': reviewList.toJson()}
-        // 이 부분은 API와 정확히 일치하는지 확인해야 합니다.
-      });
-      return response.data["data"]; // 적절한 모델로 변환하세요.
+      final response = await _dio.post(
+        '$_baseUrl/review_sum',
+        queryParameters: {
+          "user_info": userInfo,
+        },
+        data: reviewList.toJson(), // `review_list`를 요청 본문으로 전송
+      );
+      return ReviewSum.fromJson(jsonDecode(response.data["data"]) ); // 적절한 모델로 변환하세요.
     } catch (e) {
       throw Exception('Failed to get review summary: $e');
     }
