@@ -33,6 +33,8 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                                const SizedBox(height: 164),
+
                 Text(
                   '쇼핑 안내견 서비스를 이용하시려면,\n' '로그인을 진행해 주세요.',
                   style: TextStyle(

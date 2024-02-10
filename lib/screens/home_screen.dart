@@ -57,9 +57,11 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+                  SizedBox(height: 56.0),
 
             Obx(() => GuideMessage(text: "안녕하세요.\n${userInfoController.user.value!.userName} 주인님 무엇을 도와드릴까요? \n총 4가지 기능이 준비되어 있습니다.")) ,
             
+                  SizedBox(height: 56.0),
 
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
