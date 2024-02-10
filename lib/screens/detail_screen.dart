@@ -13,6 +13,7 @@ import 'package:gdsc_solution_project/models/prod_detail.dart';
 import 'package:gdsc_solution_project/models/prod_list.dart';
 import 'package:gdsc_solution_project/models/review_list.dart';
 import 'package:gdsc_solution_project/models/review_sum.dart';
+
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:gdsc_solution_project/provider/user_info_provider.dart';
 import 'package:get/get.dart';
@@ -35,6 +36,7 @@ class _DetailScreenState extends State<DetailScreen> {
   ReviewList reviews = ReviewList(reviewList: []);
   ProductDetail? _product; // 상품 상세 정보를 저장할 변수
   ReviewList? _reviews; // 리뷰 정보를 저장할 변수
+
   @override
   void initState() {
     super.initState();
@@ -56,9 +58,10 @@ class _DetailScreenState extends State<DetailScreen> {
     setState(() {
       _reviews = reviewList; // 리뷰 정보를 상태 변수에 저장
     });
+
   }
 
-  
+
   @override
   Widget build(BuildContext context) {
     final String url = widget.prod!.link;
