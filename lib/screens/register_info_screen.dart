@@ -20,13 +20,14 @@ class RegisterInfoScreen extends StatefulWidget {
 
 class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _classController = TextEditingController();
   final TextEditingController _considerationController =
       TextEditingController();
-  String dropdownValue = '1등급';
 
- 
   bool _isMessageOn = true; // 기본값으로 true 설정
   User? currentUser;
+      String? _selectedClass;
+
   AuthController authController = Get.put(AuthController());
   @override
   void initState() {
@@ -36,16 +37,14 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
 
   void fetchProfile() async {
     currentUser =
-    await DBService().readProfile(AuthController().getCurrentUser());
+        await DBService().readProfile(AuthController().getCurrentUser());
+    _isMessageOn = currentUser?.showMessage ?? true;
     _nameController.text = currentUser?.userName ?? "";
-
+    _classController.text = currentUser?.userClass ?? '';
     _considerationController.text = currentUser?.userInfo ?? '';
-    setState(() {
-      dropdownValue = currentUser?.userClass ?? '';
-    });
+    setState(() {});
   }
 
- 
   @override
   Widget build(BuildContext context) {
 
@@ -78,10 +77,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                   ),
                   CustomTextField(
                     controller: _nameController,
-                    hintText:
-                        '닉네임을 입력해 주세요.',
+                    hintText: '닉네임을 입력해 주세요.',
                     obscure: false,
-
                   ),
                   SizedBox(
                     height: 10,
@@ -91,21 +88,14 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                     style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
                   ),
                   DropdownButton<String>(
-                    value: dropdownValue,
-                    icon: const Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    style: const TextStyle(color: Colors.deepPurple),
-                    underline: Container(
-                      height: 2,
-                      color: Colors.deepPurpleAccent,
-                    ),
+                    hint: Text("장애등급을 선택하여 주세요."),
+                    value: _selectedClass,
                     onChanged: (String? newValue) {
                       setState(() {
-                        dropdownValue = newValue!;
+                        _selectedClass = newValue!;
                       });
                     },
-                    items: <String>['1등급', '2등급', '3등급', '4등급']
+                    items: <String>['1등급', '2등급', '3등급', '4등급', '5등급']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -140,10 +130,10 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                         authController.getCurrentUser(),
                         User(
                             userName: _nameController.text,
-                            userClass: dropdownValue,
+                            userClass: _classController.text,
                             userInfo: _considerationController.text,
                             showMessage: true));
-                     authController.completeRegistration();   
+                    authController.completeRegistration();
                   },
                   label: '등록하기',
                   backgroundColor: GREEN_COLOR,

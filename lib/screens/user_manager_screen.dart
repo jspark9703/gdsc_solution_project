@@ -23,9 +23,10 @@ class UserManagerScreen extends StatefulWidget {
 
 class _UserManagerScreenState extends State<UserManagerScreen> {
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _classController = TextEditingController();
   final TextEditingController _considerationController =
       TextEditingController();
-  String dropdownValue = '1등급';
+
   User? currentUser;
 
   @override
@@ -40,11 +41,8 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
     currentUser =
         await DBService().readProfile(AuthController().getCurrentUser());
     _nameController.text = currentUser?.userName ?? "";
-
+    _classController.text = currentUser?.userClass ?? '';
     _considerationController.text = currentUser?.userInfo ?? '';
-    setState(() {
-      dropdownValue = currentUser?.userClass ?? '';
-    });
   }
 
   @override
@@ -109,29 +107,12 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
                     '장애등급',
                     style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
                   ),
-              DropdownButton<String>(
-                value: dropdownValue,
-                icon: const Icon(Icons.arrow_downward),
-                iconSize: 24,
-                elevation: 16,
-                style: const TextStyle(color: Colors.deepPurple),
-                underline: Container(
-                  height: 2,
-                  color: Colors.deepPurpleAccent,
-                ),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    dropdownValue = newValue!;
-                  });
-                },
-                items: <String>['1등급', '2등급', '3등급', '4등급']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
+                  CustomTextField(
+                    controller: _classController,
+                    hintText:
+                        '장애등급을 입력해 주세요',
+                    obscure: false,
+                  ),
                   SizedBox(
                     height: 10,
                   ),
@@ -160,7 +141,7 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
                         AuthController().getCurrentUser(),
                         User(
                             userName: _nameController.text,
-                            userClass: dropdownValue,
+                            userClass: _classController.text,
                             userInfo: _considerationController.text,
                             showMessage: userController.user.value!.showMessage!!));
 
