@@ -12,7 +12,10 @@ import 'package:gdsc_solution_project/database/dbservice.dart';
 import 'package:gdsc_solution_project/models/prod_detail.dart';
 import 'package:gdsc_solution_project/models/prod_list.dart';
 import 'package:gdsc_solution_project/models/review_list.dart';
+import 'package:gdsc_solution_project/models/review_sum.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
+import 'package:gdsc_solution_project/provider/user_info_provider.dart';
+import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -370,7 +373,11 @@ class _DetailScreenState extends State<DetailScreen> {
                                     height: 12.0,
                                   ),
                                   CustomButton(
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      dynamic userinfo = Get.find<UserInfoController>().user.value!.userInfo;
+                                      ReviewSum data = await ApiService().prodReviewSum(userinfo, _reviews!);
+                                      Logger().d(data.cons);
+                                    },
                                     label: '사이트 확인하기',
                                     backgroundColor: GREEN_COLOR,
                                     textColor: Colors.white,
