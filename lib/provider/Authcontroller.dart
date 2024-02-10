@@ -40,7 +40,7 @@ class AuthController extends GetxController {
         Get.offAll(() => HomeScreen()); // 등록이 완료되었다면 홈 화면으로 이동
       } else {
 
-        Get.offAll(() => HomeScreen()); // 추가 정보 입력 화면으로 이동
+        Get.offAll(() => RegisterInfoScreen()); // 추가 정보 입력 화면으로 이동
       } //RegisterInfoScreen()
 
     }
