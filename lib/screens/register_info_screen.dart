@@ -20,11 +20,10 @@ class RegisterInfoScreen extends StatefulWidget {
 
 class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _classController = TextEditingController();
   final TextEditingController _considerationController =
       TextEditingController();
 
-  bool _isMessageOn = true; // 기본값으로 true 설정
+  bool _isMessageSelected = true; // 기본값으로 true 설정
   User? currentUser;
       String? _selectedClass;
 
@@ -38,11 +37,12 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
   void fetchProfile() async {
     currentUser =
         await DBService().readProfile(AuthController().getCurrentUser());
-    _isMessageOn = currentUser?.showMessage ?? true;
+    _isMessageSelected = currentUser?.showMessage ?? true;
     _nameController.text = currentUser?.userName ?? "";
-    _classController.text = currentUser?.userClass ?? '';
     _considerationController.text = currentUser?.userInfo ?? '';
-    setState(() {});
+    setState(() {
+      _selectedClass = currentUser?.userClass ?? '';
+    });
   }
 
   @override
@@ -54,6 +54,23 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            MainText(mainText: '사용 설정을 변경할 수 있습니다. \n 안내메세지 , 사용사 정보 변경'),
+            SizedBox(height: 10,),
+
+            ListTile(
+              title: Text(
+                _isMessageSelected? '안내메세지 끄기':'안내메세지 켜기',
+                style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
+              ),
+              trailing: Switch(
+                value: _isMessageSelected,
+                onChanged: (bool newValue) {
+                  setState(() {
+                    _isMessageSelected = newValue;
+                  });
+                },
+              ),
+            ),
             SizedBox(height: 50),
             Text(
               '원활한 서비스 이용을 위해 추가정보를 입력하여주세요.',
@@ -130,9 +147,9 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                         authController.getCurrentUser(),
                         User(
                             userName: _nameController.text,
-                            userClass: _classController.text,
+                            userClass: _selectedClass,
                             userInfo: _considerationController.text,
-                            showMessage: true));
+                            showMessage: _isMessageSelected));
                     authController.completeRegistration();
                   },
                   label: '등록하기',

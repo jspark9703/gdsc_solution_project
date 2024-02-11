@@ -15,7 +15,10 @@ import 'package:gdsc_solution_project/models/review_list.dart';
 import 'package:gdsc_solution_project/models/review_sum.dart';
 import 'package:gdsc_solution_project/models/user_url.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
+import 'package:gdsc_solution_project/provider/user_info_provider.dart';
+import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailScreen extends StatefulWidget {
   DetailScreen({this.prod, this.isliked, super.key});
@@ -39,6 +42,7 @@ class _DetailScreenState extends State<DetailScreen> {
   String? _userInfo;
   ReviewSum? _reviewSum;
 
+
   @override
   void initState() {
     // TODO: implement initState
@@ -46,9 +50,12 @@ class _DetailScreenState extends State<DetailScreen> {
     _isLiked = widget.isliked ?? false;
 
     fetchProductDetail(); // 상품 상세 정보를 불러오는 메서드 호출
-    fetchReviews(); // 리뷰 정보를 불러오는 메서드 호출
-    fetchUserClass();
-    fetchReviewSum(_userInfo!, _reviews!);
+    //fetchReviews(); // 리뷰 정보를 불러오는 메서드 호출
+    fetchUserClassInfo().then((value) {
+      fetchReviews().then((_) {
+        fetchReviewSum(_userInfo ?? '', _reviews!);
+      });
+    });
   }
 
   void fetchProductDetail() async {
@@ -58,31 +65,33 @@ class _DetailScreenState extends State<DetailScreen> {
     });
   }
 
-  void fetchReviews() async {
+  Future<void> fetchReviews() async {
     final reviewList = await ApiService().prodReviews(widget.prod!.link);
     setState(() {
       _reviews = reviewList; // 리뷰 정보를 상태 변수에 저장
       print(_reviews!.reviewList.length);
+
+      fetchReviewSum(_userInfo ?? '', _reviews!);
     });
   }
 
-  void fetchUserClass() async {
-    currentUser =
-        await DBService().readProfile(AuthController().getCurrentUser());
-    final userInfo = currentUser!.userInfo;
+  Future<void> fetchUserClassInfo() async {
+    dynamic userClass = Get.find<UserInfoController>().user.value!.userClass;
+    dynamic userInfo = Get.find<UserInfoController>().user.value!.userInfo;
     setState(() {
-      if (currentUser?.userClass == '1등급' || currentUser?.userClass == '2등급') {
+      if (userClass == '1등급' || userClass == '2등급') {
         _isImageVisible = false;
       } else {
         _isImageVisible = true;
-      };
+      }
+      ;
       _userInfo = userInfo;
     });
   }
 
   void fetchReviewSum(String userInfo, ReviewList reviews) async {
     final ReviewSum reviewSum =
-        await ApiService().prodReviewSum(userInfo ?? '', reviews);
+        await ApiService().prodReviewSum(userInfo, reviews);
     setState(() {
       _reviewSum = reviewSum;
     });
@@ -91,6 +100,13 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Uri _url = Uri.parse(widget.prod!.link);
+
+    Future<void> _launchUrl() async {
+      if (!await launchUrl(_url)) {
+        throw Exception('Could not launch $_url');
+      }
+    }
     return _product == null
         ? Center(
             child: CircularProgressIndicator(),
@@ -348,49 +364,70 @@ class _DetailScreenState extends State<DetailScreen> {
                         ),
                   _reviewSum == null
                       ? CircularProgressIndicator()
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              '종합 리뷰',
-                              style: TextStyle(
-                                color: BLACK_COLOR,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '종합 리뷰',
+                                style: TextStyle(
+                                  color: BLACK_COLOR,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                            Text(
-                              _reviews!.reviewList.first.review,
-                              style: TextStyle(
-                                color: GRAY_COLOR,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
+                              Text(
+                                _reviewSum!.finalOpinion,
+                                style: TextStyle(
+                                  color: GRAY_COLOR,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                            Visibility(
-                              visible: _isDetailVisible,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  TextTitleBox(
-                                    mainText: '장점',
-                                    mode: 'sub',
-                                  ),
-                                  TextContentBox(
-                                    mainText: '맛과 식감: 사용자는 제품의 맛을 극찬하며, ...',
-                                  ),
-                                  TextTitleBox(
-                                    mainText: '단점',
-                                    mode: 'sub',
-                                  ),
-                                  TextContentBox(
-                                    mainText:
-                                        '수입산 고기 사용: 몇몇 리뷰어들은 수입산 고기를 사용한 것이 아쉽다고 언급했으나...',
-                                  ),
-                                ],
+                              Visibility(
+                                visible: _isDetailVisible,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '장점',
+                                      style: TextStyle(
+                                        color: BLACK_COLOR,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    Text(
+                                      _reviewSum!.pros,
+                                      style: TextStyle(
+                                        color: GRAY_COLOR,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    Text(
+                                      '단점',
+                                      style: TextStyle(
+                                        color: BLACK_COLOR,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    Text(
+                                      _reviewSum!.cons,
+                                      style: TextStyle(
+                                        color: GRAY_COLOR,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -415,7 +452,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           height: 12.0,
                         ),
                         CustomButton(
-                          onPressed: () {},
+                          onPressed: _launchUrl,
                           label: '사이트 확인하기',
                           backgroundColor: GREEN_COLOR,
                           textColor: Colors.white,
@@ -432,4 +469,6 @@ class _DetailScreenState extends State<DetailScreen> {
             bottomNavigationBar: AppNavigationBar(currentIndex: 1),
           );
   }
+
+
 }

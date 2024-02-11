@@ -8,7 +8,7 @@ import 'package:gdsc_solution_project/models/review_sum.dart';
 
 class ApiService {
   final Dio _dio = Dio();
-  final String _baseUrl = 'http://127.0.0.1:8000'; // 실제 API의 기본 URL로 변경하세요
+  final String _baseUrl = 'https://shopping-guide-dog-final.du.r.appspot.com'; // 실제 API의 기본 URL로 변경하세요
 
   // 'best_filter' 엔드포인트 호출
   Future<FilterList> getBestFilters() async {
