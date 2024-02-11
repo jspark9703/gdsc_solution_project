@@ -23,45 +23,60 @@ class UserManagerScreen extends StatefulWidget {
 
 class _UserManagerScreenState extends State<UserManagerScreen> {
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _classController = TextEditingController();
   final TextEditingController _considerationController =
-      TextEditingController();
+  TextEditingController();
 
+  bool _isMessageSelected = true; // 기본값으로 true 설정
   User? currentUser;
+  String? _selectedClass;
 
+  AuthController authController = Get.put(AuthController());
   @override
   void initState() {
     super.initState();
-    fetchProfile();
-        Get.lazyPut(() => UserInfoController());
-
+    fetchProfile(); // 프로필 정보 불러오기
   }
 
   void fetchProfile() async {
     currentUser =
-        await DBService().readProfile(AuthController().getCurrentUser());
+    await DBService().readProfile(AuthController().getCurrentUser());
+    _isMessageSelected = currentUser?.showMessage ?? true;
     _nameController.text = currentUser?.userName ?? "";
-    _classController.text = currentUser?.userClass ?? '';
     _considerationController.text = currentUser?.userInfo ?? '';
+    setState(() {
+      _selectedClass = currentUser?.userClass ?? '';
+    });
   }
 
   @override
   Widget build(BuildContext context) {
 
-    UserInfoController userController = Get.find<UserInfoController>();
-  
     return Scaffold(
-      appBar: AppBar(title: Text("사용설정")),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 20,
+            MainText(mainText: '사용 설정을 변경할 수 있습니다. \n 안내메세지 , 사용사 정보 변경'),
+            SizedBox(height: 10,),
+
+            ListTile(
+              title: Text(
+                _isMessageSelected? '안내메세지 끄기':'안내메세지 켜기',
+                style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
+              ),
+              trailing: Switch(
+                value: _isMessageSelected,
+                onChanged: (bool newValue) {
+                  setState(() {
+                    _isMessageSelected = newValue;
+                  });
+                },
+              ),
             ),
-             Text(
-               '사용 설정을 변경할 수 있습니다. \n안내메세지 관리, 사용사 정보 변경',
+            SizedBox(height: 50),
+            Text(
+              '원활한 서비스 이용을 위해 추가정보를 입력하여주세요.',
               style: const TextStyle(
                 fontSize: 24,
                 color: GRAY_COLOR,
@@ -71,19 +86,6 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
             SizedBox(
               height: 10,
             ),
-            Obx(()=>ListTile(
-              
-              title: Text(
-                userController.user.value!.showMessage! ? '안내메세지 끄기' : '안내메세지 켜기',
-                style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
-              ),
-              trailing: Switch(
-                value: userController.user.value!.showMessage!,
-                onChanged: (bool newValue) {
-                  userController.updateShowMessage(newValue);
-                },
-              ),
-            ),),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,10 +97,8 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
                   ),
                   CustomTextField(
                     controller: _nameController,
-                    hintText:
-                        '닉네임을 입력해 주세요.',
+                    hintText: '닉네임을 입력해 주세요.',
                     obscure: false,
-
                   ),
                   SizedBox(
                     height: 10,
@@ -107,11 +107,21 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
                     '장애등급',
                     style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
                   ),
-                  CustomTextField(
-                    controller: _classController,
-                    hintText:
-                        '장애등급을 입력해 주세요',
-                    obscure: false,
+                  DropdownButton<String>(
+                    hint: Text("장애등급을 선택하여 주세요."),
+                    value: _selectedClass,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedClass = newValue!;
+                      });
+                    },
+                    items: <String>['1등급', '2등급', '3등급', '4등급', '5등급']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
                   SizedBox(
                     height: 10,
@@ -136,20 +146,16 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
               children: [
                 CustomButton(
                   onPressed: () {
-                    
                     DBService().updateProfile(
-                        AuthController().getCurrentUser(),
+                        authController.getCurrentUser(),
                         User(
                             userName: _nameController.text,
-                            userClass: _classController.text,
+                            userClass: _selectedClass,
                             userInfo: _considerationController.text,
-                            showMessage: userController.user.value!.showMessage!!));
-
-                            userController.updateShowMessage(userController.user.value!.showMessage!);
-
-                    Get.to(()=>HomeScreen());
+                            showMessage: true));
+                    authController.completeRegistration();
                   },
-                  label: '변경하기',
+                  label: '등록하기',
                   backgroundColor: GREEN_COLOR,
                   textColor: Colors.white,
                 ),
@@ -163,3 +169,4 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
     );
   }
 }
+
