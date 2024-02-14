@@ -28,31 +28,19 @@ class _HomeScreenState extends State<HomeScreen> {
   AuthController authController = Get.put(AuthController());
 
   String? nickname;
-  bool isLoading = true;
+  bool isLoading = false;
   @override
   void initState() {
     super.initState();
-    fetchUserName();
-
-    
   }
 
-  void fetchUserName() async {
-    try {
-          nickname = await DBService().getUserName();
-          setState(() {
-      isLoading =false;
-    });
-    
-    } catch (e) {
-      Logger().d(e);
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
-    final UserInfoController userInfoController=  Get.put(UserInfoController()); 
-    return isLoading? const Center(child:TextContentBox( mainText: "삼품이 준비중입니다. 잠시만 기다려주세요"),): Scaffold(
+              final UserInfoController userInfoController=  Get.put(UserInfoController()); 
+
+    return isLoading? const Center(child:TextContentBox( mainText: "로그인 중입니다. 잠시만 기다려주세요"),): Scaffold(
       appBar: AppBar(title: const Text("홈")),
 
       body: SingleChildScrollView(
@@ -64,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
                   const SizedBox(height: 56.0),
 
-            Obx(() => GuideMessage(text: "안녕하세요.\n${userInfoController.user.value!.userName} 주인님 무엇을 도와드릴까요? \n총 4가지 기능이 준비되어 있습니다.")) ,
+           GuideMessage(text: "안녕하세요.\n$nickname 주인님 무엇을 도와드릴까요? \n총 4가지 기능이 준비되어 있습니다.") ,
             
                   const SizedBox(height: 56.0),
 

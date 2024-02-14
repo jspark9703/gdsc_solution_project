@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:gdsc_solution_project/models/prod_list.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
@@ -5,7 +7,7 @@ import 'package:logger/logger.dart';
 import '../models/user_url.dart';
 
 class DBService {
-  FirebaseDatabase _realtime = FirebaseDatabase.instance;
+  final FirebaseDatabase _realtime = FirebaseDatabase.instance;
 
 
 
@@ -32,10 +34,10 @@ class DBService {
   }
 
   Future<User> readProfile(String uid) async {
-    DataSnapshot _snapshot =
+    DataSnapshot snapshot =
         await _realtime.ref().child('users').child(uid).get();
-    if (_snapshot.value is Map<String, dynamic>) {
-      User data = User.fromJson(_snapshot.value as Map<String, dynamic>);
+    if (snapshot.value is Map<String, dynamic>) {
+      User data = User.fromJson(snapshot.value as Map<String, dynamic>);
       return data;
     } else {
       throw Exception('Data is not a map');
@@ -70,18 +72,30 @@ class DBService {
   }
 
   Future<List<Prod>> readLike(String uid) async {
-    DataSnapshot _snapshot =
-        await _realtime.ref().child('users').child(uid).child('Like').get();
+  DataSnapshot snapshot =
+      await _realtime.ref().child('users').child(uid).child('Like').get();
 
-    Map<dynamic, dynamic> _value = _snapshot.value as Map<dynamic, dynamic>;
-    Logger().d(_value);
-    List<Prod> data = _value.values.map((e) => Prod.fromJson(e)).toList();
-    return data;
+  // snapshot.value가 null이 아닌지 확인하고, Map<dynamic, dynamic> 타입으로 캐스팅합니다.
+  if (snapshot.value == null) {
+    return []; // 또는 적절한 기본값 반환
   }
 
+  Map<dynamic, dynamic> value = snapshot.value as Map<dynamic, dynamic>;
+  Logger().d(value);
+
+  // value.values에서 각 요소를 Prod 객체로 변환하기 전에 Map<String, dynamic> 타입으로 캐스팅합니다.
+  List<Prod> data = value.values.map((e) {
+    // Map<dynamic, dynamic>에서 Map<String, dynamic>으로 타입 캐스팅
+    Map<String, dynamic> json = Map<String, dynamic>.from(e as Map);
+    return Prod.fromJson(json);
+  }).toList();
+
+  return data;
+}
+
   Future<bool> isLiked(String uid, String prodId) async {
-    DataSnapshot _snapshot = (await _realtime.ref().child('users').child(uid).child('Like').child(prodId).once()).snapshot;
-    return _snapshot.value != null;
+    DataSnapshot snapshot = (await _realtime.ref().child('users').child(uid).child('Like').child(prodId).once()).snapshot;
+    return snapshot.value != null;
   }
 
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/database/dbservice.dart';
+import 'package:gdsc_solution_project/provider/user_info_provider.dart';
 import 'package:gdsc_solution_project/screens/home_screen.dart';
 import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:gdsc_solution_project/screens/land_screen.dart';
@@ -37,10 +38,11 @@ class AuthController extends GetxController {
 
 
      if (isRegistered.isTrue) {
-        Get.offAll(() => HomeScreen()); // 등록이 완료되었다면 홈 화면으로 이동
+        Get.offAll(() => const HomeScreen()); 
+    // 등록이 완료되었다면 홈 화면으로 이동
       } else {
 
-        Get.offAll(() => RegisterInfoScreen()); // 추가 정보 입력 화면으로 이동
+        Get.offAll(() => const HomeScreen()); // 추가 정보 입력 화면으로 이동
       } //RegisterInfoScreen()
 
     }
@@ -49,7 +51,7 @@ class AuthController extends GetxController {
 // UserManagerScreen에서 호출하여 사용자의 추가 정보 입력이 완료되었음을 표시
   void completeRegistration() {
     isRegistered.value = true; // 추가 정보 입력이 완료되었다면 true로 설정
-    Get.offAll(() => HomeScreen()); // 홈 화면으로 이동
+    Get.offAll(() => const HomeScreen()); // 홈 화면으로 이동
   }
 
   void loginWithGoogle() async {

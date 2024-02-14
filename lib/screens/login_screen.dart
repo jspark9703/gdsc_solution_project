@@ -38,9 +38,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 const SizedBox(height: 164),
 
                 const Text(
-                  '쇼핑 안내견 서비스를 이용하시려면,\n' '로그인을 진행해 주세요.',
+                  '쇼핑 안내견 서비스를 이용하시려면,\n 로그인을 진행해 주세요.',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 20,
                     color: GRAY_COLOR,
                     fontWeight: FontWeight.bold,
                   ),
@@ -48,7 +48,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const SizedBox(height: 32),
                 Semantics(
-                  label: "회원가입",
                   container: true,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

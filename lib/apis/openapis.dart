@@ -8,7 +8,7 @@ import 'package:gdsc_solution_project/models/review_sum.dart';
 
 class ApiService {
   final Dio _dio = Dio();
-  final String _baseUrl = 'http://shopping-guide-dog-final.du.r.appspot.com'; // 실제 API의 기본 URL로 변경하세요
+  final String _baseUrl = 'https://shopping-guide-dog-final.du.r.appspot.com'; // 실제 API의 기본 URL로 변경하세요
 
   // 'best_filter' 엔드포인트 호출
   Future<FilterList> getBestFilters() async {
@@ -61,12 +61,13 @@ class ApiService {
     }
   }
 
-  Future<ReviewSum> prodReviewSum(String userInfo, ReviewList reviewList) async {
+  Future<ReviewSum> prodReviewSum(String userInfo, String des, ReviewList reviewList) async {
   try {
     final response = await _dio.post(
       '$_baseUrl/review_sum',
       queryParameters: {
         "user_info": userInfo,
+        "des": des
       },
       data: reviewList.toJson(), // `review_list`를 요청 본문으로 전송
     );

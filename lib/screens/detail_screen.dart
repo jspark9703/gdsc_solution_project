@@ -35,9 +35,10 @@ class _DetailScreenState extends State<DetailScreen> {
   late bool _isLiked;
   String uid = AuthController().getCurrentUser();
   ReviewList reviews = ReviewList(reviewList: []);
-  ProductDetail? _product; // 상품 상세 정보를 저장할 변수
+  ProductDetail? _product; 
+  String? _description;// 상품 상세 정보를 저장할 변수
   ReviewList? _reviews; // 리뷰 정보를 저장할 변 수
-  late bool _isImageVisible;
+  late bool _isImageVisible = true;
   User? currentUser;
   String? _userInfo;
   ReviewSum? _reviewSum;
@@ -47,21 +48,26 @@ class _DetailScreenState extends State<DetailScreen> {
     // TODO: implement initState
     super.initState();
     _isLiked = widget.isliked ?? false;
-
     fetchProductDetail(); // 상품 상세 정보를 불러오는 메서드 호출
     //fetchReviews(); // 리뷰 정보를 불러오는 메서드 호출
-
     fetchUserClassInfo().then((value) {
       fetchReviews().then((_) {
-        fetchReviewSum(_userInfo ?? '', _reviews!);
+        fetchReviewSum(_userInfo ?? '',  _description??"" ,_reviews!);
       });
     });
   }
 
   void fetchProductDetail() async {
     final product = await ApiService().prodDetail(widget.prod!.link);
+   late final String des ;
+    for (var i in product.details) {
+      if(i.itemCate== "알레르기정보"){
+        des = i.itemCate;
+      }
+    }
     setState(() {
-      _product = product; // 상품 상세 정보를 상태 변수에 저장
+      _product = product; 
+      _description = des;// 상품 상세 정보를 상태 변수에 저장
     });
   }
 
@@ -85,9 +91,9 @@ class _DetailScreenState extends State<DetailScreen> {
     });
   }
 
-  void fetchReviewSum(String userInfo, ReviewList reviews) async {
+  void fetchReviewSum(String userInfo, String des, ReviewList reviews) async {
     final ReviewSum reviewSum =
-        await ApiService().prodReviewSum(userInfo, reviews);
+        await ApiService().prodReviewSum(userInfo,des, reviews);
     setState(() {
       _reviewSum = reviewSum;
     });
@@ -145,32 +151,38 @@ class _DetailScreenState extends State<DetailScreen> {
                                 Semantics(
                                   label: "상품명",
                                   readOnly: true,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        _product!.title,
-                                        style: const TextStyle(
-                                          color: BLACK_COLOR,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w700,
+                                  child: SizedBox(
+                                    width: 270,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          _product!.title,
+                                          style: const TextStyle(
+                                            color: BLACK_COLOR,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                          softWrap: true,
+                                          
                                         ),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Text(
-                                        _product!.subTitle,
-                                        style: const TextStyle(
-                                          color: DETAIL_COLOR,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          height: 0.10,
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          _product!.subTitle,
+                                          style: const TextStyle(
+                                            color: DETAIL_COLOR,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            height: 0.10,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
+                                const SizedBox(width: 5,),
                                 Semantics(
                                   button: true,
                                   value: "좋아요 버튼",
