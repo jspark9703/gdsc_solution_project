@@ -21,7 +21,7 @@ import 'package:logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailScreen extends StatefulWidget {
-  DetailScreen({this.prod, this.isliked, super.key});
+  const DetailScreen({this.prod, this.isliked, super.key});
 
   final Prod? prod;
   final bool? isliked;
@@ -42,7 +42,6 @@ class _DetailScreenState extends State<DetailScreen> {
   String? _userInfo;
   ReviewSum? _reviewSum;
 
-
   @override
   void initState() {
     // TODO: implement initState
@@ -51,6 +50,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
     fetchProductDetail(); // 상품 상세 정보를 불러오는 메서드 호출
     //fetchReviews(); // 리뷰 정보를 불러오는 메서드 호출
+    
     fetchUserClassInfo().then((value) {
       fetchReviews().then((_) {
         fetchReviewSum(_userInfo ?? '', _reviews!);
@@ -69,9 +69,7 @@ class _DetailScreenState extends State<DetailScreen> {
     final reviewList = await ApiService().prodReviews(widget.prod!.link);
     setState(() {
       _reviews = reviewList; // 리뷰 정보를 상태 변수에 저장
-      print(_reviews!.reviewList.length);
 
-      fetchReviewSum(_userInfo ?? '', _reviews!);
     });
   }
 
@@ -84,7 +82,6 @@ class _DetailScreenState extends State<DetailScreen> {
       } else {
         _isImageVisible = true;
       }
-      ;
       _userInfo = userInfo;
     });
   }
@@ -95,24 +92,29 @@ class _DetailScreenState extends State<DetailScreen> {
     setState(() {
       _reviewSum = reviewSum;
     });
-    print(reviewSum);
   }
 
   @override
   Widget build(BuildContext context) {
-    Uri _url = Uri.parse(widget.prod!.link);
+    Uri url0 = Uri.parse(widget.prod!.link);
 
-    Future<void> _launchUrl() async {
-      if (!await launchUrl(_url)) {
-        throw Exception('Could not launch $_url');
+    Future<void> localLaunchUrl() async {
+      if (!await launchUrl(url0)) {
+        throw Exception('Could not launch $url0');
       }
     }
+
     return _product == null
-        ? Center(
-            child: CircularProgressIndicator(),
+        ? const Center(
+            child:Text("상세정보가 준비중입니다. 잠시만 기다려주세요.",style: TextStyle(
+        color: Color(0xFF6B7280),
+        fontSize: 14,
+        fontFamily: 'Inter',
+        fontWeight: FontWeight.w400,
+      ),),
           )
         : Scaffold(
-            appBar: AppBar(title: Text("상세정보")),
+            appBar: AppBar(title: const Text("상세정보")),
             body: SingleChildScrollView(
               child: Column(
                 children: [
@@ -121,9 +123,13 @@ class _DetailScreenState extends State<DetailScreen> {
                     children: [
                       Visibility(
                         visible: _isImageVisible,
-                        child: Container(
-                          child: Image.network(_product!.prodImgUrl,
-                              fit: BoxFit.cover),
+                        child: Semantics(
+                          image: true,
+                          label: "상품 이미지",
+                          child: Container(
+                            child: Image.network(_product!.prodImgUrl,
+                                fit: BoxFit.cover),
+                          ),
                         ),
                       ),
                       Padding(
@@ -134,133 +140,144 @@ class _DetailScreenState extends State<DetailScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      _product!.title,
-                                      style: const TextStyle(
-                                        color: BLACK_COLOR,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    SizedBox(height: 8),
-                                    Text(
-                                      _product!.subTitle,
-                                      style: TextStyle(
-                                        color: DETAIL_COLOR,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        height: 0.10,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    final String url = widget.prod!.link;
-                                    Uri uri = Uri.parse(url);
-                                    String _prodId = uri.pathSegments.last;
-                                    if (_isLiked) {
-                                      DBService().deleteLike(uid, _prodId);
-                                    } else {
-                                      DBService()
-                                          .setLike(uid, widget.prod!, _prodId);
-                                    }
-                                    setState(() {
-                                      _isLiked = !_isLiked;
-                                    });
-                                  },
-                                  tooltip: "좋아요",
-                                  icon: _isLiked
-                                      ? Icon(Icons.favorite)
-                                      : Icon(Icons
-                                          .favorite_outline), // 아이콘은 일단 기본 아이콘으로 설정하였습니다.
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 12.0,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '가격',
-                                  style: TextStyle(
-                                    color: BLACK_COLOR,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                Column(
-                                  children: [
-                                    if (_product!.dimmPrice != '') ...[
-                                      Text(_product!.dimmPrice,
-                                          style: TextStyle(
-                                              decoration:
-                                                  TextDecoration.lineThrough)),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          ..._product!.price
-                                              .split('%')
-                                              .map((part) {
-                                            return Container(
-                                              padding: const EdgeInsets.only(
-                                                  left: 12.0),
-                                              child: Text(
-                                                part ==
-                                                        _product!.price
-                                                            .split('%')
-                                                            .first
-                                                    ? part + '%'
-                                                    : part,
-                                                style: TextStyle(
-                                                  fontSize: part ==
-                                                          _product!.price
-                                                              .split('%')
-                                                              .first
-                                                      ? 18
-                                                      : 20,
-                                                  color: part ==
-                                                          _product!.price
-                                                              .split('%')
-                                                              .first
-                                                      ? Colors.red
-                                                      : BLACK_COLOR,
-                                                  fontWeight: part ==
-                                                          _product!.price
-                                                              .split('%')
-                                                              .first
-                                                      ? FontWeight.w400
-                                                      : FontWeight.w700,
-                                                ),
-                                              ),
-                                            );
-                                          }).toList(),
-                                        ],
-                                      ),
-                                    ] else ...[
+                                Semantics(
+                                  label: "상품명",
+                                  readOnly: true,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
                                       Text(
-                                        _product!.price,
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: BLACK_COLOR,
-                                            fontWeight: FontWeight.w700),
+                                        _product!.title,
+                                        style: const TextStyle(
+                                          color: BLACK_COLOR,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        _product!.subTitle,
+                                        style: const TextStyle(
+                                          color: DETAIL_COLOR,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                          height: 0.10,
+                                        ),
                                       ),
                                     ],
-                                  ],
+                                  ),
+                                ),
+                                Semantics(
+                                  button: true,
+                                  value: "좋아요 버튼",
+                                  child: IconButton(
+                                    onPressed: () {
+                                      final String url = widget.prod!.link;
+                                      Uri uri = Uri.parse(url);
+                                      String prodId = uri.pathSegments.last;
+                                      if (_isLiked) {
+                                        DBService().deleteLike(uid, prodId);
+                                      } else {
+                                        DBService()
+                                            .setLike(uid, widget.prod!, prodId);
+                                      }
+                                      setState(() {
+                                        _isLiked = !_isLiked;
+                                      });
+                                    },
+                                    icon: _isLiked
+                                        ? const Icon(Icons.favorite)
+                                        : const Icon(Icons
+                                            .favorite_outline), // 아이콘은 일단 기본 아이콘으로 설정하였습니다.
+                                  ),
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 12.0,
                             ),
-                            Text(
+                            Semantics(
+                              label: "가격",
+                              readOnly: true,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(
+                                    '가격',
+                                    style: TextStyle(
+                                      color: BLACK_COLOR,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  Column(
+                                    children: [
+                                      if (_product!.dimmPrice != '') ...[
+                                        Text(_product!.dimmPrice,
+                                            style: const TextStyle(
+                                                decoration:
+                                                    TextDecoration.lineThrough)),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            ..._product!.price
+                                                .split('%')
+                                                .map((part) {
+                                              return Container(
+                                                padding: const EdgeInsets.only(
+                                                    left: 12.0),
+                                                child: Text(
+                                                  part ==
+                                                          _product!.price
+                                                              .split('%')
+                                                              .first
+                                                      ? '$part%'
+                                                      : part,
+                                                  style: TextStyle(
+                                                    fontSize: part ==
+                                                            _product!.price
+                                                                .split('%')
+                                                                .first
+                                                        ? 18
+                                                        : 20,
+                                                    color: part ==
+                                                            _product!.price
+                                                                .split('%')
+                                                                .first
+                                                        ? Colors.red
+                                                        : BLACK_COLOR,
+                                                    fontWeight: part ==
+                                                            _product!.price
+                                                                .split('%')
+                                                                .first
+                                                        ? FontWeight.w400
+                                                        : FontWeight.w700,
+                                                  ),
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ],
+                                        ),
+                                      ] else ...[
+                                        Text(
+                                          _product!.price,
+                                          style: const TextStyle(
+                                              fontSize: 20,
+                                              color: BLACK_COLOR,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                      ],
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 12.0,
+                            ),
+                            const Text(
                               '주요정보',
                               style: TextStyle(
                                 color: BLACK_COLOR,
@@ -268,64 +285,69 @@ class _DetailScreenState extends State<DetailScreen> {
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 12.0,
                             ),
-                            Column(
-                                children: _product!.details.map((e) {
-                              return Column(
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Column(
-                                        children: [
-                                          Text(
-                                            e.itemCate,
-                                            style: TextStyle(
-                                              color: DETAIL_COLOR,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        width: 24.0,
-                                      ),
-                                      Expanded(
-                                        child: Column(
+                            Semantics(
+                              label: "상품정보",
+                              currentValueLength:_product!.details.length ,
+                              readOnly: true,
+                              child: Column(
+                                  children: _product!.details.map((e) {
+                                return Column(
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Column(
                                           children: [
                                             Text(
-                                              e.itemName,
-                                              style: TextStyle(
+                                              e.itemCate,
+                                              style: const TextStyle(
                                                 color: DETAIL_COLOR,
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w400,
                                               ),
-                                              softWrap: true,
                                             ),
-                                            if (e.itemContent != '')
-                                              Text(
-                                                e.itemContent,
-                                                style: TextStyle(
-                                                  color: DETAIL_COLOR,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
                                           ],
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  Divider(),
-                                ],
-                              );
-                            }).toList()),
-                            SizedBox(
+                                        const SizedBox(
+                                          width: 24.0,
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                e.itemName,
+                                                style: const TextStyle(
+                                                  color: DETAIL_COLOR,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                                softWrap: true,
+                                              ),
+                                              if (e.itemContent != '')
+                                                Text(
+                                                  e.itemContent,
+                                                  style: const TextStyle(
+                                                    color: DETAIL_COLOR,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const Divider(),
+                                  ],
+                                );
+                              }).toList()),
+                            ),
+                            const SizedBox(
                               height: 12.0,
                             ),
                           ],
@@ -334,14 +356,14 @@ class _DetailScreenState extends State<DetailScreen> {
                     ],
                   ),
                   _reviews == null
-                      ? CircularProgressIndicator()
+                      ? const CircularProgressIndicator()
                       : Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
+                              const Text(
                                 '리뷰',
                                 style: TextStyle(
                                   color: BLACK_COLOR,
@@ -350,83 +372,80 @@ class _DetailScreenState extends State<DetailScreen> {
                                 ),
                               ),
                               Text(
-                                '${widget.prod!.ratingNum}개의 리뷰',
-                                style: TextStyle(
+                                '${widget.prod!.ratingNum}개 리뷰 중 베스트 댓글 15',
+                                style: const TextStyle(
                                   color: DETAIL_COLOR,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
-                              SizedBox(height: 16.0),
+                              const SizedBox(height: 16.0),
                               ReviewCard(reviewList: _reviews!),
                             ],
                           ),
                         ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   _reviewSum == null
-                      ? CircularProgressIndicator()
+                      ? const Center(child: SizedBox(height: 300,child: Text("리뷰요약 진행중입니다."),))
                       : Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '종합 리뷰',
-                                style: TextStyle(
-                                  color: BLACK_COLOR,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                          child: Visibility(
+                            visible: _isDetailVisible,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  '종합 리뷰',
+                                  style: TextStyle(
+                                    color: BLACK_COLOR,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                _reviewSum!.finalOpinion,
-                                style: TextStyle(
-                                  color: GRAY_COLOR,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
+                                Text(
+                                  _reviewSum!.finalOpinion,
+                                  style: const TextStyle(
+                                    color: GRAY_COLOR,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                              Visibility(
-                                visible: _isDetailVisible,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      '장점',
-                                      style: TextStyle(
-                                        color: BLACK_COLOR,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Text(
-                                      _reviewSum!.pros,
-                                      style: TextStyle(
-                                        color: GRAY_COLOR,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Text(
-                                      '단점',
-                                      style: TextStyle(
-                                        color: BLACK_COLOR,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Text(
-                                      _reviewSum!.cons,
-                                      style: TextStyle(
-                                        color: GRAY_COLOR,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
+                                const Text(
+                                  '장점',
+                                  style: TextStyle(
+                                    color: BLACK_COLOR,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  _reviewSum!.pros,
+                                  style: const TextStyle(
+                                    color: GRAY_COLOR,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                const Text(
+                                  '단점',
+                                  style: TextStyle(
+                                    color: BLACK_COLOR,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Text(
+                                  _reviewSum!.cons,
+                                  style: const TextStyle(
+                                    color: GRAY_COLOR,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                   Padding(
@@ -435,7 +454,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 12.0,
                         ),
                         CustomButton(
@@ -444,20 +463,20 @@ class _DetailScreenState extends State<DetailScreen> {
                               _isDetailVisible = !_isDetailVisible; // 상태 업데이트
                             });
                           },
-                          label: _isDetailVisible ? '리뷰 요약보기' : '리뷰 자세히 보기',
+                          label: _isDetailVisible ? '리뷰 요약 숨기기 ' : '리뷰 요약 보기',
                           backgroundColor: LIGHT_GREEN_COLOR,
                           textColor: GREEN_COLOR,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 12.0,
                         ),
                         CustomButton(
-                          onPressed: _launchUrl,
+                          onPressed: localLaunchUrl,
                           label: '사이트 확인하기',
                           backgroundColor: GREEN_COLOR,
                           textColor: Colors.white,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 12.0,
                         ),
                       ],
@@ -469,6 +488,4 @@ class _DetailScreenState extends State<DetailScreen> {
             bottomNavigationBar: AppNavigationBar(currentIndex: 1),
           );
   }
-
-
 }

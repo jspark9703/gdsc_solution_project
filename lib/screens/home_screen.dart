@@ -17,7 +17,7 @@ import 'package:logger/logger.dart';
 import '../provider/user_info_provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -32,13 +32,17 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     fetchUserName();
-    isLoading = false;
+
+    
   }
 
   void fetchUserName() async {
     try {
           nickname = await DBService().getUserName();
-
+          setState(() {
+      isLoading =false;
+    });
+    
     } catch (e) {
       Logger().d(e);
     }
@@ -47,8 +51,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final UserInfoController userInfoController=  Get.put(UserInfoController()); 
-    return isLoading? Center(child: CircularProgressIndicator(),): Scaffold(
-      appBar: AppBar(title: Text("홈")),
+    return isLoading? const Center(child: CircularProgressIndicator(),): Scaffold(
+      appBar: AppBar(title: const Text("홈")),
 
       body: SingleChildScrollView(
         child: Padding(
@@ -57,11 +61,11 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-                  SizedBox(height: 56.0),
+                  const SizedBox(height: 56.0),
 
             Obx(() => GuideMessage(text: "안녕하세요.\n${userInfoController.user.value!.userName} 주인님 무엇을 도와드릴까요? \n총 4가지 기능이 준비되어 있습니다.")) ,
             
-                  SizedBox(height: 56.0),
+                  const SizedBox(height: 56.0),
 
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -69,22 +73,22 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 CustomButton(
                   onPressed: () {
-                    Get.to(SearchScreen());
+                    Get.to(const SearchScreen());
                   },
                   label: '쇼핑 안내견과 음식 검색하기',
                   backgroundColor: LIGHT_GREEN_COLOR,
                   textColor: GREEN_COLOR,
                 ),
-                SizedBox(height: 24.0),
+                const SizedBox(height: 24.0),
                 CustomButton(
                   onPressed: () {
-                    Get.to(FilterScreen());
+                    Get.to(const FilterScreen());
                   },
                   label: '인기 상품 골라보기',
                   backgroundColor: LIGHT_GREEN_COLOR,
                   textColor: GREEN_COLOR,
                 ),
-                SizedBox(height: 24.0),
+                const SizedBox(height: 24.0),
                 CustomButton(
                   onPressed: () {
                     Get.to(()=>SelectedListScreen());
@@ -93,10 +97,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   backgroundColor: LIGHT_GREEN_COLOR,
                   textColor: GREEN_COLOR,
                 ),
-                SizedBox(height: 24.0),
+                const SizedBox(height: 24.0),
                 CustomButton(
                   onPressed: () {
-                    Get.to(UserManagerScreen());
+                    Get.to(const UserManagerScreen());
                   },
                   label: '사용 설정',
                   backgroundColor: LIGHT_GREEN_COLOR,

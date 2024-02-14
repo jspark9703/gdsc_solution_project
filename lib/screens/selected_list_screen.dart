@@ -16,7 +16,7 @@ class SelectedListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("찜한 상품")),
+      appBar: AppBar(title: const Text("찜한 상품")),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: FutureBuilder(
@@ -25,10 +25,10 @@ class SelectedListScreen extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(
+              return const Center(
                 child: Text(
                 "찜한 상품이 없습니다.",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 24,
                   color: GRAY_COLOR,
                   fontWeight: FontWeight.bold,
@@ -59,7 +59,7 @@ class SelectedListScreen extends StatelessWidget {
 
                           },
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               border: Border(top: BorderSide(color: Colors.grey)),
                             ),
                             margin: const EdgeInsets.symmetric(vertical: 8.0),

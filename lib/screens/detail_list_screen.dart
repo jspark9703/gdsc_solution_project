@@ -6,7 +6,7 @@ import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:get/get.dart';
 
 class DetailListScreen extends StatelessWidget {
-  DetailListScreen({this.kwds, this.isBestUrl, super.key});
+  const DetailListScreen({this.kwds, this.isBestUrl, super.key});
 
   final String? kwds;
   final String? isBestUrl;
@@ -14,7 +14,7 @@ class DetailListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("상품 리스트")),
+      appBar: AppBar(title: const Text("상품 리스트")),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: FutureBuilder(
@@ -57,7 +57,7 @@ class DetailListScreen extends StatelessWidget {
 
                           },
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               border: Border(top: BorderSide(color: Colors.grey)),
                             ),
                             margin: const EdgeInsets.symmetric(vertical: 8.0),

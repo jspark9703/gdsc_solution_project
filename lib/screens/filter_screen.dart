@@ -24,9 +24,9 @@ class _FilterScreenState extends State<FilterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("인기상품")),
+      appBar: AppBar(title: const Text("인기상품")),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -38,7 +38,7 @@ class _FilterScreenState extends State<FilterScreen> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   // 데이터를 기다리는 동안 로딩 인디케이터를 표시합니다.
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
 
                   // 에러가 발생한 경우 에러 메시지를 표시합니다.
@@ -62,7 +62,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             ),
                           )
                           .toList(),
-                      Divider(
+                      const Divider(
                         color: Colors.black,
                       ),
                     ],
@@ -81,7 +81,7 @@ class _FilterScreenState extends State<FilterScreen> {
   Column CustomTextButton(String label, VoidCallback onPressed) {
     return Column(
       children: [
-        Divider(
+        const Divider(
           color: Colors.black,
         ),
         TextButton(
@@ -91,7 +91,7 @@ class _FilterScreenState extends State<FilterScreen> {
             children: [
               Text(
                 label,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),

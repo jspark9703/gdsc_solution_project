@@ -26,7 +26,7 @@ class RegisterScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
+                const Text(
                   '쇼핑 안내견 서비스를 이용하시려면,\n회원 가입을 진행해 주세요.',
                   style: TextStyle(
                     fontSize: 24,
@@ -35,7 +35,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 32),
-                Text(
+                const Text(
                   '이메일',
                   style: TextStyle(fontSize: 20, color: GRAY_COLOR),
                 ),
@@ -43,9 +43,9 @@ class RegisterScreen extends StatelessWidget {
                     controller: _emailController,
                     hintText: '이메일을 입력해 주세요',
                     obscure: false,
-                    prefixIcons: Icon(Icons.email)),
+                    prefixIcons: const Icon(Icons.email)),
                 const SizedBox(height: 16),
-                Text(
+                const Text(
                   '비밀번호',
                   style: TextStyle(fontSize: 20, color: GRAY_COLOR),
                 ),
@@ -53,9 +53,9 @@ class RegisterScreen extends StatelessWidget {
                     controller: _passwordController,
                     hintText: '비밀번호를 입력해 주세요',
                     obscure: true,
-                    prefixIcons: Icon(Icons.lock)),
+                    prefixIcons: const Icon(Icons.lock)),
                 const SizedBox(height: 16),
-                Text(
+                const Text(
                   '비밀번호 확인',
                   style: TextStyle(fontSize: 20, color: GRAY_COLOR),
                 ),
@@ -63,7 +63,7 @@ class RegisterScreen extends StatelessWidget {
                     controller: _confirmPasswordController,
                     hintText: '비밀번호를 입력해 주세요',
                     obscure: true,
-                    prefixIcons: Icon(Icons.lock)),
+                    prefixIcons: const Icon(Icons.lock)),
                 const SizedBox(height: 32),
                 CustomButton(
                     onPressed: () {
@@ -95,7 +95,7 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        Get.to(LoginScreen());
+                        Get.to(const LoginScreen());
                       },
                       child: const Text(
                         '로그인',

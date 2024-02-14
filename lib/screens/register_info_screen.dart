@@ -54,33 +54,19 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MainText(mainText: '사용 설정을 변경할 수 있습니다. \n 안내메세지 , 사용사 정보 변경'),
-            SizedBox(height: 10,),
+           
 
-            ListTile(
-              title: Text(
-                _isMessageSelected? '안내메세지 끄기':'안내메세지 켜기',
-                style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
-              ),
-              trailing: Switch(
-                value: _isMessageSelected,
-                onChanged: (bool newValue) {
-                  setState(() {
-                    _isMessageSelected = newValue;
-                  });
-                },
-              ),
-            ),
-            SizedBox(height: 50),
-            Text(
+            
+            const SizedBox(height: 50),
+            const Text(
               '원활한 서비스 이용을 위해 추가정보를 입력하여주세요.',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 24,
                 color: GRAY_COLOR,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Expanded(
@@ -97,7 +83,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                     hintText: '닉네임을 입력해 주세요.',
                     obscure: false,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   const Text(
@@ -105,7 +91,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                     style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
                   ),
                   DropdownButton<String>(
-                    hint: Text("장애등급을 선택하여 주세요."),
+                    hint: const Text("장애등급을 선택하여 주세요."),
                     value: _selectedClass,
                     onChanged: (String? newValue) {
                       setState(() {
@@ -120,7 +106,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                       );
                     }).toList(),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   const Text(
@@ -158,7 +144,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 150.0),
+            const SizedBox(height: 150.0),
           ],
         ),
       ),

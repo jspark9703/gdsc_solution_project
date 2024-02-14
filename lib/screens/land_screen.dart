@@ -29,7 +29,7 @@ class LandScreen extends StatelessWidget {
                 CustomButton(
                   onPressed: () {
                     Get.to(
-                      LoginScreen(),
+                      const LoginScreen(),
                     );
                   },
                   label: '가입하기',
