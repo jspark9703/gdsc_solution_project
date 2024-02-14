@@ -42,7 +42,6 @@ class _DetailScreenState extends State<DetailScreen> {
   User? currentUser;
   String? _userInfo;
   ReviewSum? _reviewSum;
-  String? _description;// 상품 상세 정보를 저장할 변수
 
   @override
   void initState() {
