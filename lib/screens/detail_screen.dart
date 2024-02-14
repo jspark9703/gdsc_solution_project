@@ -41,6 +41,7 @@ class _DetailScreenState extends State<DetailScreen> {
   User? currentUser;
   String? _userInfo;
   ReviewSum? _reviewSum;
+  String? _description;// 상품 상세 정보를 저장할 변수
 
   @override
   void initState() {
@@ -53,15 +54,22 @@ class _DetailScreenState extends State<DetailScreen> {
 
     fetchUserClassInfo().then((value) {
       fetchReviews().then((_) {
-        fetchReviewSum(_userInfo ?? '', _reviews!);
+        fetchReviewSum(_userInfo ?? '',_description!, _reviews!);
       });
     });
   }
 
   void fetchProductDetail() async {
     final product = await ApiService().prodDetail(widget.prod!.link);
+    late final String des ;
+    for (var i in product.details) {
+      if(i.itemCate== "알레르기정보"){
+        des = i.itemCate;
+      }
+    }
     setState(() {
-      _product = product; // 상품 상세 정보를 상태 변수에 저장
+      _product = product;
+      _description = des;// 상품 상세 정보를 상태 변수에 저장
     });
   }
 
@@ -85,9 +93,9 @@ class _DetailScreenState extends State<DetailScreen> {
     });
   }
 
-  void fetchReviewSum(String userInfo, ReviewList reviews) async {
+  void fetchReviewSum(String userInfo, String des, ReviewList reviews) async {
     final ReviewSum reviewSum =
-        await ApiService().prodReviewSum(userInfo, reviews);
+    await ApiService().prodReviewSum(userInfo,des, reviews);
     setState(() {
       _reviewSum = reviewSum;
     });
@@ -435,6 +443,8 @@ class _DetailScreenState extends State<DetailScreen> {
                               Visibility(
                                 visible: _isReviewVisible,
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const SizedBox(
                                       height: 10,
@@ -457,24 +467,31 @@ class _DetailScreenState extends State<DetailScreen> {
                                     ),
                                     const SizedBox(height: 16.0),
                                     ReviewCard(reviewList: _reviews!),
-                                    const SizedBox(
-                                      height: 12.0,
-                                    ),
-                                    CustomButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          _isReviewVisible =
-                                              !_isReviewVisible; // 상태 업데이트
-                                        });
-                                      },
-                                      label: _isReviewVisible
-                                          ? '리뷰 숨기기 '
-                                          : '리뷰 보기',
-                                      backgroundColor: LIGHT_GREEN_COLOR,
-                                      textColor: GREEN_COLOR,
-                                    ),
+
                                   ],
                                 ),
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  const SizedBox(
+                                    height: 12.0,
+                                  ),
+                                  CustomButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        _isReviewVisible =
+                                        !_isReviewVisible; // 상태 업데이트
+                                      });
+                                    },
+                                    label: _isReviewVisible
+                                        ? '리뷰 숨기기 '
+                                        : '리뷰 보기',
+                                    backgroundColor: LIGHT_GREEN_COLOR,
+                                    textColor: GREEN_COLOR,
+                                  ),
+                                ],
                               ),
                             ],
                           ),
