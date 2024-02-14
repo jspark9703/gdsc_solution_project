@@ -22,8 +22,8 @@ class DBService {
       }
     });
   }
-  setProfile(String uid) async{
 
+  setProfile(String uid) async {
     await _realtime.ref().child('users').set({
       'UID': uid,
     });
@@ -44,12 +44,13 @@ class DBService {
     }
   }
 
+
+
   Future<String> getUserName() async {
     User user =
         await DBService().readProfile(AuthController().getCurrentUser());
     return user.userName!;
   }
-
 
   setLike(String uid, Prod prod, String prodId) async {
     await _realtime
@@ -72,30 +73,17 @@ class DBService {
   }
 
   Future<List<Prod>> readLike(String uid) async {
-  DataSnapshot snapshot =
-      await _realtime.ref().child('users').child(uid).child('Like').get();
+    DataSnapshot snapshot =
+        await _realtime.ref().child('users').child(uid).child('Like').get();
 
-  // snapshot.value가 null이 아닌지 확인하고, Map<dynamic, dynamic> 타입으로 캐스팅합니다.
-  if (snapshot.value == null) {
-    return []; // 또는 적절한 기본값 반환
+    Map<dynamic, dynamic> value = snapshot.value as Map<dynamic, dynamic>;
+    Logger().d(value);
+    List<Prod> data = value.values.map((e) => Prod.fromJson(e)).toList();
+    return data;
   }
-
-  Map<dynamic, dynamic> value = snapshot.value as Map<dynamic, dynamic>;
-  Logger().d(value);
-
-  // value.values에서 각 요소를 Prod 객체로 변환하기 전에 Map<String, dynamic> 타입으로 캐스팅합니다.
-  List<Prod> data = value.values.map((e) {
-    // Map<dynamic, dynamic>에서 Map<String, dynamic>으로 타입 캐스팅
-    Map<String, dynamic> json = Map<String, dynamic>.from(e as Map);
-    return Prod.fromJson(json);
-  }).toList();
-
-  return data;
-}
 
   Future<bool> isLiked(String uid, String prodId) async {
     DataSnapshot snapshot = (await _realtime.ref().child('users').child(uid).child('Like').child(prodId).once()).snapshot;
     return snapshot.value != null;
   }
-
 }

@@ -54,8 +54,7 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
             MainText(mainText: '사용 설정을 변경할 수 있습니다. \n 안내메세지 , 사용사 정보 변경'),
             const SizedBox(height: 10,),
@@ -154,6 +153,7 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
                 ],
               ),
             ),
+            SizedBox(height: 20.0),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -177,6 +177,7 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
                 ),
               ],
             ),
+
             const SizedBox(height: 150.0),
           ],
         ),

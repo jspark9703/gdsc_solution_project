@@ -11,14 +11,15 @@ import 'package:gdsc_solution_project/screens/search_screen.dart';
 import 'package:gdsc_solution_project/screens/user_manager_screen.dart';
 import 'package:get/get.dart';
 
-
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
   late Rx<User?> _user;
   FirebaseAuth authentication = FirebaseAuth.instance;
+
   //TODO 새로고침하면 펄스로 바뀜
 
-  RxBool isRegistered = false.obs; 
+  RxBool isRegistered = false.obs;
+
   // 사용자 등록 상태를 관리하는 변수
   @override
   void onReady() {
@@ -32,19 +33,13 @@ class AuthController extends GetxController {
   _moveToPage(User? user) {
     if (user == null) {
       Get.offAll(() => LandScreen());
-
-
     } else {
 
-
-     if (isRegistered.isTrue) {
-        Get.offAll(() => const HomeScreen()); 
-    // 등록이 완료되었다면 홈 화면으로 이동
+      if (isRegistered.isTrue) {
+        Get.offAll(() => const HomeScreen()); // 등록이 완료되었다면 홈 화면으로 이동
       } else {
-
-        Get.offAll(() => const HomeScreen()); // 추가 정보 입력 화면으로 이동
+        Get.offAll(() => const RegisterInfoScreen()); // 추가 정보 입력 화면으로 이동
       } //RegisterInfoScreen()
-
     }
   }
 
@@ -73,7 +68,7 @@ class AuthController extends GetxController {
     try {
       await authentication.signInWithEmailAndPassword(
           email: email, password: password);
-          completeRegistration();
+      completeRegistration();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         getErrorSnackBar('user-not-found', 'No user found for that email.', e);
