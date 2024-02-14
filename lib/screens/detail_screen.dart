@@ -50,7 +50,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
     fetchProductDetail(); // 상품 상세 정보를 불러오는 메서드 호출
     //fetchReviews(); // 리뷰 정보를 불러오는 메서드 호출
-    
+
     fetchUserClassInfo().then((value) {
       fetchReviews().then((_) {
         fetchReviewSum(_userInfo ?? '', _reviews!);
@@ -69,7 +69,6 @@ class _DetailScreenState extends State<DetailScreen> {
     final reviewList = await ApiService().prodReviews(widget.prod!.link);
     setState(() {
       _reviews = reviewList; // 리뷰 정보를 상태 변수에 저장
-
     });
   }
 
@@ -106,12 +105,15 @@ class _DetailScreenState extends State<DetailScreen> {
 
     return _product == null
         ? const Center(
-            child:Text("상세정보가 준비중입니다. 잠시만 기다려주세요.",style: TextStyle(
-        color: Color(0xFF6B7280),
-        fontSize: 14,
-        fontFamily: 'Inter',
-        fontWeight: FontWeight.w400,
-      ),),
+            child: Text(
+              "상세정보가 준비중입니다. 잠시만 기다려주세요.",
+              style: TextStyle(
+                color: Color(0xFF6B7280),
+                fontSize: 14,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w400,
+              ),
+            ),
           )
         : Scaffold(
             appBar: AppBar(title: const Text("상세정보")),
@@ -144,7 +146,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                   label: "상품명",
                                   readOnly: true,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
@@ -198,10 +201,10 @@ class _DetailScreenState extends State<DetailScreen> {
                               height: 12.0,
                             ),
                             Semantics(
-                              label: "가격",
                               readOnly: true,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text(
                                     '가격',
@@ -216,8 +219,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                       if (_product!.dimmPrice != '') ...[
                                         Text(_product!.dimmPrice,
                                             style: const TextStyle(
-                                                decoration:
-                                                    TextDecoration.lineThrough)),
+                                                decoration: TextDecoration
+                                                    .lineThrough)),
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.end,
@@ -290,7 +293,8 @@ class _DetailScreenState extends State<DetailScreen> {
                             ),
                             Semantics(
                               label: "상품정보",
-                              currentValueLength:_product!.details.length ,
+                              container: true,
+                              currentValueLength: _product!.details.length,
                               readOnly: true,
                               child: Column(
                                   children: _product!.details.map((e) {
@@ -299,7 +303,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                     Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
                                         Column(
                                           children: [
@@ -372,7 +377,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 ),
                               ),
                               Text(
-                                '${widget.prod!.ratingNum}개 리뷰 중 베스트 댓글 15',
+                                '${widget.prod!.ratingNum}개 리뷰 중 베스트 댓글 15개',
                                 style: const TextStyle(
                                   color: DETAIL_COLOR,
                                   fontSize: 12,
@@ -388,7 +393,11 @@ class _DetailScreenState extends State<DetailScreen> {
                     height: 10,
                   ),
                   _reviewSum == null
-                      ? const Center(child: SizedBox(height: 300,child: Text("리뷰요약 진행중입니다."),))
+                      ? const Center(
+                          child: SizedBox(
+                          height: 300,
+                          child: Text("리뷰요약 진행중입니다."),
+                        ))
                       : Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24.0),
                           child: Visibility(

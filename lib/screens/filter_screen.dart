@@ -48,24 +48,32 @@ class _FilterScreenState extends State<FilterScreen> {
                   filters =
                       snapshot.data!.filterList;
                       
-                  return Column(
-                    children: [
-                      ...filters
-                          .map(
-                            (filter) => CustomTextButton(
-                              filter.title, // Filter 모델의 title 필드를 사용합니다.
-                              () {
-                                
-                                  Get.to(BestListScreen(isBestUrl:filter.url, title: filter.title,));
-                                
-                              },
-                            ),
-                          )
-                          .toList(),
-                      const Divider(
-                        color: Colors.black,
-                      ),
-                    ],
+                  return Semantics(
+                    container: true,
+                    label: "카테고리리스트",
+                    child: Column(
+                      children: [
+                        ...filters
+                            .map(
+                              (filter) => Semantics(
+                                button: true,
+                                label: '카테고리',
+                                child: CustomTextButton(
+                                  filter.title, // Filter 모델의 title 필드를 사용합니다.
+                                  () {
+                                    
+                                      Get.to(BestListScreen(isBestUrl:filter.url, title: filter.title,));
+                                    
+                                  },
+                                ),
+                              ),
+                            )
+                            .toList(),
+                        const Divider(
+                          color: Colors.black,
+                        ),
+                      ],
+                    ),
                   );
                 }
               },

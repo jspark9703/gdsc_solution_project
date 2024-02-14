@@ -60,19 +60,22 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
             MainText(mainText: '사용 설정을 변경할 수 있습니다. \n 안내메세지 , 사용사 정보 변경'),
             const SizedBox(height: 10,),
 
-            ListTile(
-              title: Text(
-                _isMessageSelected? '안내메세지 끄기':'안내메세지 켜기',
-                style: const TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
-              ),
-              trailing: Switch(
-                value: _isMessageSelected,
-                onChanged: (bool newValue) {
-
-                  setState(() {
-                    _isMessageSelected = newValue;
-                  });
-                },
+            Semantics(
+              readOnly: true,
+              child: ListTile(
+                title: Text(
+                  _isMessageSelected? '안내메세지 끄기':'안내메세지 켜기',
+                  style: const TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
+                ),
+                trailing: Switch(
+                  value: _isMessageSelected,
+                  onChanged: (bool newValue) {
+              
+                    setState(() {
+                      _isMessageSelected = newValue;
+                    });
+                  },
+                ),
               ),
             ),
             const SizedBox(height: 50),
@@ -96,10 +99,13 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
                     '닉네임',
                     style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
                   ),
-                  CustomTextField(
-                    controller: _nameController,
-                    hintText: '닉네임을 입력해 주세요.',
-                    obscure: false,
+                  Semantics(
+                    textField: true,
+                    child: CustomTextField(
+                      controller: _nameController,
+                      hintText: '닉네임을 입력해 주세요.',
+                      obscure: false,
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -108,21 +114,24 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
                     '장애등급',
                     style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
                   ),
-                  DropdownButton<String>(
-                    hint: const Text("장애등급을 선택하여 주세요."),
-                    value: _selectedClass,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        _selectedClass = newValue!;
-                      });
-                    },
-                    items: <String>['1등급', '2등급', '3등급', '4등급', '5등급']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+                  Semantics(
+                    expanded: true,
+                    child: DropdownButton<String>(
+                      hint: const Text("장애등급을 선택하여 주세요."),
+                      value: _selectedClass,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _selectedClass = newValue!;
+                        });
+                      },
+                      items: <String>['1등급', '2등급', '3등급', '4등급', '5등급']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -134,10 +143,13 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
                         color: GRAY_COLOR,
                         fontWeight: FontWeight.w600),
                   ),
-                  CustomTextWideField(
-                    controller: _considerationController,
-                    hintText: '(예시)\n매운 것을 못 먹음, 전자레인지 조리 선호,\n유제품 알러지',
-                    obscure: false,
+                  Semantics(
+                    textField: true,
+                    child: CustomTextWideField(
+                      controller: _considerationController,
+                      hintText: '(예시)\n매운 것을 못 먹음, 전자레인지 조리 선호,\n유제품 알러지',
+                      obscure: false,
+                    ),
                   ),
                 ],
               ),
@@ -145,20 +157,23 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CustomButton(
-                  onPressed: () {
-                    DBService().updateProfile(
-                        authController.getCurrentUser(),
-                        User(
-                            userName: _nameController.text,
-                            userClass: _selectedClass,
-                            userInfo: _considerationController.text,
-                            showMessage: _isMessageSelected));
-                    authController.completeRegistration();
-                  },
-                  label: '등록하기',
-                  backgroundColor: GREEN_COLOR,
-                  textColor: Colors.white,
+                Semantics(
+                  button: true,
+                  child: CustomButton(
+                    onPressed: () {
+                      DBService().updateProfile(
+                          authController.getCurrentUser(),
+                          User(
+                              userName: _nameController.text,
+                              userClass: _selectedClass,
+                              userInfo: _considerationController.text,
+                              showMessage: _isMessageSelected));
+                      authController.completeRegistration();
+                    },
+                    label: '등록하기',
+                    backgroundColor: GREEN_COLOR,
+                    textColor: Colors.white,
+                  ),
                 ),
               ],
             ),

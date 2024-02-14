@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
+import 'package:gdsc_solution_project/commons/components/text_contents.dart';
 import 'package:gdsc_solution_project/commons/guidemessage.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
@@ -51,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final UserInfoController userInfoController=  Get.put(UserInfoController()); 
-    return isLoading? const Center(child: CircularProgressIndicator(),): Scaffold(
+    return isLoading? const Center(child:TextContentBox( mainText: "삼품이 준비중입니다. 잠시만 기다려주세요"),): Scaffold(
       appBar: AppBar(title: const Text("홈")),
 
       body: SingleChildScrollView(

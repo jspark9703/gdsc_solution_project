@@ -33,40 +33,46 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("검색")),
+      appBar: AppBar(title: const Text("검색")),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-             GuideMessage(text: "${nickname} 주인님, 어떤 제품을 찾고 계세요? \n검색창에 검색어를 입력해주세요."),
-            TextField(
-              controller: _searchController,
-              decoration: const InputDecoration(
-                hintText: '식품 이름을 검색해보세요',
-                // fillColor: Colors.white,
-                // filled: true,
-                labelStyle: TextStyle(color: GRAY_COLOR),
-                hintStyle: TextStyle(color: GRAY_COLOR),
-                prefixIcon: Icon(Icons.search),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: GRAY_COLOR),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: GRAY_COLOR, width: 0.5),
+             GuideMessage(text: "$nickname 주인님, 어떤 제품을 찾고 계세요? \n검색창에 검색어를 입력해주세요."),
+            Semantics(
+              textField: true,
+              child: TextField(
+                controller: _searchController,
+                decoration: const InputDecoration(
+                  hintText: '식품 이름을 검색해보세요',
+                  // fillColor: Colors.white,
+                  // filled: true,
+                  labelStyle: TextStyle(color: GRAY_COLOR),
+                  hintStyle: TextStyle(color: GRAY_COLOR),
+                  prefixIcon: Icon(Icons.search),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: GRAY_COLOR),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: GRAY_COLOR, width: 0.5),
+                  ),
                 ),
               ),
             ),
-            CustomButton(
-              onPressed: () {
-                Get.to( DetailListScreen(kwds: _searchController.text,));
-              },
-              label: '검색하기',
-              backgroundColor: GREEN_COLOR,
-              textColor: Colors.white,
+            Semantics(
+              button: true,
+              child: CustomButton(
+                onPressed: () {
+                  Get.to( DetailListScreen(kwds: _searchController.text,));
+                },
+                label: '검색하기',
+                backgroundColor: GREEN_COLOR,
+                textColor: Colors.white,
+              ),
             ),
           ],
         ),

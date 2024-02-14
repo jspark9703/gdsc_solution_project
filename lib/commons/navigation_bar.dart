@@ -23,45 +23,50 @@ class AppNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-
-      selectedFontSize:12 ,
-      showUnselectedLabels: true,
-      backgroundColor:GREEN_COLOR ,
-      currentIndex: currentIndex,
-      onTap: (index) {
-        // Handle item tap
-        if (index != currentIndex) {
-          Get.toNamed(_screens[index]);
-          currentIndex = index;
-        }
-      },
-      items: const [
-        BottomNavigationBarItem(
-      backgroundColor:GREEN_COLOR ,
-          icon: Icon(Icons.home),
-          label: '홈',
-        ),
-        BottomNavigationBarItem(
-                backgroundColor:GREEN_COLOR ,
-
-          icon: Icon(Icons.search),
-          label: '검색',
-        ),
-        BottomNavigationBarItem(
-                backgroundColor:GREEN_COLOR ,
-
-          icon: Icon(Icons.favorite),
-          label: '좋아요 상품 보기',
-        ),
-        BottomNavigationBarItem(
-                backgroundColor:GREEN_COLOR ,
-
-          icon: Icon(Icons.manage_accounts_rounded),
-          label: '사용설정',
-        ),
-        // Add more BottomNavigationBarItems as needed
-      ],
+    return Semantics(
+       container: true,
+       label: "네비게이션 바",
+       
+      child: BottomNavigationBar(
+      
+        selectedFontSize:12 ,
+        showUnselectedLabels: true,
+        backgroundColor:GREEN_COLOR ,
+        currentIndex: currentIndex,
+        onTap: (index) {
+          // Handle item tap
+          if (index != currentIndex) {
+            Get.toNamed(_screens[index]);
+            currentIndex = index;
+          }
+        },
+        items:  const [
+          BottomNavigationBarItem(
+        backgroundColor:GREEN_COLOR ,
+            icon: Icon(Icons.home),
+            label: '홈',
+          ),
+          BottomNavigationBarItem(
+                  backgroundColor:GREEN_COLOR ,
+      
+            icon: Icon(Icons.search),
+            label: '검색',
+          ),
+          BottomNavigationBarItem(
+                  backgroundColor:GREEN_COLOR ,
+      
+            icon: Icon(Icons.favorite),
+            label: '좋아요 상품 보기',
+          ),
+          BottomNavigationBarItem(
+                  backgroundColor:GREEN_COLOR ,
+      
+            icon: Icon(Icons.manage_accounts_rounded),
+            label: '사용설정',
+          ),
+          // Add more BottomNavigationBarItems as needed
+        ],
+      ),
     );
   }
 }
