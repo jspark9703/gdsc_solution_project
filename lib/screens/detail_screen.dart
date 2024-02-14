@@ -54,7 +54,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
     fetchUserClassInfo().then((value) {
       fetchReviews().then((_) {
-        fetchReviewSum(_userInfo ?? '',_description!, _reviews!);
+        fetchReviewSum(_userInfo ?? '',_description ?? '', _reviews!);
       });
     });
   }
