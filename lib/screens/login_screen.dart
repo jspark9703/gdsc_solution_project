@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/commons/component/custom_button.dart';
+import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 import 'package:gdsc_solution_project/commons/component/custom_text_field.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
@@ -28,18 +28,13 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(
-          
           children: [
             Column(
-              
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-
-                                const SizedBox(height: 164),
-
+                const SizedBox(height: 164),
                 const Text(
-
                   '쇼핑 안내견 서비스를 이용하시려면,\n' '로그인을 진행해 주세요.',
                   style: TextStyle(
                     fontSize: 24,
@@ -47,7 +42,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-
                 const SizedBox(height: 32),
                 Semantics(
                   label: "회원가입",
@@ -66,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         button: true,
                         child: TextButton(
                           onPressed: () {
-                            Get.to(()=>RegisterScreen());
+                            Get.to(() => RegisterScreen());
                           },
                           child: const Text(
                             '회원가입',
@@ -100,18 +94,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       obscure: false,
                       prefixIcons: const Icon(Icons.email)),
                 ),
-
                 const SizedBox(height: 32),
                 Semantics(
-                                    readOnly: true,
-
+                  readOnly: true,
                   child: const Text(
                     '비밀번호',
                     style: TextStyle(fontSize: 20, color: GRAY_COLOR),
                   ),
                 ),
-                                const SizedBox(height: 16),
-
+                const SizedBox(height: 16),
                 Semantics(
                   textField: true,
                   child: CustomTextField(
@@ -122,7 +113,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 32),
-                
                 Semantics(
                   button: true,
                   child: CustomButton(
@@ -134,8 +124,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       backgroundColor: GREEN_COLOR,
                       textColor: Colors.white),
                 ),
-                const SizedBox(height: 32,),
-                
+                const SizedBox(
+                  height: 32,
+                ),
               ],
             ),
           ],

@@ -7,7 +7,12 @@ class TextTitleBox extends StatelessWidget {
   final Widget? mainIcon;
   final String? mode;
 
-  TextTitleBox({this.mainText, this.mainIcon, this.subText, this.mode = "main"});
+  const TextTitleBox(
+      {super.key,
+      this.mainText,
+      this.mainIcon,
+      this.subText,
+      this.mode = "main"});
 
   @override
   Widget build(BuildContext context) {

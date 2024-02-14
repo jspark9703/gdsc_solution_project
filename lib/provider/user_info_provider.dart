@@ -2,7 +2,6 @@ import 'package:gdsc_solution_project/database/dbservice.dart';
 import 'package:gdsc_solution_project/models/user_url.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 
 class UserInfoController extends GetxController {
   static UserInfoController instance = Get.find();
@@ -13,13 +12,15 @@ class UserInfoController extends GetxController {
     super.onInit();
     fetchUserProfile();
   }
- void fetchUserProfile() async {
+
+  void fetchUserProfile() async {
     final String uid = AuthController().getCurrentUser();
     User? userProfile = await DBService().readProfile(uid); // 비동기 호출 수정
     if (userProfile != null) {
       user.value = userProfile;
     }
   }
+
   // showMessage 값을 업데이트하는 함수
   void updateShowMessage(bool newValue) async {
     final String uid = AuthController().getCurrentUser();
@@ -35,7 +36,6 @@ class UserInfoController extends GetxController {
     }
   }
 }
-
 
 // Obx(() {
 //   // UserController 인스턴스를 찾아 사용자 이름을 표시

@@ -33,7 +33,8 @@ class ReviewList {
 
   // JSON에서 ReviewList 객체로 변환하는 팩토리 생성자
   factory ReviewList.fromJson(Map<String, dynamic> json) => ReviewList(
-        reviewList: List<Review>.from(json['review_list'].map((x) => Review.fromJson(x))),
+        reviewList: List<Review>.from(
+            json['review_list'].map((x) => Review.fromJson(x))),
       );
 
   // ReviewList 객체에서 JSON으로 변환하는 메소드

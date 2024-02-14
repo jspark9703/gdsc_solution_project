@@ -5,7 +5,7 @@ class User {
   String? userInfo;
   bool? showMessage;
 
-  User({ this.userName,  this.userClass,  this.userInfo,  this.showMessage});
+  User({this.userName, this.userClass, this.userInfo, this.showMessage});
 
   // JSON에서 User 객체로 변환하는 팩토리 생성자
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -23,4 +23,3 @@ class User {
         'show_message': showMessage,
       };
 }
-

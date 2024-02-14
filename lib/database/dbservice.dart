@@ -30,7 +30,7 @@ class DBService {
 
   Future<User> readProfile(String uid) async {
     DataSnapshot _snapshot =
-    await _realtime.ref().child('users').child(uid).get();
+        await _realtime.ref().child('users').child(uid).get();
     if (_snapshot.value != null && _snapshot.value is Map) {
       Map<Object?, Object?> valueMap = _snapshot.value as Map<Object?, Object?>;
       if (valueMap['user_name'] is String &&
@@ -49,8 +49,6 @@ class DBService {
     }
     throw Exception('Unable to read profile');
   }
-
-
 
   Future<String> getUserName() async {
     User user =
@@ -80,7 +78,7 @@ class DBService {
 
   Future<List<Prod>> readLike(String uid) async {
     DataSnapshot _snapshot =
-    await _realtime.ref().child('users').child(uid).child('Like').get();
+        await _realtime.ref().child('users').child(uid).child('Like').get();
 
     if (_snapshot.value is! Map) {
       throw Exception('Data is not a map');
@@ -105,8 +103,6 @@ class DBService {
 
     return data;
   }
-
-
 
   Future<bool> isLiked(String uid, String prodId) async {
     DataSnapshot _snapshot = (await _realtime

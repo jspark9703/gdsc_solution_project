@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/firebase_options.dart';
-import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:gdsc_solution_project/screens/detail_list_screen.dart';
 import 'package:gdsc_solution_project/screens/filter_screen.dart';
 import 'package:gdsc_solution_project/screens/home_screen.dart';
@@ -14,8 +13,6 @@ import 'package:gdsc_solution_project/screens/search_screen.dart';
 import 'package:gdsc_solution_project/screens/selected_list_screen.dart';
 import 'package:gdsc_solution_project/screens/user_manager_screen.dart';
 import 'package:get/get.dart';
-
-import 'widgets/filter_screen/selcet_price_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -41,15 +39,14 @@ class MyApp extends StatelessWidget {
         "/": (context) => LandScreen(),
         '/login': (context) => LoginScreen(),
         '/reg': (context) => RegisterScreen(),
-        '/reg/reg_info':(context) => RegisterInfoScreen(),
+        '/reg/reg_info': (context) => RegisterInfoScreen(),
         '/search': (context) => const SearchScreen(),
         '/search/select_filter_screen': (context) => const FilterScreen(),
-        '/selected_list':(context) => SelectedListScreen(),
+        '/selected_list': (context) => SelectedListScreen(),
         '/home': (context) => HomeScreen(),
         '/profile': (context) => UserManagerScreen(),
         '/detail_list': (context) => DetailListScreen(),
         '/detail': (context) => DetailScreen(),
-        
       },
     );
   }

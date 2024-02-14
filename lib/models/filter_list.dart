@@ -33,7 +33,8 @@ class FilterList {
 
   // JSON에서 FilterList 객체로 변환하는 팩토리 생성자
   factory FilterList.fromJson(Map<String, dynamic> json) => FilterList(
-        filterList: List<Filter>.from(json['filter_list'].map((x) => Filter.fromJson(x))),
+        filterList: List<Filter>.from(
+            json['filter_list'].map((x) => Filter.fromJson(x))),
       );
 
   // FilterList 객체에서 JSON으로 변환하는 메소드

@@ -12,8 +12,8 @@ class ReviewCard extends StatelessWidget {
     return SizedBox(
       height: 160,
       child: Card(
-        margin: EdgeInsets.symmetric(horizontal: 8.0),
-        shape: RoundedRectangleBorder(
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(16.0),
           ),
@@ -26,7 +26,7 @@ class ReviewCard extends StatelessWidget {
               Expanded(
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  physics: PageScrollPhysics(),
+                  physics: const PageScrollPhysics(),
                   itemCount: reviewList.reviewList.length,
                   itemBuilder: (context, index) {
                     return Container(
@@ -39,17 +39,19 @@ class ReviewCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Icon(Icons.person, color: BLACK_COLOR),
-                              SizedBox(
+                              const Icon(Icons.person, color: BLACK_COLOR),
+                              const SizedBox(
                                 height: 8.0,
                               ),
                               Text(
                                 reviewList.reviewList[index].name,
-                                style: TextStyle(color: BLACK_COLOR),
+                                style: const TextStyle(color: BLACK_COLOR),
                               ),
                             ],
                           ),
-                          SizedBox(width: 24.0,),
+                          const SizedBox(
+                            width: 24.0,
+                          ),
                           Expanded(
                             child: SingleChildScrollView(
                               child: Column(
@@ -58,7 +60,7 @@ class ReviewCard extends StatelessWidget {
                                 children: [
                                   Text(
                                     reviewList.reviewList[index].review,
-                                    style: TextStyle(color: BLACK_COLOR),
+                                    style: const TextStyle(color: BLACK_COLOR),
                                     softWrap: true,
                                   ),
                                 ],

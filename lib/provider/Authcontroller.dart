@@ -1,13 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/database/dbservice.dart';
 import 'package:gdsc_solution_project/screens/home_screen.dart';
-import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:gdsc_solution_project/screens/land_screen.dart';
-import 'package:gdsc_solution_project/screens/login_screen.dart';
 import 'package:gdsc_solution_project/screens/register_info_screen.dart';
-import 'package:gdsc_solution_project/screens/search_screen.dart';
-import 'package:gdsc_solution_project/screens/user_manager_screen.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
@@ -34,9 +29,9 @@ class AuthController extends GetxController {
       Get.offAll(() => LandScreen());
     } else {
       if (isRegistered.isTrue) {
-        Get.offAll(() => HomeScreen()); // 등록이 완료되었다면 홈 화면으로 이동
+        Get.offAll(() => const HomeScreen()); // 등록이 완료되었다면 홈 화면으로 이동
       } else {
-        Get.offAll(() => RegisterInfoScreen()); // 추가 정보 입력 화면으로 이동
+        Get.offAll(() => const RegisterInfoScreen()); // 추가 정보 입력 화면으로 이동
       } //RegisterInfoScreen()
     }
   }

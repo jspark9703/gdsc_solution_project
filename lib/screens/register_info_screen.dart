@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/commons/components/input_wide_field.dart';
-import 'package:gdsc_solution_project/commons/components/main_text.dart';
-import 'package:gdsc_solution_project/commons/guidemessage.dart';
-import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/database/dbservice.dart';
 import 'package:gdsc_solution_project/models/user_url.dart';
@@ -53,7 +50,6 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: ListView(
           children: [
-
             const SizedBox(height: 50),
             Semantics(
               readOnly: true,
@@ -64,14 +60,12 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                   color: GRAY_COLOR,
                   fontWeight: FontWeight.bold,
                 ),
-
               ),
             ),
             const SizedBox(
               height: 10,
             ),
             Expanded(
-
               child: Semantics(
                 container: true,
                 child: Column(
@@ -150,8 +144,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20.0),
-
+            const SizedBox(height: 20.0),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -172,7 +165,6 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                 ),
               ],
             ),
-
             const SizedBox(height: 150.0),
           ],
         ),

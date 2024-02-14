@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/apis/openapis.dart';
-import 'package:gdsc_solution_project/commons/component/custom_button.dart';
 import 'package:gdsc_solution_project/commons/guidemessage.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
-import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/models/filter_list.dart';
 import 'package:gdsc_solution_project/screens/best_list_screen.dart';
-import 'package:gdsc_solution_project/screens/detail_list_screen.dart';
-import 'package:gdsc_solution_project/widgets/filter_screen/selcet_price_screen.dart';
 import 'package:get/get.dart';
 
 class FilterScreen extends StatefulWidget {
@@ -26,14 +22,14 @@ class _FilterScreenState extends State<FilterScreen> {
       appBar: AppBar(title: Text("인기상품")),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: FutureBuilder<FilterList>(
-            future: ApiService()
-                .getBestFilters(), // 비동기 작업으로 FilterList를 가져옵니다.
+            future:
+                ApiService().getBestFilters(), // 비동기 작업으로 FilterList를 가져옵니다.
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 // 데이터를 기다리는 동안 로딩 인디케이터를 표시합니다.
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 // 에러가 발생한 경우 에러 메시지를 표시합니다.
                 return Text('Error: ${snapshot.error}');
@@ -42,11 +38,12 @@ class _FilterScreenState extends State<FilterScreen> {
                 filters = snapshot.data!.filterList;
 
                 return Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     GuideMessage(
-                        text: '카테고리 별 인기상품을 확인해보세요!\n 총 ${filters.length}개의 카테고리가 준비되어 있습니다.'),
+                        text:
+                            '카테고리 별 인기상품을 확인해보세요!\n 총 ${filters.length}개의 카테고리가 준비되어 있습니다.'),
                     Semantics(
                       container: true,
                       label: '카테고리 리스트',
@@ -65,7 +62,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                 ),
                               )
                               .toList(),
-                          Divider(
+                          const Divider(
                             color: Colors.black,
                           ),
                         ],
@@ -85,7 +82,7 @@ class _FilterScreenState extends State<FilterScreen> {
   Column CustomTextButton(String label, VoidCallback onPressed) {
     return Column(
       children: [
-        Divider(
+        const Divider(
           color: Colors.black,
         ),
         TextButton(
@@ -95,7 +92,7 @@ class _FilterScreenState extends State<FilterScreen> {
             children: [
               Text(
                 label,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
-import 'package:gdsc_solution_project/screens/home_screen.dart';
-import 'package:gdsc_solution_project/screens/search_screen.dart';
-import 'package:gdsc_solution_project/screens/selected_list_screen.dart';
-import 'package:gdsc_solution_project/screens/user_manager_screen.dart';
+
 import 'package:get/get.dart';
 
 class AppNavigationBar extends StatelessWidget {
@@ -24,14 +21,12 @@ class AppNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Semantics(
-       container: true,
-       label: "네비게이션 바",
-       
+      container: true,
+      label: "네비게이션 바",
       child: BottomNavigationBar(
-      
-        selectedFontSize:12 ,
+        selectedFontSize: 12,
         showUnselectedLabels: true,
-        backgroundColor:GREEN_COLOR ,
+        backgroundColor: GREEN_COLOR,
         currentIndex: currentIndex,
         onTap: (index) {
           // Handle item tap
@@ -40,27 +35,24 @@ class AppNavigationBar extends StatelessWidget {
             currentIndex = index;
           }
         },
-        items:  const [
+        items: const [
           BottomNavigationBarItem(
-        backgroundColor:GREEN_COLOR ,
+            backgroundColor: GREEN_COLOR,
             icon: Icon(Icons.home),
             label: '홈',
           ),
           BottomNavigationBarItem(
-                  backgroundColor:GREEN_COLOR ,
-      
+            backgroundColor: GREEN_COLOR,
             icon: Icon(Icons.search),
             label: '검색',
           ),
           BottomNavigationBarItem(
-                  backgroundColor:GREEN_COLOR ,
-      
+            backgroundColor: GREEN_COLOR,
             icon: Icon(Icons.favorite),
             label: '좋아요 상품 보기',
           ),
           BottomNavigationBarItem(
-                  backgroundColor:GREEN_COLOR ,
-      
+            backgroundColor: GREEN_COLOR,
             icon: Icon(Icons.manage_accounts_rounded),
             label: '사용설정',
           ),
