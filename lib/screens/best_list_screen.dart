@@ -26,21 +26,25 @@ class BestListScreen extends StatelessWidget {
               } else if (snapshot.hasError) {
                 return Text("오류가 발생했습니다\n ${snapshot.error}");
               } else if (snapshot.hasData) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '$title 카테고리의 베스트 상품 입니다. \n총 ${snapshot.data!.prods.length}개 상품이 준비되어있습니다.',
-                      style: const TextStyle(
-                        fontSize: 24,
-                        color: GRAY_COLOR,
-                        fontWeight: FontWeight.bold,
+                return ListView(
+                  children: [Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '$title 카테고리의 베스트 상품 입니다. \n총 ${snapshot.data!.prods.length}개 상품이 준비되어있습니다.',
+                        style: const TextStyle(
+                          fontSize: 24,
+                          color: GRAY_COLOR,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
+
                     ),
                     Expanded(
                       child: Semantics(
                         label: "상품리스트",
                                                       container: true,
+
 
                         child: ListView.builder(
                           itemCount: snapshot.data!.prods.length,
@@ -52,6 +56,7 @@ class BestListScreen extends StatelessWidget {
                                   prod: prod,
                                 ));
                               },
+
                               child: Semantics(
                                 button: true,
                                 label: "상품",
@@ -87,13 +92,15 @@ class BestListScreen extends StatelessWidget {
                                     ],
                                   ), // 여기서 prod 객체의 속성을 사용하여 위젯을 구성합니다.
                                 ),
+
                               ),
                             );
                           },
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+              ],
                 );
               } else {
                 return const Text("데이터가 없습니다.");

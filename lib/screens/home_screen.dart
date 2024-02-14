@@ -50,36 +50,38 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final UserInfoController userInfoController = Get.put(UserInfoController());
-    return isLoading
-        ? const Center(
-            child: TextContentBox(mainText: "잠시만 기다려주세요"),
-          )
-        : Scaffold(
-            appBar: AppBar(title: const Text("홈")),
-            body: SingleChildScrollView(
+    return Scaffold(
+            appBar: AppBar(title: Text("홈")),
+            body: isLoading
+                ? Center(
+              child: CircularProgressIndicator(),
+            )
+                : SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const SizedBox(height: 56.0),
-                    Obx(() => GuideMessage(
+                    SizedBox(height: 56.0),
+                    GuideMessage(
                         text:
-                            "안녕하세요.\n${userInfoController.user.value!.userName} 주인님 무엇을 도와드릴까요? \n총 4가지 기능이 준비되어 있습니다.")),
-                    const SizedBox(height: 56.0),
+                        "안녕하세요.\n${nickname} 주인님 무엇을 도와드릴까요? \n총 4가지 기능이 준비되어 있습니다."),
+                    SizedBox(height: 56.0),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         CustomButton(
                           onPressed: () {
+
                             Get.to(const SearchScreen());
                           },
                           label: '쇼핑 안내견과 음식 검색하기',
                           backgroundColor: LIGHT_GREEN_COLOR,
                           textColor: GREEN_COLOR,
                         ),
+
                         const SizedBox(height: 24.0),
                         CustomButton(
                           onPressed: () {
@@ -89,6 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: LIGHT_GREEN_COLOR,
                           textColor: GREEN_COLOR,
                         ),
+
                         const SizedBox(height: 24.0),
                         CustomButton(
                           onPressed: () {
@@ -101,7 +104,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(height: 24.0),
                         CustomButton(
                           onPressed: () {
-                            Get.to(const UserManagerScreen());
+                            Get.to(UserManagerScreen());
+
                           },
                           label: '사용 설정',
                           backgroundColor: LIGHT_GREEN_COLOR,

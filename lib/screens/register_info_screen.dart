@@ -51,9 +51,9 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
+
             const SizedBox(height: 50),
             Semantics(
               readOnly: true,
@@ -64,12 +64,14 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                   color: GRAY_COLOR,
                   fontWeight: FontWeight.bold,
                 ),
+
               ),
             ),
             const SizedBox(
               height: 10,
             ),
             Expanded(
+
               child: Semantics(
                 container: true,
                 child: Column(
@@ -148,6 +150,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                 ),
               ),
             ),
+            SizedBox(height: 20.0),
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -168,6 +172,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                 ),
               ],
             ),
+
             const SizedBox(height: 150.0),
           ],
         ),
