@@ -22,7 +22,8 @@ class DetailListScreen extends StatelessWidget {
           future: ApiService().searchProd(kwds, isBestUrl),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return  const Center(child: TextContentBox(mainText: "상품이 준비중입니다. 잠시만 기다려주세요"));
+              return const Center(
+                  child: TextContentBox(mainText: "상품이 준비중입니다. 잠시만 기다려주세요"));
             } else if (snapshot.hasError) {
               return Text("오류가 발생했습니다\n${snapshot.error}");
             } else if (snapshot.hasData) {
@@ -48,25 +49,25 @@ class DetailListScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: ListView.builder(
-                        itemCount: data.prods.length, // 이 부분은 실제 데이터 타입에 맞게 수정해야 합니다.
+                        itemCount: data.prods.length,
+                        // 이 부분은 실제 데이터 타입에 맞게 수정해야 합니다.
                         itemBuilder: (context, index) {
-                          final prod = data.prods[index]; // 이 부분은 실제 데이터 타입에 맞게 수정해야 합니다.
+                          final prod = data
+                              .prods[index]; // 이 부분은 실제 데이터 타입에 맞게 수정해야 합니다.
                           final url = prod.link;
                           return Semantics(
                             button: true,
                             child: InkWell(
                               onTap: () {
-                                            
                                 Get.to(() => DetailScreen(prod: prod));
-                                            
-                               
-                                            
                               },
                               child: Container(
                                 decoration: const BoxDecoration(
-                                  border: Border(top: BorderSide(color: Colors.grey)),
+                                  border: Border(
+                                      top: BorderSide(color: Colors.grey)),
                                 ),
-                                margin: const EdgeInsets.symmetric(vertical: 8.0),
+                                margin:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +85,8 @@ class DetailListScreen extends StatelessWidget {
                                         style: TextStyle(
                                           fontSize: 12.0,
                                           color: Colors.grey[500],
-                                          decoration: TextDecoration.lineThrough,
+                                          decoration:
+                                              TextDecoration.lineThrough,
                                         ),
                                       ),
                                     Text(

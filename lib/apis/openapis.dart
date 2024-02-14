@@ -62,18 +62,18 @@ class ApiService {
   }
 
   Future<ReviewSum> prodReviewSum(String userInfo, String des, ReviewList reviewList) async {
-  try {
-    final response = await _dio.post(
-      '$_baseUrl/review_sum',
-      queryParameters: {
-        "user_info": userInfo,
-        "des": des
-      },
-      data: reviewList.toJson(), // `review_list`를 요청 본문으로 전송
-    );
-    return ReviewSum.fromJson(jsonDecode(response.data["data"]) ); // 적절한 모델로 변환하세요.
-  } catch (e) {
-    throw Exception('Failed to get review summary: $e');
+    try {
+      final response = await _dio.post(
+        '$_baseUrl/review_sum',
+        queryParameters: {
+          "user_info": userInfo,
+          "des": des
+        },
+        data: reviewList.toJson(), // `review_list`를 요청 본문으로 전송
+      );
+      return ReviewSum.fromJson(jsonDecode(response.data["data"]) ); // 적절한 모델로 변환하세요.
+    } catch (e) {
+      throw Exception('Failed to get review summary: $e');
+    }
   }
-}
 }
