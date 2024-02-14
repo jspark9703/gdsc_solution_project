@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
+import 'package:gdsc_solution_project/commons/components/text_contents.dart';
 import 'package:gdsc_solution_project/commons/guidemessage.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
@@ -17,7 +18,7 @@ import 'package:logger/logger.dart';
 import '../provider/user_info_provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -38,7 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void fetchUserName() async {
     try {
       nickname = await DBService().getUserName();
-      Logger().d(nickname);
       setState(() {
         isLoading = false;
       });
@@ -74,22 +74,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         CustomButton(
                           onPressed: () {
-                            Get.to(SearchScreen());
+
+                            Get.to(const SearchScreen());
                           },
                           label: '쇼핑 안내견과 음식 검색하기',
                           backgroundColor: LIGHT_GREEN_COLOR,
                           textColor: GREEN_COLOR,
                         ),
-                        SizedBox(height: 24.0),
+
+                        const SizedBox(height: 24.0),
                         CustomButton(
                           onPressed: () {
-                            Get.to(FilterScreen());
+                            Get.to(const FilterScreen());
                           },
                           label: '인기 상품 골라보기',
                           backgroundColor: LIGHT_GREEN_COLOR,
                           textColor: GREEN_COLOR,
                         ),
-                        SizedBox(height: 24.0),
+
+                        const SizedBox(height: 24.0),
                         CustomButton(
                           onPressed: () {
                             Get.to(() => SelectedListScreen());
@@ -98,10 +101,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: LIGHT_GREEN_COLOR,
                           textColor: GREEN_COLOR,
                         ),
-                        SizedBox(height: 24.0),
+                        const SizedBox(height: 24.0),
                         CustomButton(
                           onPressed: () {
                             Get.to(UserManagerScreen());
+
                           },
                           label: '사용 설정',
                           backgroundColor: LIGHT_GREEN_COLOR,

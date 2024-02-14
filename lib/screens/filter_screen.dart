@@ -47,25 +47,29 @@ class _FilterScreenState extends State<FilterScreen> {
                     // 데이터가 성공적으로 로드된 경우 UI를 구성합니다.
                     filters = snapshot.data!.filterList;
 
-                    return Column(
-                      children: [
-                        ...filters
-                            .map(
-                              (filter) => CustomTextButton(
-                                filter.title, // Filter 모델의 title 필드를 사용합니다.
-                                () {
-                                  Get.to(BestListScreen(
-                                    isBestUrl: filter.url,
-                                    title: filter.title,
-                                  ));
-                                },
-                              ),
-                            )
-                            .toList(),
-                        Divider(
-                          color: Colors.black,
-                        ),
-                      ],
+                    return Semantics(
+                      container: true,
+                      label: '카테고리 리스트',
+                      child: Column(
+                        children: [
+                          ...filters
+                              .map(
+                                (filter) => CustomTextButton(
+                                  filter.title, // Filter 모델의 title 필드를 사용합니다.
+                                  () {
+                                    Get.to(BestListScreen(
+                                      isBestUrl: filter.url,
+                                      title: filter.title,
+                                    ));
+                                  },
+                                ),
+                              )
+                              .toList(),
+                          Divider(
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
                     );
                   }
                 },
