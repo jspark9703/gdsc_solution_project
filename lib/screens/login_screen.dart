@@ -33,8 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                                const SizedBox(height: 164),
-
+                const SizedBox(height: 164),
                 Text(
                   '쇼핑 안내견 서비스를 이용하시려면,\n' '로그인을 진행해 주세요.',
                   style: TextStyle(
@@ -104,7 +103,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     label: '로그인',
                     backgroundColor: GREEN_COLOR,
                     textColor: Colors.white),
-                const SizedBox(height: 32,),
+                const SizedBox(
+                  height: 32,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -114,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Get.to(()=>RegisterScreen());
+                        Get.to(() => RegisterScreen());
                       },
                       child: const Text(
                         '회원가입',

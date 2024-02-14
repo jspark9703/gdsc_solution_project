@@ -25,9 +25,10 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
 
   bool _isMessageSelected = true; // 기본값으로 true 설정
   User? currentUser;
-      String? _selectedClass;
+  String? _selectedClass;
 
   AuthController authController = Get.put(AuthController());
+
   @override
   void initState() {
     super.initState();
@@ -47,19 +48,18 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
             MainText(mainText: '사용 설정을 변경할 수 있습니다. \n 안내메세지 , 사용사 정보 변경'),
-            SizedBox(height: 10,),
-
+            SizedBox(
+              height: 10,
+            ),
             ListTile(
               title: Text(
-                _isMessageSelected? '안내메세지 끄기':'안내메세지 켜기',
+                _isMessageSelected ? '안내메세지 끄기' : '안내메세지 켜기',
                 style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
               ),
               trailing: Switch(
@@ -90,7 +90,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                 children: [
                   const Text(
                     '닉네임',
-                    style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
+                    style:
+                        TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
                   ),
                   CustomTextField(
                     controller: _nameController,
@@ -102,7 +103,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                   ),
                   const Text(
                     '장애등급',
-                    style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
+                    style:
+                        TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
                   ),
                   DropdownButton<String>(
                     hint: Text("장애등급을 선택하여 주세요."),
@@ -138,6 +140,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                 ],
               ),
             ),
+            SizedBox(height: 20.0),
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -158,7 +162,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 150.0),
+            SizedBox(height: 20.0),
           ],
         ),
       ),

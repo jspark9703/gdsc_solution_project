@@ -7,6 +7,7 @@ import 'package:gdsc_solution_project/database/dbservice.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 
 class SelectedListScreen extends StatelessWidget {
   SelectedListScreen({ super.key});
@@ -25,6 +26,7 @@ class SelectedListScreen extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
+              Logger().d(snapshot.error);
               return Center(
                 child: Text(
                 "찜한 상품이 없습니다.",
