@@ -6,12 +6,14 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final bool obscure;
   final Icon? prefixIcons;
+  final String? helperText;
 
   const CustomTextField({
     required this.controller,
     required this.hintText,
     required this.obscure,
     this.prefixIcons,
+    this.helperText,
     super.key,
   });
 
@@ -21,6 +23,7 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
+
         fillColor: INPUT_COLOR,
         filled: true,
         border: InputBorder.none,

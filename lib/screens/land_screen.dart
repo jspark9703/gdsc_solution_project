@@ -26,15 +26,18 @@ class LandScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CustomButton(
-                  onPressed: () {
-                    Get.to(
-                      LoginScreen(),
-                    );
-                  },
-                  label: '가입하기',
-                  backgroundColor: GREEN_COLOR,
-                  textColor: Colors.white,
+                Semantics(
+                  button: true,
+                  child: CustomButton(
+                    onPressed: () {
+                      Get.to(
+                        const LoginScreen(),
+                      );
+                    },
+                    label: '시작하기',
+                    backgroundColor: GREEN_COLOR,
+                    textColor: Colors.white,
+                  ),
                 ),
                 const SizedBox(height: 150,),
               ],

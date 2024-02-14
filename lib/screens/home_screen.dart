@@ -1,86 +1,123 @@
 import 'package:flutter/material.dart';
 
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
+import 'package:gdsc_solution_project/commons/components/text_contents.dart';
+import 'package:gdsc_solution_project/commons/guidemessage.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
+import 'package:gdsc_solution_project/database/dbservice.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:gdsc_solution_project/screens/filter_screen.dart';
-import 'package:gdsc_solution_project/screens/profile_screen.dart';
 import 'package:gdsc_solution_project/screens/search_screen.dart';
+import 'package:gdsc_solution_project/screens/selected_list_screen.dart';
+import 'package:gdsc_solution_project/screens/user_manager_screen.dart';
 import 'package:get/get.dart';
 import 'package:gdsc_solution_project/commons/components/main_text.dart';
+import 'package:logger/logger.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+import '../provider/user_info_provider.dart';
 
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   AuthController authController = Get.put(AuthController());
+
+  String? nickname;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserName();
+  }
+
+  void fetchUserName() async {
+    try {
+      nickname = await DBService().getUserName();
+      setState(() {
+        isLoading = false;
+      });
+    } catch (e) {
+      Logger().d(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final UserInfoController userInfoController = Get.put(UserInfoController());
     return Scaffold(
-appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              child: MainText(
-                mainText: '000 주인님, 반갑습니다.\n무엇을 도와드릴까요?\n저희 어플의 기능을 골라주세요.',
+            appBar: AppBar(title: Text("홈")),
+            body: isLoading
+                ? Center(
+              child: CircularProgressIndicator(),
+            )
+                : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(height: 56.0),
+                    GuideMessage(
+                        text:
+                        "안녕하세요.\n${nickname} 주인님 무엇을 도와드릴까요? \n총 4가지 기능이 준비되어 있습니다."),
+                    SizedBox(height: 56.0),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        CustomButton(
+                          onPressed: () {
+
+                            Get.to(const SearchScreen());
+                          },
+                          label: '쇼핑 안내견과 음식 검색하기',
+                          backgroundColor: LIGHT_GREEN_COLOR,
+                          textColor: GREEN_COLOR,
+                        ),
+
+                        const SizedBox(height: 24.0),
+                        CustomButton(
+                          onPressed: () {
+                            Get.to(const FilterScreen());
+                          },
+                          label: '인기 상품 골라보기',
+                          backgroundColor: LIGHT_GREEN_COLOR,
+                          textColor: GREEN_COLOR,
+                        ),
+
+                        const SizedBox(height: 24.0),
+                        CustomButton(
+                          onPressed: () {
+                            Get.to(() => SelectedListScreen());
+                          },
+                          label: '좋아요 누른 상품 보기',
+                          backgroundColor: LIGHT_GREEN_COLOR,
+                          textColor: GREEN_COLOR,
+                        ),
+                        const SizedBox(height: 24.0),
+                        CustomButton(
+                          onPressed: () {
+                            Get.to(UserManagerScreen());
+
+                          },
+                          label: '사용 설정',
+                          backgroundColor: LIGHT_GREEN_COLOR,
+                          textColor: GREEN_COLOR,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-            SizedBox(height: 94.0),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                CustomButton(
-                  onPressed: () {
-                    Get.to(SearchScreen());
-                  },
-                  label: '쇼핑 안내견과 음식 검색하기',
-                  backgroundColor: LIGHT_GREEN_COLOR,
-                  textColor: GREEN_COLOR,
-                ),
-                SizedBox(height: 24.0),
-                CustomButton(
-                  onPressed: () {
-
-                    Get.to(FilterScreen());
-                  },
-                  label: '인기 상품 골라보기',
-                  backgroundColor: LIGHT_GREEN_COLOR,
-                  textColor: GREEN_COLOR,
-                ),
-                SizedBox(height: 24.0),
-                CustomButton(
-                  onPressed: () {},
-                  label: '찜한 상품 보기',
-                  backgroundColor: LIGHT_GREEN_COLOR,
-                  textColor: GREEN_COLOR,
-                ),
-                SizedBox(height: 24.0),
-                CustomButton(
-                  onPressed: () {
-                    Get.to(ProfileScreen());
-                  },
-                  label: '사용 설정',
-                  backgroundColor: LIGHT_GREEN_COLOR,
-                  textColor: GREEN_COLOR,
-                ),
-                SizedBox(height: 24.0),
-                CustomButton(
-                  onPressed: () {},
-                  label: '쇼핑 안내견 사용법',
-                  backgroundColor: LIGHT_GREEN_COLOR,
-                  textColor: GREEN_COLOR,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: AppNavigationBar(currentIndex: 0),
-    );
+            bottomNavigationBar: AppNavigationBar(currentIndex: 0),
+          );
   }
 }
