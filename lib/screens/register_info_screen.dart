@@ -25,9 +25,10 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
 
   bool _isMessageSelected = true; // 기본값으로 true 설정
   User? currentUser;
-      String? _selectedClass;
+  String? _selectedClass;
 
   AuthController authController = Get.put(AuthController());
+
   @override
   void initState() {
     super.initState();
@@ -47,16 +48,12 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-           
-
-            
             const SizedBox(height: 50),
             Semantics(
               readOnly: true,
@@ -83,7 +80,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                       readOnly: true,
                       child: const Text(
                         '닉네임',
-                        style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
+                        style:
+                            TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
                       ),
                     ),
                     Semantics(
@@ -101,7 +99,8 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                       readOnly: true,
                       child: const Text(
                         '장애등급',
-                        style: TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
+                        style:
+                            TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
                       ),
                     ),
                     Semantics(

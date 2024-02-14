@@ -31,7 +31,7 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  bool _isDetailVisible = false;
+  bool _isReviewVisible = false;
   late bool _isLiked;
   String uid = AuthController().getCurrentUser();
   ReviewList reviews = ReviewList(reviewList: []);
@@ -360,7 +360,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       ),
                     ],
                   ),
-                  _reviews == null
+                  _reviewSum == null
                       ? const CircularProgressIndicator()
                       : Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -368,93 +368,91 @@ class _DetailScreenState extends State<DetailScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
-                                '리뷰',
-                                style: TextStyle(
-                                  color: BLACK_COLOR,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700,
+                              Visibility(
+                                visible: !_isReviewVisible,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      '종합 리뷰',
+                                      style: TextStyle(
+                                        color: BLACK_COLOR,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    Text(
+                                      _reviewSum!.finalOpinion,
+                                      style: const TextStyle(
+                                        color: GRAY_COLOR,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const Text(
+                                      '장점',
+                                      style: TextStyle(
+                                        color: BLACK_COLOR,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    Text(
+                                      _reviewSum!.pros,
+                                      style: const TextStyle(
+                                        color: GRAY_COLOR,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const Text(
+                                      '단점',
+                                      style: TextStyle(
+                                        color: BLACK_COLOR,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    Text(
+                                      _reviewSum!.cons,
+                                      style: const TextStyle(
+                                        color: GRAY_COLOR,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Text(
-                                '${widget.prod!.ratingNum}개 리뷰 중 베스트 댓글 15개',
-                                style: const TextStyle(
-                                  color: DETAIL_COLOR,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
+                              Visibility(
+                                visible: _isReviewVisible,
+                                child: Column(
+                                  children: [
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    const Text(
+                                      '리뷰',
+                                      style: TextStyle(
+                                        color: BLACK_COLOR,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    Text(
+                                      '${widget.prod!.ratingNum}개 리뷰 중 베스트 댓글 15개',
+                                      style: const TextStyle(
+                                        color: DETAIL_COLOR,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16.0),
+                                    ReviewCard(reviewList: _reviews!),
+                                  ],
                                 ),
                               ),
-                              const SizedBox(height: 16.0),
-                              ReviewCard(reviewList: _reviews!),
                             ],
-                          ),
-                        ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _reviewSum == null
-                      ? const Center(
-                          child: SizedBox(
-                          height: 300,
-                          child: Text("리뷰요약 진행중입니다."),
-                        ))
-                      : Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                          child: Visibility(
-                            visible: _isDetailVisible,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  '종합 리뷰',
-                                  style: TextStyle(
-                                    color: BLACK_COLOR,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                Text(
-                                  _reviewSum!.finalOpinion,
-                                  style: const TextStyle(
-                                    color: GRAY_COLOR,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                const Text(
-                                  '장점',
-                                  style: TextStyle(
-                                    color: BLACK_COLOR,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                Text(
-                                  _reviewSum!.pros,
-                                  style: const TextStyle(
-                                    color: GRAY_COLOR,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                const Text(
-                                  '단점',
-                                  style: TextStyle(
-                                    color: BLACK_COLOR,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                Text(
-                                  _reviewSum!.cons,
-                                  style: const TextStyle(
-                                    color: GRAY_COLOR,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
                           ),
                         ),
                   Padding(
@@ -469,10 +467,10 @@ class _DetailScreenState extends State<DetailScreen> {
                         CustomButton(
                           onPressed: () {
                             setState(() {
-                              _isDetailVisible = !_isDetailVisible; // 상태 업데이트
+                              _isReviewVisible = !_isReviewVisible; // 상태 업데이트
                             });
                           },
-                          label: _isDetailVisible ? '리뷰 요약 숨기기 ' : '리뷰 요약 보기',
+                          label: _isReviewVisible ? '리뷰 숨기기 ' : '리뷰 보기',
                           backgroundColor: LIGHT_GREEN_COLOR,
                           textColor: GREEN_COLOR,
                         ),

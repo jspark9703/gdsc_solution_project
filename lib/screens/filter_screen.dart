@@ -50,7 +50,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       
                   return Semantics(
                     container: true,
-                    label: "카테고리리스트",
+                    label: "카테고리 리스트",
                     child: Column(
                       children: [
                         ...filters

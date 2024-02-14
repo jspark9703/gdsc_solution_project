@@ -22,7 +22,7 @@ class DetailListScreen extends StatelessWidget {
           future: ApiService().searchProd(kwds, isBestUrl),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return  const Center(child: TextContentBox(mainText: "삼품이 준비중입니다. 잠시만 기다려주세요"));
+              return  const Center(child: TextContentBox(mainText: "상품이 준비중입니다. 잠시만 기다려주세요"));
             } else if (snapshot.hasError) {
               return Text("오류가 발생했습니다\n${snapshot.error}");
             } else if (snapshot.hasData) {
