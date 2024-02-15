@@ -372,7 +372,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     ],
                   ),
                   _reviewSum == null
-                      ? Semantics(label: "리뷰요약 진행중입니다. 잠시만 기다려주세요.", blockUserActions: true,child: const CircularProgressIndicator())
+                      ? Semantics(label: "리뷰요약 진행중입니다. 잠시만 기다려주세요." ,container: true, blockUserActions: true,child: const CircularProgressIndicator())
                       : Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24.0),
                           child: Column(
@@ -392,12 +392,15 @@ class _DetailScreenState extends State<DetailScreen> {
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
-                                    Text(
-                                      _reviewSum!.finalOpinion,
-                                      style: const TextStyle(
-                                        color: GRAY_COLOR,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
+                                    Semantics(
+                                      label: "종합리뷰",
+                                      child: Text(
+                                        _reviewSum!.finalOpinion,
+                                        style: const TextStyle(
+                                          color: GRAY_COLOR,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
                                     const Text(
@@ -408,12 +411,15 @@ class _DetailScreenState extends State<DetailScreen> {
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
-                                    Text(
-                                      _reviewSum!.pros,
-                                      style: const TextStyle(
-                                        color: GRAY_COLOR,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
+                                    Semantics(
+                                      label: "장점",
+                                      child: Text(
+                                        _reviewSum!.pros,
+                                        style: const TextStyle(
+                                          color: GRAY_COLOR,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
                                     const Text(
@@ -424,12 +430,15 @@ class _DetailScreenState extends State<DetailScreen> {
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
-                                    Text(
-                                      _reviewSum!.cons,
-                                      style: const TextStyle(
-                                        color: GRAY_COLOR,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
+                                    Semantics(
+                                      label: "단점",
+                                      child: Text(
+                                        _reviewSum!.cons,
+                                        style: const TextStyle(
+                                          color: GRAY_COLOR,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -461,7 +470,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                       ),
                                     ),
                                     const SizedBox(height: 16.0),
-                                    Semantics(container: true, expanded: true,child: ReviewCard(reviewList: _reviews!)),
+                                    ReviewCard(reviewList: _reviews!),
                                   ],
                                 ),
                               ),
@@ -472,17 +481,21 @@ class _DetailScreenState extends State<DetailScreen> {
                                   const SizedBox(
                                     height: 12.0,
                                   ),
-                                  CustomButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        _isReviewVisible =
-                                            !_isReviewVisible; // 상태 업데이트
-                                      });
-                                    },
-                                    label:
-                                        _isReviewVisible ? '리뷰 숨기기 ' : '리뷰 보기',
-                                    backgroundColor: LIGHT_GREEN_COLOR,
-                                    textColor: GREEN_COLOR,
+                                  Semantics(
+                                                                        hint: "버튼을 누른 후에 왼쪽으로 슬라이드하면 변경된 리뷰를 볼 수 있어요.",
+
+                                    child: CustomButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          _isReviewVisible =
+                                              !_isReviewVisible; // 상태 업데이트
+                                        });
+                                      },
+                                      label:
+                                          _isReviewVisible ? '리뷰 숨기기 ' : '리뷰 보기',
+                                      backgroundColor: LIGHT_GREEN_COLOR,
+                                      textColor: GREEN_COLOR,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -498,11 +511,14 @@ class _DetailScreenState extends State<DetailScreen> {
                         const SizedBox(
                           height: 12.0,
                         ),
-                        CustomButton(
-                          onPressed: localLaunchUrl,
-                          label: '사이트 확인하기',
-                          backgroundColor: GREEN_COLOR,
-                          textColor: Colors.white,
+                        Semantics(
+                          button: true,
+                          child: CustomButton(
+                            onPressed: localLaunchUrl,
+                            label: '사이트 확인하기',
+                            backgroundColor: GREEN_COLOR,
+                            textColor: Colors.white,
+                          ),
                         ),
                         const SizedBox(
                           height: 12.0,
