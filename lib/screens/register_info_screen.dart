@@ -56,14 +56,14 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
               child: const Text(
                 '원활한 서비스 이용을 위해 추가정보를 입력하여주세요.',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 20,
                   color: GRAY_COLOR,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 32,
             ),
             Expanded(
               child: Semantics(
@@ -132,11 +132,16 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                             fontWeight: FontWeight.w600),
                       ),
                     ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Semantics(
                       textField: true,
+                      label: "다음의 예시를 확인해보세요.",
                       child: CustomTextWideField(
+
                         controller: _considerationController,
-                        hintText: '(예시)\n매운 것을 못 먹음, 전자레인지 조리 선호,\n유제품 알러지',
+                        hintText: '(예시)\n조리가 간편해야합니다., 너무 맵지 않아야\n 합니다., 땅콩이 들어있지 않아야합니다.',
                         obscure: false,
                       ),
                     ),

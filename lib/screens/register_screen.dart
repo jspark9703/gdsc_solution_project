@@ -33,7 +33,7 @@ class RegisterScreen extends StatelessWidget {
                     child: const Text(
                       '쇼핑 안내견 서비스를 이용하시려면,\n회원 가입을 진행해 주세요.',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 20,
                         color: GRAY_COLOR,
                         fontWeight: FontWeight.bold,
                       ),

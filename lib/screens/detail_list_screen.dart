@@ -80,20 +80,29 @@ class DetailListScreen extends StatelessWidget {
                                       ),
                                     ),
                                     if (prod.dimm != '')
-                                      Text(
-                                        prod.dimm,
-                                        style: TextStyle(
-                                          fontSize: 12.0,
-                                          color: Colors.grey[500],
-                                          decoration:
-                                              TextDecoration.lineThrough,
+                                      Semantics(
+                                        readOnly: true,
+                                        label: "할인전 판매가",
+                                        child: Text(
+                                          prod.dimm,
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            color: Colors.grey[500],
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                          ),
                                         ),
                                       ),
-                                    Text(
-                                      prod.price,
-                                      style: const TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
+                                    Semantics(
+                                      readOnly: true,
+                                        label: "판매가",
+                                      child: Text(
+                                        
+                                        prod.price,
+                                        style: const TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ],

@@ -43,6 +43,7 @@ class _SearchScreenState extends State<SearchScreen> {
             GuideMessage(
                 text: "$nickname 주인님, 어떤 제품을 찾고 계세요? \n검색창에 검색어를 입력해주세요."),
             Semantics(
+              focusable: true,
               textField: true,
               child: TextField(
                 controller: _searchController,

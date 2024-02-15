@@ -44,6 +44,7 @@ dependencies:
   logger:
   shared_preferences: ^2.2.2
   url_launcher: ^6.2.4
+  flutter_launcher_icons:
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -57,7 +58,11 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
+flutter_icons:
+    android: true
+    ios: true
+    image_path: "assets/images/app_icon.png"
+    fonts:
 # The following section is specific to Flutter packages.
 flutter:
 
@@ -81,8 +86,7 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-
-  fonts:
+  
     - family: Pretendard
       fonts:
         - asset: assets/font/Pretendard-Thin.ttf

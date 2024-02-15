@@ -37,16 +37,16 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Pretendard'),
       routes: {
         "/": (context) => LandScreen(),
-        '/login': (context) => LoginScreen(),
+        '/login': (context) => const LoginScreen(),
         '/reg': (context) => RegisterScreen(),
-        '/reg/reg_info': (context) => RegisterInfoScreen(),
+        '/reg/reg_info': (context) => const RegisterInfoScreen(),
         '/search': (context) => const SearchScreen(),
         '/search/select_filter_screen': (context) => const FilterScreen(),
         '/selected_list': (context) => SelectedListScreen(),
-        '/home': (context) => HomeScreen(),
-        '/profile': (context) => UserManagerScreen(),
-        '/detail_list': (context) => DetailListScreen(),
-        '/detail': (context) => DetailScreen(),
+        '/home': (context) => const HomeScreen(),
+        '/profile': (context) => const UserManagerScreen(),
+        '/detail_list': (context) => const DetailListScreen(),
+        '/detail': (context) => const DetailScreen(),
       },
     );
   }

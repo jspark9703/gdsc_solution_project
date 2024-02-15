@@ -24,12 +24,16 @@ class _GuideMessageState extends State<GuideMessage> {
           bool isMessageOn = userController.user.value?.showMessage ?? true;
           return Visibility(
             visible: isMessageOn,
-            child: Text(
-              widget.text,
-              style: const TextStyle(
-                fontSize: 20,
-                color: GRAY_COLOR,
-                fontWeight: FontWeight.bold,
+            child: Semantics(
+              readOnly: true,
+              
+              child: Text(
+                widget.text,
+                style: const TextStyle(
+                  fontSize: 20,
+                  color: GRAY_COLOR,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           );
