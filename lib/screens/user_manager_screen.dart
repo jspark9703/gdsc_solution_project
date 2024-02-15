@@ -158,20 +158,6 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
                   button: true,
                   child: CustomButton(
                     onPressed: () {
-                      AuthController().logout();
-                    },
-                    label: '로그아웃',
-                    backgroundColor: Colors.red,
-                    textColor: Colors.white,
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Semantics(
-                  button: true,
-                  child: CustomButton(
-                    onPressed: () {
                       DBService().updateProfile(
                           authController.getCurrentUser(),
                           User(
@@ -183,6 +169,20 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
                     },
                     label: '등록하기',
                     backgroundColor: GREEN_COLOR,
+                    textColor: Colors.white,
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Semantics(
+                  button: true,
+                  child: CustomButton(
+                    onPressed: () {
+                      AuthController().logout();
+                    },
+                    label: '로그아웃',
+                    backgroundColor: Colors.red,
                     textColor: Colors.white,
                   ),
                 ),

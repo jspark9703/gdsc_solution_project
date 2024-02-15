@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 164),
+                const SizedBox(height: 64),
                 const Text(
                   '쇼핑 안내견 서비스를 이용하시려면,\n' '로그인을 진행해 주세요.',
                   style: TextStyle(
@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Semantics(
                   container: true,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Semantics(
                         readOnly: true,
@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(fontSize: 20, color: GRAY_COLOR),
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
                 Semantics(
                   textField: true,
                   child: CustomTextField(
@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       obscure: false,
                       prefixIcons: const Icon(Icons.email)),
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 16),
                 Semantics(
                   readOnly: true,
                   child: const Text(
@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(fontSize: 20, color: GRAY_COLOR),
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
                 Semantics(
                   textField: true,
                   child: CustomTextField(

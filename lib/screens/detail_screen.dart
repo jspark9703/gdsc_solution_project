@@ -370,7 +370,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     ],
                   ),
                   _reviewSum == null
-                      ? const CircularProgressIndicator()
+                      ? Semantics(label: "리뷰요약 진행중입니다. 잠시만 기다려주세요.", blockUserActions: true,child: const CircularProgressIndicator())
                       : Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24.0),
                           child: Column(

@@ -25,7 +25,7 @@ class RegisterScreen extends StatelessWidget {
             Semantics(
               container: true,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Semantics(

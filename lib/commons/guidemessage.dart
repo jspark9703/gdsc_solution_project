@@ -27,7 +27,7 @@ class _GuideMessageState extends State<GuideMessage> {
             child: Text(
               widget.text,
               style: const TextStyle(
-                fontSize: 24,
+                fontSize: 20,
                 color: GRAY_COLOR,
                 fontWeight: FontWeight.bold,
               ),

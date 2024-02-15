@@ -70,7 +70,7 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                 container: true,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Semantics(
                       readOnly: true,

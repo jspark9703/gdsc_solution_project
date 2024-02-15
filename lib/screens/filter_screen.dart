@@ -29,7 +29,7 @@ class _FilterScreenState extends State<FilterScreen> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 // 데이터를 기다리는 동안 로딩 인디케이터를 표시합니다.
-                return const Center(child: CircularProgressIndicator());
+                return const Center(child: Text("카테고리 준비중입니다. 잠시만 기다려주세요."));
               } else if (snapshot.hasError) {
                 // 에러가 발생한 경우 에러 메시지를 표시합니다.
                 return Text('Error: ${snapshot.error}');
@@ -44,6 +44,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     GuideMessage(
                         text:
                             '카테고리 별 인기상품을 확인해보세요!\n 총 ${filters.length}개의 카테고리가 준비되어 있습니다.'),
+                          const SizedBox(height: 16,),
                     Semantics(
                       container: true,
                       label: '카테고리 리스트',
