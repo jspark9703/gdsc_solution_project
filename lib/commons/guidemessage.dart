@@ -4,7 +4,7 @@ import 'package:gdsc_solution_project/provider/user_info_provider.dart';
 import 'package:get/get.dart';
 
 class GuideMessage extends StatefulWidget {
-  GuideMessage({required this.text, super.key});
+  const GuideMessage({required this.text, super.key});
 
   final String text;
 
@@ -19,9 +19,8 @@ class _GuideMessageState extends State<GuideMessage> {
 
     return Column(
       children: [
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Obx(() {
-
           bool isMessageOn = userController.user.value?.showMessage ?? true;
           return Visibility(
             visible: isMessageOn,

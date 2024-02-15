@@ -36,15 +36,25 @@ class DBService {
   Future<User> readProfile(String uid) async {
     DataSnapshot snapshot =
         await _realtime.ref().child('users').child(uid).get();
-    if (snapshot.value is Map<String, dynamic>) {
-      User data = User.fromJson(snapshot.value as Map<String, dynamic>);
-      return data;
-    } else {
-      throw Exception('Data is not a map');
+    if (snapshot.value != null && snapshot.value is Map) {
+      Map<Object?, Object?> valueMap = snapshot.value as Map<Object?, Object?>;
+      if (valueMap['user_name'] is String &&
+          valueMap['user_class'] is String &&
+          valueMap['user_info'] is String &&
+          valueMap['show_message'] is bool) {
+        Map<String, dynamic> castedMap = {};
+        for (var key in valueMap.keys) {
+          if (key is String) {
+            castedMap[key] = valueMap[key];
+          }
+        }
+        User data = User.fromJson(castedMap);
+        return data;
+      }
     }
+        throw Exception('Unable to read profile');
+
   }
-
-
 
   Future<String> getUserName() async {
     User user =
@@ -76,9 +86,27 @@ class DBService {
     DataSnapshot snapshot =
         await _realtime.ref().child('users').child(uid).child('Like').get();
 
+    if (snapshot.value is! Map) {
+      throw Exception('Data is not a map');
+    }
+
     Map<dynamic, dynamic> value = snapshot.value as Map<dynamic, dynamic>;
     Logger().d(value);
-    List<Prod> data = value.values.map((e) => Prod.fromJson(e)).toList();
+
+    List<Prod> data = value.values.map((e) {
+      if (e is Map) {
+        Map<String, dynamic> castedMap = {};
+        for (var key in e.keys) {
+          if (key is String) {
+            castedMap[key] = e[key];
+          }
+        }
+        return Prod.fromJson(castedMap);
+      } else {
+        throw Exception('Data is not a map');
+      }
+    }).toList();
+
     return data;
   }
 

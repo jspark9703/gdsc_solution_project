@@ -12,7 +12,7 @@ class TextContentBox extends StatelessWidget {
       style: const TextStyle(
         color: Color(0xFF6B7280),
         fontSize: 14,
-        fontFamily: 'Inter',
+        fontFamily: 'Pretendard',
         fontWeight: FontWeight.w400,
       ),
     );

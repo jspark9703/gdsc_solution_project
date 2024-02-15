@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/commons/component/custom_button.dart';
+import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 import 'package:gdsc_solution_project/commons/guidemessage.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
@@ -40,7 +40,8 @@ class _SearchScreenState extends State<SearchScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-             GuideMessage(text: "$nickname 주인님, 어떤 제품을 찾고 계세요? \n검색창에 검색어를 입력해주세요."),
+            GuideMessage(
+                text: "$nickname 주인님, 어떤 제품을 찾고 계세요? \n검색창에 검색어를 입력해주세요."),
             Semantics(
               textField: true,
               child: TextField(
@@ -67,7 +68,9 @@ class _SearchScreenState extends State<SearchScreen> {
               button: true,
               child: CustomButton(
                 onPressed: () {
-                  Get.to( DetailListScreen(kwds: _searchController.text,));
+                  Get.to(DetailListScreen(
+                    kwds: _searchController.text,
+                  ));
                 },
                 label: '검색하기',
                 backgroundColor: GREEN_COLOR,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/commons/component/custom_button.dart';
+import 'package:gdsc_solution_project/commons/components/custom_button.dart';
 import 'package:gdsc_solution_project/commons/component/custom_text_field.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
@@ -42,7 +42,7 @@ class RegisterScreen extends StatelessWidget {
                   const SizedBox(height: 32),
                   Semantics(
                     readOnly: true,
-                    label:"이메일",
+                    label: "이메일",
                     child: const Text(
                       '이메일',
                       style: TextStyle(fontSize: 20, color: GRAY_COLOR),
@@ -81,8 +81,7 @@ class RegisterScreen extends StatelessWidget {
                     ),
                   ),
                   Semantics(
-                                        textField: true,
-
+                    textField: true,
                     child: CustomTextField(
                         controller: _confirmPasswordController,
                         hintText: '비밀번호를 입력해 주세요',
@@ -113,7 +112,9 @@ class RegisterScreen extends StatelessWidget {
                         backgroundColor: GREEN_COLOR,
                         textColor: Colors.white),
                   ),
-                  const SizedBox(height: 32,),
+                  const SizedBox(
+                    height: 32,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

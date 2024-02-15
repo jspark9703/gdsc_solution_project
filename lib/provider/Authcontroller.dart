@@ -1,14 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/database/dbservice.dart';
-import 'package:gdsc_solution_project/provider/user_info_provider.dart';
 import 'package:gdsc_solution_project/screens/home_screen.dart';
-import 'package:gdsc_solution_project/screens/detail_screen.dart';
 import 'package:gdsc_solution_project/screens/land_screen.dart';
-import 'package:gdsc_solution_project/screens/login_screen.dart';
 import 'package:gdsc_solution_project/screens/register_info_screen.dart';
-import 'package:gdsc_solution_project/screens/search_screen.dart';
-import 'package:gdsc_solution_project/screens/user_manager_screen.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {

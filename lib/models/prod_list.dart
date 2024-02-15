@@ -17,7 +17,7 @@ class ProdList {
 
   String toJson() {
     List<Map<String, dynamic>> prodsJson =
-    prods.map((prod) => prod.toJson()).toList();
+        prods.map((prod) => prod.toJson()).toList();
 
     return json.encode({'prods': prodsJson});
   }

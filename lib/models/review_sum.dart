@@ -3,7 +3,8 @@ class ReviewSum {
   final String cons;
   final String finalOpinion;
 
-  ReviewSum({required this.pros, required this.cons, required this.finalOpinion});
+  ReviewSum(
+      {required this.pros, required this.cons, required this.finalOpinion});
 
   factory ReviewSum.fromJson(Map<String, dynamic> json) {
     return ReviewSum(

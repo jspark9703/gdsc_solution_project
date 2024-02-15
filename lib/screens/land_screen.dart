@@ -19,7 +19,6 @@ class LandScreen extends StatelessWidget {
           Center(
             child: Image.asset('assets/images/land.png', fit: BoxFit.cover),
           ),
-
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
@@ -39,7 +38,9 @@ class LandScreen extends StatelessWidget {
                     textColor: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 150,),
+                const SizedBox(
+                  height: 150,
+                ),
               ],
             ),
           ),

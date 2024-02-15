@@ -1,10 +1,6 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/apis/openapis.dart';
-import 'package:gdsc_solution_project/commons/components/rating_star.dart';
 import 'package:gdsc_solution_project/commons/components/review_card.dart';
-import 'package:gdsc_solution_project/commons/components/text_contents.dart';
-import 'package:gdsc_solution_project/commons/components/text_title_box.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
@@ -17,7 +13,6 @@ import 'package:gdsc_solution_project/models/user_url.dart';
 import 'package:gdsc_solution_project/provider/Authcontroller.dart';
 import 'package:gdsc_solution_project/provider/user_info_provider.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -36,12 +31,12 @@ class _DetailScreenState extends State<DetailScreen> {
   String uid = AuthController().getCurrentUser();
   ReviewList reviews = ReviewList(reviewList: []);
   ProductDetail? _product; 
-  String? _description;// 상품 상세 정보를 저장할 변수
   ReviewList? _reviews; // 리뷰 정보를 저장할 변 수
   late bool _isImageVisible = true;
   User? currentUser;
   String? _userInfo;
   ReviewSum? _reviewSum;
+  String? _description; // 상품 상세 정보를 저장할 변수
 
   @override
   void initState() {
@@ -52,22 +47,22 @@ class _DetailScreenState extends State<DetailScreen> {
     //fetchReviews(); // 리뷰 정보를 불러오는 메서드 호출
     fetchUserClassInfo().then((value) {
       fetchReviews().then((_) {
-        fetchReviewSum(_userInfo ?? '',_description!, _reviews!);
+        fetchReviewSum(_userInfo ?? '', _description ?? '', _reviews!);
       });
     });
   }
 
   void fetchProductDetail() async {
     final product = await ApiService().prodDetail(widget.prod!.link);
-    late final String des ;
+    late final String des;
     for (var i in product.details) {
-      if(i.itemCate== "알레르기정보"){
+      if (i.itemCate == "알레르기정보") {
         des = i.itemCate;
       }
     }
     setState(() {
       _product = product;
-      _description = des;// 상품 상세 정보를 상태 변수에 저장
+      _description = des; // 상품 상세 정보를 상태 변수에 저장
     });
   }
 
@@ -93,7 +88,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
   void fetchReviewSum(String userInfo, String des, ReviewList reviews) async {
     final ReviewSum reviewSum =
-    await ApiService().prodReviewSum(userInfo,des, reviews);
+        await ApiService().prodReviewSum(userInfo, des, reviews);
     setState(() {
       _reviewSum = reviewSum;
     });
@@ -118,7 +113,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 style: TextStyle(
                   color: Color(0xFF6B7280),
                   fontSize: 14,
-                  fontFamily: 'Inter',
+                  fontFamily: 'Pretendard',
                   fontWeight: FontWeight.w400,
                 ),
               ),
@@ -465,7 +460,6 @@ class _DetailScreenState extends State<DetailScreen> {
                                     ),
                                     const SizedBox(height: 16.0),
                                     ReviewCard(reviewList: _reviews!),
-
                                   ],
                                 ),
                               ),
@@ -480,12 +474,11 @@ class _DetailScreenState extends State<DetailScreen> {
                                     onPressed: () {
                                       setState(() {
                                         _isReviewVisible =
-                                        !_isReviewVisible; // 상태 업데이트
+                                            !_isReviewVisible; // 상태 업데이트
                                       });
                                     },
-                                    label: _isReviewVisible
-                                        ? '리뷰 숨기기 '
-                                        : '리뷰 보기',
+                                    label:
+                                        _isReviewVisible ? '리뷰 숨기기 ' : '리뷰 보기',
                                     backgroundColor: LIGHT_GREEN_COLOR,
                                     textColor: GREEN_COLOR,
                                   ),

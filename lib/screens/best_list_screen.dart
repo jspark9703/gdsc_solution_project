@@ -68,7 +68,7 @@ class BestListScreen extends StatelessWidget {
                                       top: BorderSide(color: Colors.grey)),
                                 ),
                                 margin:
-                                const EdgeInsets.symmetric(vertical: 8.0),
+                                    const EdgeInsets.symmetric(vertical: 8.0),
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +87,7 @@ class BestListScreen extends StatelessWidget {
                                           fontSize: 12.0,
                                           color: Colors.grey[500],
                                           decoration:
-                                          TextDecoration.lineThrough,
+                                              TextDecoration.lineThrough,
                                         ),
                                       ),
                                     Text(

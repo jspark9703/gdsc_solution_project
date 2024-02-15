@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
-import 'package:gdsc_solution_project/commons/components/text_contents.dart';
 import 'package:gdsc_solution_project/commons/guidemessage.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
@@ -12,7 +11,6 @@ import 'package:gdsc_solution_project/screens/search_screen.dart';
 import 'package:gdsc_solution_project/screens/selected_list_screen.dart';
 import 'package:gdsc_solution_project/screens/user_manager_screen.dart';
 import 'package:get/get.dart';
-import 'package:gdsc_solution_project/commons/components/main_text.dart';
 import 'package:logger/logger.dart';
 
 import '../provider/user_info_provider.dart';
@@ -51,12 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final UserInfoController userInfoController = Get.put(UserInfoController());
     return Scaffold(
-            appBar: AppBar(title: const Text("홈")),
-            body: isLoading
-                ? const Center(
+
+      appBar: AppBar(title: const Text("홈")),
+      body: isLoading
+          ? const Center(
               child: CircularProgressIndicator(),
             )
-                : SingleChildScrollView(
+          : SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Column(
@@ -66,7 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(height: 56.0),
                     GuideMessage(
                         text:
-                        "안녕하세요.\n$nickname 주인님 무엇을 도와드릴까요? \n총 4가지 기능이 준비되어 있습니다."),
+
+                            "안녕하세요.\n$nickname 주인님 무엇을 도와드릴까요? \n총 4가지 기능이 준비되어 있습니다."),
                     const SizedBox(height: 56.0),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -74,14 +74,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         CustomButton(
                           onPressed: () {
-
                             Get.to(const SearchScreen());
                           },
                           label: '쇼핑 안내견과 음식 검색하기',
                           backgroundColor: LIGHT_GREEN_COLOR,
                           textColor: GREEN_COLOR,
                         ),
-
                         const SizedBox(height: 24.0),
                         CustomButton(
                           onPressed: () {
@@ -91,7 +89,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: LIGHT_GREEN_COLOR,
                           textColor: GREEN_COLOR,
                         ),
-
                         const SizedBox(height: 24.0),
                         CustomButton(
                           onPressed: () {
@@ -117,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            bottomNavigationBar: AppNavigationBar(currentIndex: 0),
-          );
+      bottomNavigationBar: AppNavigationBar(currentIndex: 0),
+    );
   }
 }

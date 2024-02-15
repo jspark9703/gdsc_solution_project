@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_project/commons/components/input_wide_field.dart';
 import 'package:gdsc_solution_project/commons/components/main_text.dart';
-import 'package:gdsc_solution_project/commons/guidemessage.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
 import 'package:gdsc_solution_project/database/dbservice.dart';
 import 'package:gdsc_solution_project/models/user_url.dart';
-import 'package:gdsc_solution_project/provider/user_info_provider.dart';
-import 'package:gdsc_solution_project/screens/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:gdsc_solution_project/commons/components/input_field.dart';
 import 'package:gdsc_solution_project/commons/components/custom_button.dart';
-import 'package:logger/logger.dart';
 import '../provider/Authcontroller.dart';
 
 class UserManagerScreen extends StatefulWidget {
@@ -24,13 +20,14 @@ class UserManagerScreen extends StatefulWidget {
 class _UserManagerScreenState extends State<UserManagerScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _considerationController =
-  TextEditingController();
+      TextEditingController();
 
   bool _isMessageSelected = true; // 기본값으로 true 설정
   User? currentUser;
   String? _selectedClass;
 
   AuthController authController = Get.put(AuthController());
+
   @override
   void initState() {
     super.initState();
@@ -39,7 +36,7 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
 
   void fetchProfile() async {
     currentUser =
-    await DBService().readProfile(AuthController().getCurrentUser());
+        await DBService().readProfile(AuthController().getCurrentUser());
     _isMessageSelected = currentUser?.showMessage ?? true;
     _nameController.text = currentUser?.userName ?? "";
     _considerationController.text = currentUser?.userInfo ?? '';
@@ -50,26 +47,26 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: ListView(
           children: [
-            MainText(mainText: '사용 설정을 변경할 수 있습니다. \n 안내메세지 , 사용사 정보 변경'),
-            const SizedBox(height: 10,),
-
+            const MainText(mainText: '사용 설정을 변경할 수 있습니다. \n 안내메세지 , 사용사 정보 변경'),
+            const SizedBox(
+              height: 10,
+            ),
             Semantics(
               readOnly: true,
               child: ListTile(
                 title: Text(
-                  _isMessageSelected? '안내메세지 끄기':'안내메세지 켜기',
-                  style: const TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
+                  _isMessageSelected ? '안내메세지 끄기' : '안내메세지 켜기',
+                  style:
+                      const TextStyle(fontSize: 20, color: INPUT_LABEL_COLOR),
                 ),
                 trailing: Switch(
                   value: _isMessageSelected,
                   onChanged: (bool newValue) {
-              
                     setState(() {
                       _isMessageSelected = newValue;
                     });
@@ -153,10 +150,24 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                Semantics(
+                  button: true,
+                  child: CustomButton(
+                    onPressed: () {
+                      AuthController().logout();
+                    },
+                    label: '로그아웃',
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
                 Semantics(
                   button: true,
                   child: CustomButton(
@@ -177,8 +188,7 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
                 ),
               ],
             ),
-
-            const SizedBox(height: 150.0),
+            const SizedBox(height: 20.0),
           ],
         ),
       ),
@@ -186,4 +196,3 @@ class _UserManagerScreenState extends State<UserManagerScreen> {
     );
   }
 }
-

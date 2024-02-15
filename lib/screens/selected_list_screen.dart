@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_project/apis/openapis.dart';
 import 'package:gdsc_solution_project/commons/guidemessage.dart';
 import 'package:gdsc_solution_project/commons/navigation_bar.dart';
 import 'package:gdsc_solution_project/const/color.dart';
