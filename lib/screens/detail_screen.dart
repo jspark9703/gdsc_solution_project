@@ -304,60 +304,62 @@ class _DetailScreenState extends State<DetailScreen> {
                               label: "상품정보",
                               container: true,
                               currentValueLength: _product!.details.length,
-                              readOnly: true,
                               child: Column(
                                   children: _product!.details.map((e) {
-                                return Column(
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Text(
-                                              e.itemCate,
-                                              style: const TextStyle(
-                                                color: DETAIL_COLOR,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          width: 24.0,
-                                        ),
-                                        Expanded(
-                                          child: Column(
+                                return Semantics(
+                                  readOnly: true,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Column(
                                             children: [
                                               Text(
-                                                e.itemName,
+                                                e.itemCate,
                                                 style: const TextStyle(
                                                   color: DETAIL_COLOR,
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
                                                 ),
-                                                softWrap: true,
                                               ),
-                                              if (e.itemContent != '')
-                                                Text(
-                                                  e.itemContent,
-                                                  style: const TextStyle(
-                                                    color: DETAIL_COLOR,
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
                                             ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    const Divider(),
-                                  ],
+                                          const SizedBox(
+                                            width: 24.0,
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  e.itemName,
+                                                  style: const TextStyle(
+                                                    color: DETAIL_COLOR,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                  softWrap: true,
+                                                ),
+                                                if (e.itemContent != '')
+                                                  Text(
+                                                    e.itemContent,
+                                                    style: const TextStyle(
+                                                      color: DETAIL_COLOR,
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),
+                                                  ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const Divider(),
+                                    ],
+                                  ),
                                 );
                               }).toList()),
                             ),
@@ -459,7 +461,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                       ),
                                     ),
                                     const SizedBox(height: 16.0),
-                                    ReviewCard(reviewList: _reviews!),
+                                    Semantics(container: true, expanded: true,child: ReviewCard(reviewList: _reviews!)),
                                   ],
                                 ),
                               ),
