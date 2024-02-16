@@ -167,7 +167,7 @@ RESPONSE SCHEMA: application/json
     sub_title: str
     price: str
     dimm_price:str
-    description:str    # prod_option_item: str
+    description:str   
     details:List[Item]
     
   </code>
