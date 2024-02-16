@@ -13,9 +13,8 @@ reduce inequality - Web accessibility for visually impaired
 ## 🐕index
 - preview
 - what we use
-- API specification
 - what we serve
-- planning
+- API specification
 - members
 
 ### backend git
@@ -45,6 +44,30 @@ We also designed a review summary function so that users can easily check the pr
 
 ## 🐕what we use
 ![스크린샷 2024-02-15 234028](https://github.com/jspark9703/gdsc_solution_project_front/assets/67131959/1e436045-ea81-4d43-abfb-ce1fe937a4d2)
+
+
+## what we serve
+
+- **Voiceover and Talkback-friendly UI design**
+    - Simple UI providing only essential information.
+    - Guide messages to navigate the web shopping flow.
+
+- **Review Summary Feature**
+    - Summarizes the pros and cons of reviews, making it easier to understand the advantages and disadvantages of a product without reading many reviews.
+    - By passing user information as context to the LLM, it's easier to identify elements that the user considers important.
+
+- **Popular Product Food Search**
+    - Introduces popular products to offer users new tastes and experiences.
+
+- **Favorite Products Viewing Feature**
+    - A feature that helps users quickly and easily find products they have previously favorited.
+
+- **Nutritional Information Provision**
+    - Detailed provision of food's nutritional content and amounts.
+
+- **Website Linking Feature**
+    - Provides website links so users can directly check and purchase desired products on the website.
+
 
 ## 🐕API specification
 https://shopping-guide-dog-final.du.r.appspot.com/redoc
@@ -195,3 +218,6 @@ RESPONSE SCHEMA: application/json
 </pre>
 
 422: Validation Error. Returned in case of validation error.
+
+
+
