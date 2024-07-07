@@ -101,22 +101,27 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                     ),
                     Semantics(
                       expanded: true,
+                      enabled: true,
                       label: "장애등급 선택",
-                      child: DropdownButton<String>(
-                        hint: const Text("장애등급을 선택하여 주세요."),
-                        value: _selectedClass,
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            _selectedClass = newValue!;
-                          });
-                        },
-                        items: <String>['1등급', '2등급', '3등급', '4등급', '5등급']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
+                      child: Semantics(
+                         expanded: true,
+                      enabled: true,
+                        child: DropdownButton<String>(
+                          hint: const Text("장애등급을 선택하여 주세요."),
+                          value: _selectedClass,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              _selectedClass = newValue!;
+                            });
+                          },
+                          items: <String>['1등급', '2등급', '3등급', '4등급', '5등급']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
                       ),
                     ),
                     const SizedBox(
