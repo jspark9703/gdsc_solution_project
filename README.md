@@ -19,6 +19,7 @@ reduce inequality - Web accessibility for visually impaired
 
 ### backend git
 https://github.com/jspark9703/gdsc_solution_project_back
+
 The UN’s 17 sustainable development goals that we chose is reducing inequality.
 
 
